@@ -1,0 +1,36 @@
+{
+  "status": "Historical input snapshots, not a verified configuration for reproducing every reported run.",
+  "historical_year": 2022,
+  "source_ids": ["parameters-transport", "parameters-transfer", "parameters-time-cost", "parameters-window", "parameters-carbon", "parameters-demand"],
+  "modes": {
+    "road": {"speed_kmh": 80, "rate_bands_cny_per_tonne_km": [0.263, 0.2485, 0.1805], "emissions_kg_per_tonne_km": 0.071},
+    "rail": {"speed_kmh": 60, "rate_bands_cny_per_tonne_km": [0.196, 0.17, 0.1365], "emissions_kg_per_tonne_km": 0.042},
+    "water": {"speed_kmh": 30, "rate_bands_cny_per_tonne_km": [0.045, 0.0365, 0.0255], "emissions_kg_per_tonne_km": 0.012}
+  },
+  "rate_band_boundaries": null,
+  "transfer_pairs": [
+    {"modes": ["road", "rail"], "hours_per_1000_tonnes": 50, "emissions_kg_per_tonne": 0.128, "cost_cny_per_tonne": 2},
+    {"modes": ["road", "water"], "hours_per_1000_tonnes": 50, "emissions_kg_per_tonne": 0.117, "cost_cny_per_tonne": 2.25},
+    {"modes": ["rail", "water"], "hours_per_1000_tonnes": 50, "emissions_kg_per_tonne": 0.113, "cost_cny_per_tonne": 2.5}
+  ],
+  "storage_cny_per_tonne_hour": 15,
+  "late_penalty_cny_per_tonne_hour": 30,
+  "time_window_hours": [0, 62],
+  "carbon_brackets": [
+    {"lower_bound_kg": 0, "rate_cny_per_kg": 0.05},
+    {"lower_bound_kg": 150000, "rate_cny_per_kg": 0.1},
+    {"lower_bound_kg": 500000, "rate_cny_per_kg": 0.15},
+    {"lower_bound_kg": 1000000, "rate_cny_per_kg": 0.2}
+  ],
+  "demand_scenarios": [
+    {"tonnes": 150, "probability": 0.36},
+    {"tonnes": 85, "probability": 0.5},
+    {"tonnes": 40, "probability": 0.14}
+  ],
+  "notes": [
+    "Carbon brackets are historical modelling assumptions, not a description of current tax law.",
+    "The three transport-rate bands have no recovered boundaries in this workbook.",
+    "The weighted mean scenario demand is 102.1 tonnes, not the 100-tonne presentation example.",
+    "At 100 tonnes the listed rail-water transfer cost is 250 CNY; the presentation reports 500 CNY. Different versions must not be silently merged."
+  ]
+}

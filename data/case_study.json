@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "origin": "Chongqing",
+  "destination": "Shanghai",
+  "shipment_tonnes": 100,
+  "deadline_hours": 62,
+  "historical_year": 2022,
+  "transcription_year": 2026,
+  "source_id": "comparison-notes",
+  "status": "Transcribed historical simulation outputs; not newly optimized results.",
+  "cases": [
+    {"id": "economic", "label": "Economic-cost option", "route": ["Chongqing", "Jiujiang", "Anqing", "Shanghai"], "modes": ["water", "rail", "rail"], "reported_total_cny": "10118.64", "transport_cny": "9618.65", "transfer_cny": "500.00", "time_cny": "0.00", "carbon_cny": "154.05", "carbon_in_objective": false, "hours": "61.27", "emissions_kg": "3080.90", "transport_emissions_kg": "3069.60", "transfer_emissions_kg": "11.30"},
+    {"id": "combined", "label": "Combined-cost option", "route": ["Chongqing", "Jiujiang", "Anqing", "Shanghai"], "modes": ["water", "rail", "rail"], "reported_total_cny": "10272.69", "transport_cny": "9618.65", "transfer_cny": "500.00", "time_cny": "0.00", "carbon_cny": "154.05", "carbon_in_objective": true, "hours": "61.27", "emissions_kg": "3080.90", "transport_emissions_kg": "3069.60", "transfer_emissions_kg": "11.30"},
+    {"id": "emission_constrained", "label": "Emission-constrained option", "route": ["Chongqing", "Anqing", "Shanghai"], "modes": ["water", "rail"], "reported_total_cny": "11357.60", "transport_cny": "6234.45", "transfer_cny": "500.00", "time_cny": "4500.00", "carbon_cny": "123.15", "carbon_in_objective": true, "hours": "63.50", "emissions_kg": "2462.90", "transport_emissions_kg": "2451.60", "transfer_emissions_kg": "11.30"},
+    {"id": "road_only", "label": "Road-only option", "route": null, "modes": ["road"], "reported_total_cny": "31196.47", "transport_cny": "30594.75", "transfer_cny": "0.00", "time_cny": "0.00", "carbon_cny": "601.72", "carbon_in_objective": true, "hours": "21.19", "emissions_kg": "12034.50", "transport_emissions_kg": "12034.50", "transfer_emissions_kg": "0.00", "source_note": "The parenthetical time breakdown additionally lists 5 hours, inconsistent with its reported total; the total is retained as written."},
+    {"id": "rail_only", "label": "Rail-only option", "route": null, "modes": ["rail"], "reported_total_cny": "20506.01", "transport_cny": "20223.35", "transfer_cny": "0.00", "time_cny": "0.00", "carbon_cny": "282.66", "carbon_in_objective": true, "hours": "22.43", "emissions_kg": "5653.20", "transport_emissions_kg": "5653.20", "transfer_emissions_kg": "0.00"},
+    {"id": "water_only", "label": "Water-only option", "route": null, "modes": ["water"], "reported_total_cny": "58920.86", "transport_cny": "7678.60", "transfer_cny": "0.00", "time_cny": "51100.00", "carbon_cny": "142.26", "carbon_in_objective": true, "hours": "79.03", "emissions_kg": "2845.20", "transport_emissions_kg": "2845.20", "transfer_emissions_kg": "0.00"},
+    {"id": "reference_multimodal", "label": "Reference multimodal option", "route": null, "modes": null, "reported_total_cny": "27938.92", "transport_cny": "27029.94", "transfer_cny": "384.52", "time_cny": "83.05", "carbon_cny": "441.40", "carbon_in_objective": true, "hours": "37.00", "emissions_kg": "8827.91", "transport_emissions_kg": "8817.82", "transfer_emissions_kg": "4.24", "source_note": "The baseline-generating procedure and route were not recovered; the reported emissions do not equal the component sum."}
+  ]
+}

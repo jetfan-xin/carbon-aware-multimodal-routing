@@ -1,0 +1,19 @@
+{
+  "source_id": "distance-network",
+  "sheet": "Sheet1",
+  "status": "Read-only structural inventory of the main November workbook; raw distance records are not redistributed.",
+  "distinct_cities_after_trimming_whitespace": 23,
+  "populated_header_rows": 1,
+  "populated_pair_rows": 253,
+  "populated_rows_including_header": 254,
+  "fields": ["origin", "destination", "road_distance_km", "rail_distance_km", "water_distance_km"],
+  "available_distance_entries": {"road": 253, "rail": 250, "water": 251},
+  "unavailable_marker": "#",
+  "unavailable_entries": {"road": 0, "rail": 3, "water": 2},
+  "notes": [
+    "A populated pair row is not a single API call, shipment, or objective-function evaluation.",
+    "Stored worksheet dimensions include unused or formatted cells and must not be treated as record counts.",
+    "This is one case-study workbook, not an inventory of all data accessed during the competition.",
+    "Do not infer symmetric routing or final loader behaviour solely from the pair count."
+  ]
+}

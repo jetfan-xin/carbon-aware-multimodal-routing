@@ -1,0 +1,8 @@
+{
+  "status": "Selected transcriptions from separate historical logs; configurations are not fully recoverable.",
+  "runs": [
+    {"source_id": "terminal-under48", "reported_cost_cny": "8177.92", "transport_cny": "8114.80", "transfer_cny": "0.00", "time_cny": "0.00", "carbon_cny": "63.12", "hours": "35.07", "emissions_kg": "1262.40", "generation_index": 99, "reported_evaluations": 100000, "city_indices": [0, 7, 3, 8, 22], "modes": ["water", "water", "water", "water"], "note": "Directory label suggests a below-48-hour variant; full run settings are missing."},
+    {"source_id": "terminal-altered-costs", "reported_cost_cny": "60744.56", "transport_cny": "58346.55", "transfer_cny": "1500.00", "time_cny": "0.00", "carbon_cny": "898.01", "hours": "40.08", "emissions_kg": "17960.10", "generation_index": 99, "reported_evaluations": 100000, "city_indices": [0, 16, 22], "modes": ["rail", "water"], "note": "Directory label mentions quartered transfer cost, halved transport cost and a below-28-hour setting; the printed time is 40.08 hours. Do not infer the executed constraints from that label."},
+    {"source_id": "terminal-distance-example", "generation_index": 4999, "reported_evaluations": 20000, "reported_best_objective": "2332.0", "appended_objective": "2365.0", "city_indices": [0, 1, 3, 7, 10, 14], "appended_modes": ["water", "water", "road", "rail", "road"], "note": "The final block and appended result disagree. City-index mappings and exact configuration are not reconstructed."}
+  ]
+}

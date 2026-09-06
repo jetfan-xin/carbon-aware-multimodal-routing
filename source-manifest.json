@@ -1,0 +1,159 @@
+{
+  "audit_date": "2026-09-06",
+  "historical_year": 2022,
+  "notes": "Source documents were inspected read-only and are not distributed. Paths are retained in a separate private index.",
+  "sources": [
+    {
+      "id": "final-presentation",
+      "bytes": 24884580,
+      "sha256": "59aec91bf6c8ca88d6cc4f864b62dc7a90825803d884e19065676b52df5990b7",
+      "format": "pptx"
+    },
+    {
+      "id": "semifinal-report",
+      "bytes": 6527645,
+      "sha256": "c2d02eeaed3dad712651b148ca76f1bc7908f49c710d027d70218d83dc462dfb",
+      "format": "pdf"
+    },
+    {
+      "id": "defense-notes",
+      "bytes": 72763,
+      "sha256": "4b3dac2b5522413f7213fbb148b70d7f5f13876e70218ccab2a7f26f2dc86598",
+      "format": "docx"
+    },
+    {
+      "id": "routing-defense",
+      "bytes": 80904,
+      "sha256": "be9a2b6ec07d27943349506d816d754e16c2ce7c6fd67ae17e112de14eabc0fc",
+      "format": "docx"
+    },
+    {
+      "id": "comparison-notes",
+      "bytes": 102672,
+      "sha256": "61ba83cf188d876d31274dd7c27d960c70c7dc151e4b1a13481dc9edb2fd153d",
+      "format": "docx"
+    },
+    {
+      "id": "data-requirements",
+      "bytes": 23132,
+      "sha256": "d591f3c6911a6abbd63b307d37b4750b7d24dc4ffc4cfa2994f863ee156ac82b",
+      "format": "docx"
+    },
+    {
+      "id": "terminal-under48",
+      "bytes": 584,
+      "sha256": "e149c45a7e8c9bce632d00f3645268889e062a7a442a20f4c14b9da2b94e80d3",
+      "format": "txt"
+    },
+    {
+      "id": "terminal-altered-costs",
+      "bytes": 386,
+      "sha256": "311e0a0d29ec878201e711f7d83aa1282d5f7fea164943a474aee63a7ad97311",
+      "format": "txt"
+    },
+    {
+      "id": "terminal-distance-example",
+      "bytes": 1065123,
+      "sha256": "35ae41cff179a29c8728649987f263c19fa525c287325446bdc4cffa3a181e42",
+      "format": "txt"
+    },
+    {
+      "id": "distance-network",
+      "bytes": 23716,
+      "sha256": "bf2d0291e741324ebb0f3ec17ca85662e8297df5961d06af5fe61eeff33a9bf4",
+      "format": "xlsx"
+    },
+    {
+      "id": "parameters-transport",
+      "bytes": 9096,
+      "sha256": "8e28349c8517cda0c61455d84bc7cff671c97ab642378ed845c1b2155c26539a",
+      "format": "xlsx"
+    },
+    {
+      "id": "parameters-transfer",
+      "bytes": 11506,
+      "sha256": "7f972c7860912dd34797fa7b379d1259e157827b8edba86757ceed23a0dc7bfc",
+      "format": "xlsx"
+    },
+    {
+      "id": "parameters-time-cost",
+      "bytes": 11332,
+      "sha256": "219d56db2ce0e0d7ff99a2bd320a7a8b71d59f3e348e4c9bf19595871f923458",
+      "format": "xlsx"
+    },
+    {
+      "id": "parameters-window",
+      "bytes": 11256,
+      "sha256": "504691156634d0614491a4d03432515dd6fbe0469fd362d8dcdf6504055b1d30",
+      "format": "xlsx"
+    },
+    {
+      "id": "parameters-carbon",
+      "bytes": 8820,
+      "sha256": "6dad7252d24c8673a2fe51ccf4fc741166f75d678a2b469c8395d50cc9f6ee27",
+      "format": "xlsx"
+    },
+    {
+      "id": "parameters-demand",
+      "bytes": 8788,
+      "sha256": "8bf7e24b8a15f5d2ca085e0b4b1ea2cefedf76f3e26415d4ce69b4207185f7c7",
+      "format": "xlsx"
+    },
+    {
+      "id": "map-best-route",
+      "bytes": 180158,
+      "sha256": "eeac84ed21e8e6d614a64d8ac0aadff19487caed939f3c35eabf3c8b75532a05",
+      "format": "html"
+    },
+    {
+      "id": "map-background",
+      "bytes": 174679,
+      "sha256": "dbc1da759335aecb58dd53c888325e175c75c212fa43768dcbe248a86205b5cc",
+      "format": "html"
+    },
+    {
+      "id": "november-reference-notes",
+      "bytes": 5159,
+      "sha256": "8671eedef8de0c4ac1091b7d309d8ae29dfba8a8ef03fe4025e118b075f6596e",
+      "format": "zip"
+    },
+    {
+      "id": "geatpy-reference-archive",
+      "bytes": 20098968,
+      "sha256": "686571778a75437bddaf32df2960c89cb6dee418edbaa2aaa59ea1631cdc2544",
+      "format": "zip"
+    },
+    {
+      "id": "matlab-driver",
+      "bytes": 2823,
+      "sha256": "41738e2a20bfc1f4214a5bee37acd96beb5421a737931912d2c5d66298702516",
+      "format": "m"
+    },
+    {
+      "id": "award-certificate",
+      "bytes": 525641,
+      "sha256": "3afa3d01881879e44b03ffe484c02914310c267fd929f4aed8658744873f3646",
+      "format": "pdf"
+    }
+  ],
+  "published_image_assets": [
+    {
+      "path": "evidence/problem-definition.png",
+      "source_id": "final-presentation",
+      "slide": 13,
+      "pptx_members": [
+        "ppt/media/image21.png"
+      ],
+      "sha256": "af26aae995cad2e1fff39bcd33170010b83b47eb3a1feb6aa6dd272d21f77c29"
+    },
+    {
+      "path": "evidence/decoding-and-fitness.png",
+      "source_id": "final-presentation",
+      "slide": 13,
+      "pptx_members": [
+        "ppt/media/image22.png"
+      ],
+      "sha256": "9bf3317d2d101428bc73e4387135ff9588f02ed27d1f8e0872124f7ddfbf14e5"
+    }
+  ]
+}
