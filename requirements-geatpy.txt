@@ -2,4 +2,4 @@
 # Use the official release wheel, not the older PyPI source distribution.
 numpy==1.26.4
 matplotlib==3.8.4
-geatpy @ https://github.com/geatpy-dev/geatpy/releases/download/v2.7.0/geatpy-2.7.0-cp310-cp310-manylinux1_x86_64.whl
+geatpy @ https://github.com/geatpy-dev/geatpy/releases/download/v2.7.0/geatpy-2.7.0-cp310-cp310-manylinux1_x86_64.whl#sha256=68db176808856cc6fe4e92132e29000b2dbdc9b476aa924abe03805409e33c2e

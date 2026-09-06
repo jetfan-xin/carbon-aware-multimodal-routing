@@ -61,6 +61,8 @@ The incumbent is ranked first by constraint violation, then by objective. After 
 
 These formulas and replacement fraction are **new design choices**, not the original per-individual fitness-adaptation formula. `--baseline` disables adaptation and restarts, retaining the standard SEGA operator settings. The same generation/population settings are not equal evaluation budgets when restarts occur; output includes actual evaluations. No performance-superiority claim is made.
 
+The pinned release wheel contains an `outFunc` type-check defect: it compares `type(callback)` with the string `'function'`, rejecting ordinary functions as well as callable objects. `FreightSEGA` therefore extends the generation-statistics hook after invoking the parent implementation and leaves `outFunc=None`. It does not patch the installed library or replace its evolutionary operators. The wheel's SHA-256 is pinned in the requirements file because release-wheel code differs from the current GitHub branch.
+
 ## Running and interpreting output
 
 Dependency-free model and exact search, Python 3.10+:

@@ -74,6 +74,17 @@ class SearchController:
                                mutation_probability=float(algorithm.mutOper.Pm), restarted=restarted))
 
 
+class FreightSEGA(ea.soea_SEGA_templet):
+    """Use the generation statistics hook instead of the wheel's broken outFunc."""
+    def __init__(self, problem, population, controller, **kwargs):
+        self.controller = controller
+        super().__init__(problem, population, outFunc=None, **kwargs)
+
+    def stat(self, population):
+        super().stat(population)
+        self.controller(self, population)
+
+
 def solve_geatpy(network, population=80, generations=100, seed=42, patience=20, adaptive=True):
     for name, value, minimum in (("population", population, 4), ("generations", generations, 1), ("patience", patience, 1), ("seed", seed, 0)):
         if isinstance(value, bool) or not isinstance(value, int) or value < minimum:
@@ -83,13 +94,9 @@ def solve_geatpy(network, population=80, generations=100, seed=42, patience=20, 
     problem = FreightProblem(network)
     controller = SearchController(patience, adaptive)
 
-    # The published 2.7.0 wheel requires a function, not merely a callable object.
-    def on_generation(algorithm, current_population):
-        controller(algorithm, current_population)
-
-    algorithm = ea.soea_SEGA_templet(problem, ea.Population(Encoding="RI", NIND=population),
+    algorithm = FreightSEGA(problem, ea.Population(Encoding="RI", NIND=population), controller,
                                     MAXGEN=generations, logTras=0, drawing=0,
-                                    maxTrappedCount=generations + 1, outFunc=on_generation)
+                                    maxTrappedCount=generations + 1)
     result = ea.optimize(algorithm, seed=seed, verbose=False, drawing=0,
                          outputMsg=False, drawLog=False, saveFlag=False)
     solution = network.evaluate(network.decode(result["Vars"][0])) if result["success"] else None
