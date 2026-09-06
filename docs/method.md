@@ -35,7 +35,7 @@ The final presentation and defense notes describe:
 3. A diversity-restoring catastrophe/restart operation after 20 generations without improvement.
 4. Demand scenarios and parameter resampling to represent uncertainty.
 
-These are documented historical design decisions. The exact adaptive formulas, restart implementation, random seeds, feasibility-repair rules and complete run configurations could not be recovered. A [new 2026 implementation](reconstruction.md) now supplies explicit replacement conventions; it is not claimed to recover those missing details.
+These are documented historical design decisions. The exact adaptive formulas, restart implementation, random seeds, feasibility-repair rules and complete run configurations could not be recovered. The [optimizer guide](implementation.md) specifies the conventions used in the executable model.
 
 The source describes the routing problem as NP-hard. It is the constrained optimization problem, not "the genetic algorithm itself," that has this complexity characterization. The archived heuristically selected routes should not be described as proven global optima without a bound or exact-solver comparison.
 
@@ -55,8 +55,8 @@ The documents describe a robustness condition across scenarios, but the complete
 | Map visualization | Generated Folium/Leaflet HTML | Record provenance; do not ship obsolete CDN-dependent exports |
 | Order allocation and graph preprocessing | Design narrative | Not presented as a recovered service |
 | Blockchain, settlement and live tracking | Architecture and interface designs | Clearly separated from the routing implementation |
-| Results verification | New standard-library Python utility and tests | Explicitly dated 2026 |
-| Executable route optimization | New model, priority decoder, Geatpy adapter and exact baseline | Explicitly dated 2026; synthetic-data validation |
+| Results verification | Standard-library Python utility and tests | Offline accounting and comparison checks |
+| Executable route optimization | Model, priority decoder, Geatpy adapter and exact baseline | Synthetic-data validation; explicit modelling assumptions |
 
 ## What a faithful future reproduction would need
 

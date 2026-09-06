@@ -1,6 +1,6 @@
 """Check published provenance, local documentation links and obvious disclosures.
 
-Added in 2026. This lightweight check is not a comprehensive secret scanner.
+This lightweight check is not a comprehensive secret scanner.
 It prints locations, never matched credential values.
 """
 

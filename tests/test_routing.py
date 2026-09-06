@@ -1,4 +1,4 @@
-"""New reconstruction tests, independent of historical-result transcription tests."""
+"""Routing model tests, independent of historical-result transcription tests."""
 
 from copy import deepcopy
 import itertools

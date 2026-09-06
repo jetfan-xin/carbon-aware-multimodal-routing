@@ -1,6 +1,6 @@
 """Validated directed freight network, priority decoder and scenario costing.
 
-All new modelling conventions are documented in docs/reconstruction.md.
+Modelling conventions are documented in docs/implementation.md.
 Only the Python standard library is required for this module.
 """
 

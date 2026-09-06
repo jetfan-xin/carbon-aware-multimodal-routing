@@ -1,8 +1,8 @@
-# Runnable optimizer: September 2026 reconstruction
+# Optimizer implementation and validation
 
 ## Status and scope
 
-This is newly implemented software based on the surviving project description and parameter snapshots. It is **not recovered 2022 code** and does not reproduce the archived Chongqing-Shanghai totals. The original drive was kept read-only. Historical data and screenshots were not overwritten to fit the new implementation.
+The optimizer implements the project model using explicit, testable assumptions. The synthetic examples validate solver behavior; they do not reproduce the archived Chongqing-Shanghai totals. Historical data and screenshots remain unchanged. See [source recovery](source-recovery.md) for implementation provenance.
 
 The executable scope is one shipment, one origin-destination route, road/rail/inland-water mode choices, transfer accounting, delivery constraints and scenario evaluation. It excludes order allocation, capacity scheduling, timetables, blockchain services and a web interface.
 
@@ -17,11 +17,11 @@ The executable scope is one shipment, one origin-destination route, road/rail/in
 | [Core tests](../tests/test_routing.py) | Hand-calculated costs, boundaries, scenarios, graph validation and exact checks |
 | [Integration tests](../tests/test_geatpy_integration.py) | Real Geatpy runs, multiple seeds, restarts, constraints and baseline comparison |
 
-## Recovered inputs versus new decisions
+## Model inputs and assumptions
 
 The [parameter snapshot](../data/parameter_snapshot.json) supplies mode speeds, three candidate rates per mode, emission factors, transfer coefficients, the 62-hour window, carbon brackets and demand scenarios.
 
-The reconstruction makes the following explicit choices where source details are absent:
+The implementation makes the following explicit choices where source details are absent:
 
 - **Network direction:** edges are directed. Add both directions explicitly for a symmetric connection. No automatic reverse links or inferred distances are created.
 - **Route space:** routes cannot revisit a city. This is a defined modelling restriction, not proof that cycles could never help a different model with early-arrival penalties.

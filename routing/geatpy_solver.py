@@ -1,7 +1,7 @@
-"""Geatpy 2.7 integration with a new adaptive/restart policy (September 2026).
+"""Geatpy 2.7 integration with adaptive search and elite-preserving restarts.
 
 This code uses Geatpy's public Problem, Population and SEGA interfaces.
-It does not copy a recovered historical algorithm or vendor Geatpy code.
+Geatpy is a separately installed dependency, not vendored code.
 """
 
 import geatpy as ea
@@ -12,7 +12,7 @@ class FreightProblem(ea.Problem):
     def __init__(self, network):
         self.network = network
         dim = len(network.edges)
-        super().__init__(name="CarbonAwareFreight2026", M=1, maxormins=[1],
+        super().__init__(name="CarbonAwareFreight", M=1, maxormins=[1],
                          Dim=dim, varTypes=[1] * dim, lb=[0] * dim,
                          ub=[dim - 1] * dim, lbin=[1] * dim, ubin=[1] * dim)
 

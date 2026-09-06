@@ -1,4 +1,4 @@
-"""Offline checks for the 2026 archive-auditing utility."""
+"""Offline checks for the archive-auditing utility."""
 
 import copy
 import importlib.util

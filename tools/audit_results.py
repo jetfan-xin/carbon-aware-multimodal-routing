@@ -1,6 +1,6 @@
 """Audit archived arithmetic without pretending to rerun the 2022 optimizer.
 
-Added in 2026. Standard library only. All operations are offline and read-only.
+Standard library only. All operations are offline and read-only.
 """
 
 import argparse

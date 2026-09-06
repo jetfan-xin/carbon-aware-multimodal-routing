@@ -1,5 +1,5 @@
 {
-  "description": "Synthetic 2026 test network. Distances are invented, not historical mapping data. The first recovered rate in each mode is explicitly selected without reconstructing missing rate-band boundaries.",
+  "description": "Synthetic test network. Distances are invented, not historical mapping data. The first documented rate in each mode is explicitly selected; missing rate-band boundaries are not inferred.",
   "nodes": ["Origin", "RiverHub", "RailHub", "Destination", "DeadEnd"],
   "origin": "Origin",
   "destination": "Destination",

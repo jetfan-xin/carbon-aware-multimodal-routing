@@ -1,6 +1,6 @@
 # Rights and attribution
 
-The historical project was team work by Zhuiguang for the 2022 Shanghai Open Data Innovative Application Competition. Jingfan Xin maintains this English portfolio reconstruction. No claim of sole authorship of the full team platform or of third-party frameworks is made.
+The historical project was team work by Zhuiguang for the 2022 Shanghai Open Data Innovative Application Competition. Jingfan Xin maintains this project repository and its English documentation. No claim of sole authorship of the full team platform or of third-party frameworks is made.
 
 No repository-wide license has been added to the historical materials. A public repository is provided for inspection; contact the maintainer before reusing material whose permissions are unclear.
 
@@ -17,4 +17,4 @@ The original map exports identify Folium/Leaflet and external map/CDN services. 
 
 The public repository contains small English transcriptions of project-specific parameters and aggregate simulation results, plus two code screenshots from the team presentation. Original papers, certificates, source workbooks, complete competition data and mapping-provider datasets are not uploaded. Provenance hashes identify the reviewed evidence without exposing the maintainer's local filesystem paths.
 
-The standard-library verification utilities, routing implementation, synthetic fixture, Geatpy integration and tests were created during the September 2026 reconstruction with AI assistance. They are not original 2022 source. The integration calls Geatpy as a separately installed dependency; its source and compiled libraries are not vendored.
+The verification utilities, routing implementation, synthetic fixture, Geatpy integration and tests were developed with AI assistance. See [implementation provenance](docs/source-recovery.md). The integration calls Geatpy as a separately installed dependency; its source and compiled libraries are not vendored.

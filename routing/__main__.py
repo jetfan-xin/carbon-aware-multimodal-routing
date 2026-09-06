@@ -29,11 +29,11 @@ def main():
             result = solve_geatpy(network, args.population, args.generations, args.seed,
                                   args.patience, adaptive=not args.baseline)
         result["instance_sha256"] = hashlib.sha256(raw).hexdigest()
-        result["implementation"] = "2026 reconstruction, not recovered historical source"
+        result["implementation"] = "carbon-aware-multimodal-routing"
         print(json.dumps(result, indent=2, allow_nan=False))
         return 0 if result["solution"] else 2
     except ImportError:
-        print("Geatpy dependencies unavailable; see docs/reconstruction.md for the tested environment. The exact solver needs no packages.", file=sys.stderr)
+        print("Geatpy dependencies unavailable; see docs/implementation.md for the tested environment. The exact solver needs no packages.", file=sys.stderr)
     except (ValueError, KeyError, TypeError, RuntimeError, OSError) as exc:
         print(f"Cannot solve instance: {exc}", file=sys.stderr)
     return 1
