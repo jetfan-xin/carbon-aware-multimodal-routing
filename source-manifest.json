@@ -154,6 +154,41 @@
         "ppt/media/image22.png"
       ],
       "sha256": "9bf3317d2d101428bc73e4387135ff9588f02ed27d1f8e0872124f7ddfbf14e5"
+    },
+    {
+      "path": "evidence/semifinal-data-preparation.png",
+      "source_id": "semifinal-report",
+      "page": 11,
+      "derivation": "Unaltered full-page raster render at 1600x900; no crop or redaction",
+      "sha256": "6741f0da983b6d79d91f4e45374478b9d39277003d866a1fb622ba5634084f1a"
+    },
+    {
+      "path": "evidence/semifinal-optimization-workflow.png",
+      "source_id": "semifinal-report",
+      "page": 17,
+      "derivation": "Unaltered full-page raster render at 1600x900; no crop or redaction",
+      "sha256": "2409a6e69bdf3acea9bd5505b26201163fcf817bab0b5a50ff27e226830306ec"
+    },
+    {
+      "path": "evidence/semifinal-route-and-convergence.png",
+      "source_id": "semifinal-report",
+      "page": 18,
+      "derivation": "Unaltered full-page raster render at 1600x900; no crop or redaction",
+      "sha256": "d20ee1578ca30242eb8f520fd741f539324e9b233e90ddb3ceab7cd544fca483"
+    },
+    {
+      "path": "evidence/final-prototype-route-output.png",
+      "source_id": "final-presentation",
+      "slide": 14,
+      "derivation": "Unaltered full-slide raster render at 1600x900; no crop or redaction",
+      "sha256": "57b9a4d6b76b7abee678ed8f703f6e0e4a7b452d1e6ea36ca0109cf0dd42f053"
+    },
+    {
+      "path": "evidence/final-case-study.png",
+      "source_id": "final-presentation",
+      "slide": 21,
+      "derivation": "Unaltered full-slide raster render at 1600x900; no crop or redaction",
+      "sha256": "02171dbf1435350b843a68970a4acf640dc3545622881d6ec74f5c2304eccef5"
     }
   ]
 }

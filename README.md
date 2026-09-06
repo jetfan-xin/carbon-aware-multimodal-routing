@@ -2,11 +2,41 @@
 
 Route-planning research for freight journeys that combine road, rail and inland water transport, balancing delivery cost, arrival time and carbon emissions.
 
-**2022 team project | Third Prize, Shanghai Open Data Innovative Application Competition | Yangtze River corridor case study**
+**2022 team project | Preliminary round → Semifinal → Final | Third Prize, Shanghai Open Data Innovative Application Competition**
 
 I worked on greener route planning and the algorithm layer of a team-designed multimodal freight information platform. The project brought together transport-network data, operational assumptions and evolutionary optimization to examine when changing transport modes is worth the additional transfer time and cost.
 
 This repository presents the project in English, with traceable historical results, an offline results auditor, and a runnable route optimizer. The competition's acronym, SODA, identifies the event, not the software.
+
+## Three-stage competition progression
+
+This was not a one-step submission. The entry passed three successive selection stages between September and November 2022:
+
+| Stage | What the team submitted or defended | Outcome |
+| --- | --- | --- |
+| **1. Preliminary round** | Problem framing, data plan and initial feasibility proposal | Advanced to the semifinal |
+| **2. Semifinal** | A 34-page technical report covering data preparation, optimization design, prototype screens and model outputs | Advanced to the final |
+| **3. Final** | A 30-slide final presentation and defense with a detailed Chongqing-Shanghai case calculation | **Third Prize** |
+
+The public evidence is deliberately limited to selected technical pages and slides, rather than the complete decks, to avoid publishing team-identifying information or unrelated third-party material. See the [stage evidence and privacy notes](evidence/README.md).
+
+## Original workflow and output evidence
+
+The images below are full-page renders from the archived 2022 semifinal report and final presentation. They have not been cropped, rewritten or recreated.
+
+**Data preparation described in the semifinal report**
+
+![Semifinal data-preparation slide showing input parsing, MAD outlier handling and missing-value treatment](evidence/semifinal-data-preparation.png)
+
+**Optimization workflow presented in the semifinal**
+
+![Semifinal optimization slide showing the multimodal network and adaptive genetic-algorithm flow](evidence/semifinal-optimization-workflow.png)
+
+**Final-round case output**
+
+![Final case-study slide showing archived route, cost, emissions and convergence outputs](evidence/final-case-study.png)
+
+These are historical presentation artifacts. Prototype screens are not evidence of a deployed service, and the archived numerical claims are interpreted through the repository's [results audit](docs/results.md). The [evidence gallery](evidence/README.md) includes two additional result/output slides and the original code fragments.
 
 ## The engineering problem
 

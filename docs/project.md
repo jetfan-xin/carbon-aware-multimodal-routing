@@ -6,6 +6,16 @@ This was a September-November 2022 student team project for the Shanghai Open Da
 
 The English repository title describes the routing component. SODA is the competition acronym, not a project or product name. A precise overall top-ten ranking is not asserted here because the inspected certificate does not specify a ranking.
 
+## Competition progression
+
+The project passed through three successive competition gates:
+
+1. **Preliminary round:** the initial problem, data and feasibility proposal advanced.
+2. **Semifinal:** the team submitted a 34-page technical report with the data-processing plan, route-optimization method, prototype and preliminary model outputs, then advanced again.
+3. **Final:** the team presented and defended a 30-slide final deck with a more detailed case calculation, receiving Third Prize.
+
+Selected non-personal pages from the semifinal and final materials are published in the [evidence gallery](../evidence/README.md). Early working decks and the full competition submissions remain in the private archive; this avoids exposing team biographies and redistributing unnecessary material while still making the progression and technical work inspectable.
+
 ## Problem and users
 
 Shippers need a route that meets delivery requirements without treating each transport leg independently. Carriers need advance information about handovers. A public-sector operator could benefit from aggregated transport and emissions information.

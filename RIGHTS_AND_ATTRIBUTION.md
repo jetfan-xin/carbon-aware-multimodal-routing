@@ -15,6 +15,6 @@ The original map exports identify Folium/Leaflet and external map/CDN services. 
 
 ## Documents and data
 
-The public repository contains small English transcriptions of project-specific parameters and aggregate simulation results, plus two code screenshots from the team presentation. Original papers, certificates, source workbooks, complete competition data and mapping-provider datasets are not uploaded. Provenance hashes identify the reviewed evidence without exposing the maintainer's local filesystem paths.
+The public repository contains small English transcriptions of project-specific parameters and aggregate simulation results, selected full-page renders from the semifinal and final team presentations, and two code screenshots embedded in the final presentation. The selected pages exclude team photographs, biographies and contact details. Original papers, certificates, source workbooks, complete competition submissions, complete competition data and mapping-provider datasets are not uploaded. Provenance hashes identify the reviewed evidence without exposing the maintainer's local filesystem paths.
 
 The verification utilities, routing implementation, synthetic fixture, Geatpy integration and tests were developed with AI assistance. See [implementation provenance](docs/source-recovery.md). The integration calls Geatpy as a separately installed dependency; its source and compiled libraries are not vendored.
