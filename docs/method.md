@@ -35,7 +35,7 @@ The final presentation and defense notes describe:
 3. A diversity-restoring catastrophe/restart operation after 20 generations without improvement.
 4. Demand scenarios and parameter resampling to represent uncertainty.
 
-These are documented design decisions. The exact adaptive formulas, restart implementation, random seeds, feasibility-repair rules and complete run configurations could not be recovered. Accordingly, no claim of reproducing the adaptive solver is made here.
+These are documented historical design decisions. The exact adaptive formulas, restart implementation, random seeds, feasibility-repair rules and complete run configurations could not be recovered. A [new 2026 implementation](reconstruction.md) now supplies explicit replacement conventions; it is not claimed to recover those missing details.
 
 The source describes the routing problem as NP-hard. It is the constrained optimization problem, not "the genetic algorithm itself," that has this complexity characterization. The archived heuristically selected routes should not be described as proven global optima without a bound or exact-solver comparison.
 
@@ -43,7 +43,7 @@ The source describes the routing problem as NP-hard. It is the constrained optim
 
 One preserved workbook lists three quantity scenarios: 150 tonnes at probability 0.36, 85 tonnes at 0.50, and 40 tonnes at 0.14. The probabilities sum to one and imply a mean quantity of 102.1 tonnes. This is distinct from the final presentation's fixed 100-tonne example.
 
-The documents describe a robustness condition across scenarios, but the complete algebra and implementation needed to reproduce it are not available. The repository retains the scenario inputs and documents this boundary instead of inventing a missing robust objective.
+The documents describe a robustness condition across scenarios, but the complete algebra and implementation needed to reproduce it are not available. The repository retains the scenario inputs. The new solver offers expected cost and an optional expected/worst-cost mixture, explicitly as a replacement modelling choice rather than the missing historical robustness condition.
 
 ## Implementation status
 
@@ -56,6 +56,7 @@ The documents describe a robustness condition across scenarios, but the complete
 | Order allocation and graph preprocessing | Design narrative | Not presented as a recovered service |
 | Blockchain, settlement and live tracking | Architecture and interface designs | Clearly separated from the routing implementation |
 | Results verification | New standard-library Python utility and tests | Explicitly dated 2026 |
+| Executable route optimization | New model, priority decoder, Geatpy adapter and exact baseline | Explicitly dated 2026; synthetic-data validation |
 
 ## What a faithful future reproduction would need
 

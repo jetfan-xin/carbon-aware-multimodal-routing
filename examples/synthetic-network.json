@@ -1,0 +1,44 @@
+{
+  "description": "Synthetic 2026 test network. Distances are invented, not historical mapping data. The first recovered rate in each mode is explicitly selected without reconstructing missing rate-band boundaries.",
+  "nodes": ["Origin", "RiverHub", "RailHub", "Destination", "DeadEnd"],
+  "origin": "Origin",
+  "destination": "Destination",
+  "modes": {
+    "road": {"speed_kmh": 80, "rate_cny_per_tonne_km": 0.263, "emissions_kg_per_tonne_km": 0.071},
+    "rail": {"speed_kmh": 60, "rate_cny_per_tonne_km": 0.196, "emissions_kg_per_tonne_km": 0.042},
+    "water": {"speed_kmh": 30, "rate_cny_per_tonne_km": 0.045, "emissions_kg_per_tonne_km": 0.012}
+  },
+  "transfers": [
+    {"modes": ["road", "rail"], "hours_per_1000_tonnes": 50, "cost_cny_per_tonne": 2, "emissions_kg_per_tonne": 0.128},
+    {"modes": ["road", "water"], "hours_per_1000_tonnes": 50, "cost_cny_per_tonne": 2.25, "emissions_kg_per_tonne": 0.117},
+    {"modes": ["rail", "water"], "hours_per_1000_tonnes": 50, "cost_cny_per_tonne": 2.5, "emissions_kg_per_tonne": 0.113}
+  ],
+  "edges": [
+    {"from": "Origin", "to": "RiverHub", "mode": "water", "distance_km": 600},
+    {"from": "RiverHub", "to": "Destination", "mode": "rail", "distance_km": 300},
+    {"from": "Origin", "to": "Destination", "mode": "road", "distance_km": 800},
+    {"from": "Origin", "to": "RailHub", "mode": "rail", "distance_km": 400},
+    {"from": "RailHub", "to": "Destination", "mode": "rail", "distance_km": 400},
+    {"from": "RiverHub", "to": "RailHub", "mode": "water", "distance_km": 200},
+    {"from": "RailHub", "to": "RiverHub", "mode": "water", "distance_km": 200},
+    {"from": "Origin", "to": "DeadEnd", "mode": "road", "distance_km": 10},
+    {"from": "RailHub", "to": "Destination", "mode": "water", "distance_km": 400}
+  ],
+  "time_window_hours": [0, 62],
+  "storage_cny_per_tonne_hour": 15,
+  "late_penalty_cny_per_tonne_hour": 30,
+  "hard_deadline": false,
+  "emission_cap_kg": null,
+  "risk_weight": 0,
+  "carbon_brackets": [
+    {"lower_bound_kg": 0, "rate_cny_per_kg": 0.05},
+    {"lower_bound_kg": 150000, "rate_cny_per_kg": 0.10},
+    {"lower_bound_kg": 500000, "rate_cny_per_kg": 0.15},
+    {"lower_bound_kg": 1000000, "rate_cny_per_kg": 0.20}
+  ],
+  "scenarios": [
+    {"name": "high-demand", "tonnes": 150, "probability": 0.36, "speed_multiplier": 1, "rate_multiplier": 1},
+    {"name": "medium-demand", "tonnes": 85, "probability": 0.50, "speed_multiplier": 1, "rate_multiplier": 1},
+    {"name": "low-demand", "tonnes": 40, "probability": 0.14, "speed_multiplier": 1, "rate_multiplier": 1}
+  ]
+}

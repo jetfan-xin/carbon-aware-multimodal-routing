@@ -17,4 +17,4 @@ The original map exports identify Folium/Leaflet and external map/CDN services. 
 
 The public repository contains small English transcriptions of project-specific parameters and aggregate simulation results, plus two code screenshots from the team presentation. Original papers, certificates, source workbooks, complete competition data and mapping-provider datasets are not uploaded. Provenance hashes identify the reviewed evidence without exposing the maintainer's local filesystem paths.
 
-The standard-library verification utility and tests were created during the September 2026 reconstruction. They are not an original 2022 solver.
+The standard-library verification utilities, routing implementation, synthetic fixture, Geatpy integration and tests were created during the September 2026 reconstruction with AI assistance. They are not original 2022 source. The integration calls Geatpy as a separately installed dependency; its source and compiled libraries are not vendored.
