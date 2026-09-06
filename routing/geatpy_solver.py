@@ -82,9 +82,14 @@ def solve_geatpy(network, population=80, generations=100, seed=42, patience=20, 
         raise ValueError("seed must be below 2**32")
     problem = FreightProblem(network)
     controller = SearchController(patience, adaptive)
+
+    # The published 2.7.0 wheel requires a function, not merely a callable object.
+    def on_generation(algorithm, current_population):
+        controller(algorithm, current_population)
+
     algorithm = ea.soea_SEGA_templet(problem, ea.Population(Encoding="RI", NIND=population),
                                     MAXGEN=generations, logTras=0, drawing=0,
-                                    maxTrappedCount=generations + 1, outFunc=controller)
+                                    maxTrappedCount=generations + 1, outFunc=on_generation)
     result = ea.optimize(algorithm, seed=seed, verbose=False, drawing=0,
                          outputMsg=False, drawLog=False, saveFlag=False)
     solution = network.evaluate(network.decode(result["Vars"][0])) if result["success"] else None

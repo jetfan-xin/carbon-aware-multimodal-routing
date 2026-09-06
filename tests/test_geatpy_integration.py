@@ -68,6 +68,27 @@ class GeatpyTests(unittest.TestCase):
         self.assertEqual(pop.CV.shape, (2, 1))
         self.assertTrue(np.all(np.isfinite(pop.ObjV)))
 
+    def test_deadline_makes_multimodal_route_optimal(self):
+        c = fixture()
+        c.update(time_window_hours=[0, 35], hard_deadline=True)
+        exact = solve_exact(Network(c))["solution"]
+        self.assertEqual(exact["edge_indices"], [0, 1])
+        r = self.solve(c, population=40, generations=30)
+        self.assertEqual(r["solution"]["modes"], ["water", "rail"])
+        self.assertAlmostEqual(r["solution"]["objective_cny"], exact["objective_cny"])
+
+    def test_single_edge_network(self):
+        c = fixture()
+        c["edges"] = [c["edges"][2]]
+        r = self.solve(c, population=8, generations=5)
+        self.assertEqual(r["solution"]["modes"], ["road"])
+
+    def test_disconnected_network(self):
+        c = fixture()
+        c["origin"], c["destination"] = c["destination"], c["origin"]
+        r = self.solve(c, population=8, generations=5, patience=2)
+        self.assertIsNone(r["solution"])
+
     def test_invalid_search_budget(self):
         for args in (dict(population=1), dict(generations=0), dict(seed=-1), dict(patience=0)):
             with self.assertRaises(ValueError):

@@ -35,12 +35,12 @@ The two screenshots under `evidence/` are exact image assets from the final pres
 
 ## Included and excluded
 
-Included: English project and technical documentation, compact parameter/result transcriptions, original code screenshots, provenance hashes and a new offline arithmetic-audit utility.
+Included: English project and technical documentation, compact parameter/result transcriptions, original code screenshots, provenance hashes, a new offline arithmetic-audit utility, and the separately identified [2026 optimizer reconstruction](reconstruction.md).
 
 Excluded: downloaded third-party source trees, vendor binaries, full raw datasets, reference papers, certificates, personal contact details, browser profiles, old CDN-dependent HTML exports and credentials. No repository-wide reuse license is asserted for the team archive.
 
 ## Reproducibility status
 
-The 2026 audit utility is executable and tested. The full 2022 optimizer is **not currently reproducible from this repository**. New code is not backdated or described as recovered historical code.
+The 2026 audit utility and newly reconstructed optimizer are executable. The full 2022 optimizer is **not currently reproducible from this repository**. New code is not backdated or described as recovered historical code; replacement modelling decisions and tests are documented separately.
 
 To extend the archive faithfully, add the missing custom Python modules with provenance, the matching network and configuration files, dependency versions, random seeds, and raw results for comparable baselines. Do not fill missing history by relabelling a third-party implementation.
