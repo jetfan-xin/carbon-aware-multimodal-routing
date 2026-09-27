@@ -134,7 +134,8 @@ def solve_allocation_ga(orders, candidate_pools, departures, brackets, *,
                         adaptive=True, catastrophe=True, heuristic_seed=False,
                         adaptive_control="diversity-v2", restart_fraction=.25,
                         heuristic_seed_mode="archive", mutation_base=1.25,
-                        mutation_cap=3.0, heuristic_seed_strategy="opportunity"):
+                        mutation_cap=3.0, heuristic_seed_strategy="opportunity",
+                        emission_cap_kg=None):
     """Solve the globally coupled allocation with a fixed evaluation budget."""
     for name, value, minimum in (("population", population, 4),
                                  ("generations", generations, 1),
@@ -171,7 +172,8 @@ def solve_allocation_ga(orders, candidate_pools, departures, brackets, *,
             cache_hits += 1
         else:
             cache[key] = evaluate_assignment(
-                orders, candidate_pools, departures, key, brackets)
+                orders, candidate_pools, departures, key, brackets,
+                emission_cap_kg=emission_cap_kg)
         return key, cache[key]
 
     chromosomes = [_capacity_feasible_chromosome(
@@ -182,7 +184,9 @@ def solve_allocation_ga(orders, candidate_pools, departures, brackets, *,
         greedy_solver = (solve_opportunity_greedy_allocation
                          if heuristic_seed_strategy == "opportunity"
                          else solve_greedy_allocation)
-        greedy = greedy_solver(orders, candidate_pools, departures, brackets)
+        greedy = greedy_solver(
+            orders, candidate_pools, departures, brackets,
+            emission_cap_kg=emission_cap_kg)
         greedy_chromosome = tuple(greedy["solution"]["chromosome"])
         if heuristic_seed_mode == "population":
             chromosomes[0] = greedy_chromosome
@@ -274,6 +278,7 @@ def solve_allocation_ga(orders, candidate_pools, departures, brackets, *,
         "heuristic_seed_strategy": heuristic_seed_strategy,
         "mutation_base": mutation_base,
         "mutation_cap": mutation_cap,
+        "emission_cap_kg": emission_cap_kg,
         "heuristic_seed_evaluations": greedy_evaluations,
         "candidate_evaluations": population * generations,
         "unique_assignment_evaluations": len(cache),

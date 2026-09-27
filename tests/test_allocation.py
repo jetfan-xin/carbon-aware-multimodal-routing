@@ -101,6 +101,14 @@ class CandidateGenerationTests(unittest.TestCase):
         self.assertEqual(rail["departure_ids"], [])
         self.assertEqual(rail["capacity_claims"][0]["departure_id"], "RAIL-HORIZON")
 
+    def test_candidate_retention_preserves_low_emission_and_fastest_options(self):
+        generated = generate_candidate_pools(
+            tiny_config(), tiny_orders(), tiny_departures(), top_k=2)
+        pool = generated["candidate_pools"]["A"]
+        self.assertEqual(len(pool), 2)
+        self.assertIn(["rail"], [row["modes"] for row in pool])
+        self.assertIn(["road"], [row["modes"] for row in pool])
+
 
 class AllocationSolverTests(unittest.TestCase):
     def setUp(self):
@@ -172,6 +180,42 @@ class AllocationSolverTests(unittest.TestCase):
         self.assertEqual(result["solver"], "greedy-opportunity-cost")
         self.assertTrue(result["solution"]["feasible"])
         self.assertEqual(result["candidate_evaluations"], 4)
+
+    def test_hard_portfolio_emission_cap_is_feasibility_first(self):
+        orders = [{"order_id": "A", "origin": "Origin", "destination": "Destination",
+                   "tonnes": 1, "deadline_hours": 12, "shipment_units": 1}]
+        pools = {"A": [
+            {"candidate_id": "cheap-dirty", "intrinsic_violation": 0,
+             "lateness_hours": 0, "capacity_claims": [], "modes": ["road"],
+             "costs": {"transport_cost_cny": 10, "transfer_cost_cny": 0,
+                       "scheduled_wait_cost_cny": 0, "lateness_cost_cny": 0},
+             "noncarbon_cost_cny": 10, "emissions_kg": 100},
+            {"candidate_id": "clean-costly", "intrinsic_violation": 0,
+             "lateness_hours": 0, "capacity_claims": [], "modes": ["rail"],
+             "costs": {"transport_cost_cny": 30, "transfer_cost_cny": 0,
+                       "scheduled_wait_cost_cny": 0, "lateness_cost_cny": 0},
+             "noncarbon_cost_cny": 30, "emissions_kg": 10},
+        ]}
+        uncapped = solve_exact_allocation(orders, pools, [], [(0, 0)])["solution"]
+        capped = solve_exact_allocation(
+            orders, pools, [], [(0, 0)], emission_cap_kg=20)["solution"]
+        self.assertEqual(uncapped["chromosome"], [0])
+        self.assertEqual(capped["chromosome"], [1])
+        self.assertEqual(capped["emission_violation"], 0)
+        infeasible = evaluate_assignment(
+            orders, pools, [], [0], [(0, 0)], emission_cap_kg=20)
+        self.assertFalse(infeasible["feasible"])
+        self.assertEqual(infeasible["emissions_excess_kg"], 80)
+        self.assertEqual(infeasible["emission_violation"], 4)
+
+    def test_ga_accepts_and_reports_portfolio_emission_cap(self):
+        cap = 66
+        result = solve_allocation_ga(
+            *self.args, population=8, generations=3, seed=4,
+            adaptive=False, catastrophe=False, emission_cap_kg=cap)
+        self.assertEqual(result["emission_cap_kg"], cap)
+        self.assertIsNotNone(result["solution"])
+        self.assertLessEqual(result["solution"]["emissions_kg"], cap)
 
 
 if __name__ == "__main__":

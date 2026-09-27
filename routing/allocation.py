@@ -286,16 +286,40 @@ def _diverse_beam_routes(network, order, *, limit, beam_width):
 
 
 def _retain_candidates(candidates, top_k):
-    """Keep ranked choices and always preserve an unconstrained fallback."""
+    """Retain cost, time, emissions, capacity and mode-diversity anchors.
+
+    Candidate generation is deliberately bounded on large graphs.  Keeping
+    only the cheapest alternatives can make a later emissions cap appear
+    infeasible even when the graph search found a lower-emission route.  The
+    first four anchors therefore preserve the best ranked, fastest,
+    lowest-emission and capacity-independent choices.  Remaining slots add
+    the best representative of each mode sequence before returning to the
+    original surrogate ranking.
+    """
+    if not candidates:
+        return []
     original_rank = {row["candidate_id"]: index for index, row in enumerate(candidates)}
-    retained = list(candidates[:top_k])
-    fallback = next((row for row in candidates if not row["capacity_claims"]), None)
-    if fallback is not None and fallback not in retained:
-        if retained:
-            retained[-1] = fallback
-        else:
-            retained.append(fallback)
-        retained.sort(key=lambda row: original_rank[row["candidate_id"]])
+    retained = []
+    seen = set()
+
+    def add(row):
+        if row is not None and row["candidate_id"] not in seen and len(retained) < top_k:
+            retained.append(row)
+            seen.add(row["candidate_id"])
+
+    add(candidates[0])
+    add(min(candidates, key=lambda row: (row["arrival_hour"], original_rank[row["candidate_id"]])))
+    add(min(candidates, key=lambda row: (row["emissions_kg"], original_rank[row["candidate_id"]])))
+    add(next((row for row in candidates if not row["capacity_claims"]), None))
+    mode_representatives = {}
+    for row in candidates:
+        mode_representatives.setdefault(tuple(row["modes"]), row)
+    for row in sorted(mode_representatives.values(),
+                      key=lambda item: original_rank[item["candidate_id"]]):
+        add(row)
+    for row in candidates:
+        add(row)
+    retained.sort(key=lambda row: original_rank[row["candidate_id"]])
     return retained
 
 
@@ -397,8 +421,12 @@ def generate_candidate_pools(base_config, orders, departures=(), *, top_k=5,
     }
 
 
-def evaluate_assignment(orders, candidate_pools, departures, chromosome, brackets):
-    """Evaluate an order-to-candidate chromosome with shared capacities."""
+def evaluate_assignment(orders, candidate_pools, departures, chromosome, brackets,
+                        *, emission_cap_kg=None):
+    """Evaluate a chromosome with shared capacities and an optional hard cap."""
+    if emission_cap_kg is not None:
+        emission_cap_kg = _number(
+            emission_cap_kg, "emission_cap_kg", nonnegative=True)
     order_ids = [row["order_id"] for row in orders]
     if len(chromosome) != len(order_ids):
         raise ValueError("one allocation gene is required per order")
@@ -452,7 +480,12 @@ def evaluate_assignment(orders, candidate_pools, departures, chromosome, bracket
         })
     carbon = carbon_cost(emissions, _carbon_brackets(brackets))
     noncarbon = math.fsum(costs.values())
-    violation = invalid + intrinsic_violation + deadline_violation + capacity_violation
+    emissions_excess_kg = (max(0.0, emissions - emission_cap_kg)
+                           if emission_cap_kg is not None else 0.0)
+    emission_violation = (emissions_excess_kg / max(1.0, emission_cap_kg)
+                          if emission_cap_kg is not None else 0.0)
+    violation = (invalid + intrinsic_violation + deadline_violation
+                 + capacity_violation + emission_violation)
     return {
         "chromosome": list(chromosome),
         "selected_candidates": selected,
@@ -463,6 +496,9 @@ def evaluate_assignment(orders, candidate_pools, departures, chromosome, bracket
         "carbon_cost_cny": carbon,
         "total_cost_cny": noncarbon + carbon,
         "emissions_kg": emissions,
+        "emission_cap_kg": emission_cap_kg,
+        "emissions_excess_kg": emissions_excess_kg,
+        "emission_violation": emission_violation,
         "capacity_usage": capacity_rows,
         "intrinsic_violation": intrinsic_violation,
         "deadline_violation": deadline_violation,
@@ -477,16 +513,18 @@ def assignment_rank(result):
     return (result["constraint_violation"], result["total_cost_cny"], result["emissions_kg"])
 
 
-def solve_greedy_allocation(orders, candidate_pools, departures, brackets):
+def solve_greedy_allocation(orders, candidate_pools, departures, brackets, *,
+                            emission_cap_kg=None):
     """Earliest-deadline-first baseline with marginal global evaluation."""
     return _solve_ordered_greedy(
         orders, candidate_pools, departures, brackets,
         sorted(orders, key=lambda row: (
             row["deadline_hours"], row["release_hour"], row["order_id"])),
-        "greedy-earliest-deadline")
+        "greedy-earliest-deadline", emission_cap_kg=emission_cap_kg)
 
 
-def solve_opportunity_greedy_allocation(orders, candidate_pools, departures, brackets):
+def solve_opportunity_greedy_allocation(orders, candidate_pools, departures, brackets, *,
+                                        emission_cap_kg=None):
     """Prioritize orders with the largest absolute loss from scarce capacity.
 
     The score compares the cheapest locally feasible candidate with the
@@ -510,11 +548,11 @@ def solve_opportunity_greedy_allocation(orders, candidate_pools, departures, bra
         row["order_id"]))
     return _solve_ordered_greedy(
         orders, candidate_pools, departures, brackets, sequence,
-        "greedy-opportunity-cost")
+        "greedy-opportunity-cost", emission_cap_kg=emission_cap_kg)
 
 
 def _solve_ordered_greedy(orders, candidate_pools, departures, brackets,
-                          order_sequence, solver_name):
+                          order_sequence, solver_name, *, emission_cap_kg=None):
     """Assign a supplied order sequence by feasibility-first marginal rank."""
     position = {row["order_id"]: index for index, row in enumerate(orders)}
     chromosome = [0] * len(orders)
@@ -537,13 +575,16 @@ def _solve_ordered_greedy(orders, candidate_pools, departures, brackets,
             active_orders = [orders[i] for i in active_indices]
             active_genes = [trial[i] for i in active_indices]
             result = evaluate_assignment(
-                active_orders, candidate_pools, departures, active_genes, brackets)
+                active_orders, candidate_pools, departures, active_genes, brackets,
+                emission_cap_kg=emission_cap_kg)
             rank = assignment_rank(result)
             if best_rank is None or rank < best_rank:
                 best_gene, best_rank = gene, rank
         chromosome[index] = best_gene
         fixed.add(index)
-    result = evaluate_assignment(orders, candidate_pools, departures, chromosome, brackets)
+    result = evaluate_assignment(
+        orders, candidate_pools, departures, chromosome, brackets,
+        emission_cap_kg=emission_cap_kg)
     return {"solver": solver_name, "status": (
         "feasible-heuristic" if result["feasible"] else "infeasible-allocation"),
             "solution": result, "candidate_evaluations": sum(
@@ -551,7 +592,7 @@ def _solve_ordered_greedy(orders, candidate_pools, departures, brackets,
 
 
 def solve_exact_allocation(orders, candidate_pools, departures, brackets,
-                           max_combinations=1_000_000):
+                           max_combinations=1_000_000, *, emission_cap_kg=None):
     """Enumerate small allocation instances to provide an optimality oracle."""
     if isinstance(max_combinations, bool) or not isinstance(max_combinations, int) or max_combinations < 1:
         raise ValueError("max_combinations must be a positive integer")
@@ -564,7 +605,9 @@ def solve_exact_allocation(orders, candidate_pools, departures, brackets,
         raise ValueError("exact allocation combination limit exceeded")
     best = None
     for chromosome in product(*(range(count) for count in option_counts)):
-        result = evaluate_assignment(orders, candidate_pools, departures, chromosome, brackets)
+        result = evaluate_assignment(
+            orders, candidate_pools, departures, chromosome, brackets,
+            emission_cap_kg=emission_cap_kg)
         if result["feasible"] and (best is None or assignment_rank(result) < assignment_rank(best)):
             best = result
     return {"solver": "exact-allocation-enumeration",
