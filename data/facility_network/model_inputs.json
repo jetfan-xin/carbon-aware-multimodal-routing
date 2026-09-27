@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-09-27",
+  "layer": "calibrated_model_inputs_separate_from_raw_service_evidence",
+  "evidence_contract": "Every numeric field carries its own provenance. A runnable case may combine reported values and explicit assumptions, but it is not promoted back into services.json as an observed facility service.",
+  "mode_parameters": {
+    "road": {"speed_kmh": 60, "emissions_kg_per_tonne_km": 0.076, "source_id": "MEE_FACTORS_2025"},
+    "rail": {"speed_kmh": 50, "emissions_kg_per_tonne_km": 0.003, "source_id": "MEE_FACTORS_2025"},
+    "water": {"speed_kmh": 15, "emissions_kg_per_tonne_km": 0.020, "source_id": "MEE_FACTORS_2025"}
+  },
+  "equipment_emission_sensitivity": {
+    "status": "context_only_not_used_by_default_solver",
+    "road_diesel_tractor_defaults": {
+      "load_factor": 0.93,
+      "empty_running_rate": 0.195,
+      "intensity_unit": "gCO2e_per_tonne_km",
+      "gross_vehicle_weight_bands": [
+        {"band_tonnes": "18-27", "ttw": 82.26, "wtw": 107.25},
+        {"band_tonnes": "27-35", "ttw": 74.21, "wtw": 96.75},
+        {"band_tonnes": "35-40", "ttw": 62.02, "wtw": 80.86},
+        {"band_tonnes": "40-43", "ttw": 59.96, "wtw": 78.18},
+        {"band_tonnes": "43-46", "ttw": 57.57, "wtw": 75.05},
+        {"band_tonnes": "46-49", "ttw": 57.09, "wtw": 74.43}
+      ],
+      "source_id": "SFC_CHINA_ROAD_GHG_2024",
+      "treatment": "Sensitivity context only. The default solver retains the official MEE aggregate factor for mode-to-mode comparability."
+    },
+    "rail_and_water_gap": {
+      "water_accounting_standard_source_id": "GB_WATER_GHG_2024",
+      "missing": ["truck registration and fuel", "train consist and traction energy", "vessel engine and voyage fuel", "actual payload", "empty running", "route-specific tonne-kilometres"],
+      "treatment": "No vehicle-, train- or vessel-specific factor is claimed."
+    }
+  },
+  "edges": [
+    {
+      "id": "cq-guoyuan-yangshan-road-calibrated",
+      "from_facility_id": "cq-guoyuan-port",
+      "to_facility_id": "sh-yangshan-port",
+      "mode": "road",
+      "distance_km": 1695,
+      "quoted_cost_cny_per_20ft": 15000,
+      "service_hours": {"optimistic": 72, "central": 96, "conservative": 120},
+      "cost_scope": "Reported Chongqing-Shanghai 20-foot comparison; exact inclusions and terminal endpoints were not published.",
+      "admission_note": "Road is on-demand, but mapping city-level endpoints to Guoyuan and Yangshan is a model convention.",
+      "field_provenance": {
+        "distance_km": {"evidence_class": "team_collected_model_input", "source_ids": ["distance-network"]},
+        "quoted_cost_cny_per_20ft": {"evidence_class": "operator_reported", "source_ids": ["NDRC_COST_2021"]},
+        "service_hours": {"evidence_class": "model_assumption", "source_ids": [], "assumption": "72/96/120 hours remains a conservative 3-5 day road sensitivity band pending a carrier dispatch record; it replaces the earlier cross-corridor proxy but is not promoted as observed."}
+      }
+    },
+    {
+      "id": "cq-guoyuan-luchaogang-rail-calibrated",
+      "from_facility_id": "cq-guoyuan-port",
+      "to_facility_id": "sh-luchaogang-rail",
+      "mode": "rail",
+      "distance_km": 1733,
+      "quoted_cost_cny_per_20ft": 4600,
+      "service_hours": {"optimistic": 55, "central": 57.5, "conservative": 60},
+      "cost_scope": "Reported Chongqing-Shanghai rail comparison applied to the rail leg; adding explicit Shanghai drayage may be conservative if the quote already included it.",
+      "admission_note": "A 2021 Shanghai official response lists Chongqing among cities connected to Shanghai Port and identifies Luchaogang as the Shanghai endpoint. The exact Chongqing station and current service remain unresolved.",
+      "field_provenance": {
+        "distance_km": {"evidence_class": "team_collected_model_input", "source_ids": ["distance-network"]},
+        "quoted_cost_cny_per_20ft": {"evidence_class": "operator_reported", "source_ids": ["NDRC_COST_2021"]},
+        "service_hours": {"evidence_class": "corridor_specific_historical_operation", "source_ids": ["SH_CQ_RAIL_2011"], "assumption": "The 55-60-hour evidence is for the historical Yangpu-Tuanjiecun five-fixed train. Applying it to Guoyuan-Luchaogang is an explicit terminal-mapping sensitivity, not proof of a current direct train."}
+      }
+    },
+    {
+      "id": "luchaogang-yangshan-road-drayage-calibrated",
+      "from_facility_id": "sh-luchaogang-rail",
+      "to_facility_id": "sh-yangshan-port",
+      "mode": "road",
+      "distance_km": 45,
+      "quoted_cost_cny_per_20ft": 200,
+      "service_hours": {"optimistic": 1.0, "central": 1.5, "conservative": 2.5},
+      "handling_hours": 1,
+      "scheduled_wait_hours": {"optimistic": 1, "central": 4, "conservative": 8},
+      "cost_scope": "One public spot posting for a loaded single 20-foot container at 17-21 tonnes; not a contracted sea-rail tariff or completed-trip invoice.",
+      "admission_note": "Shanghai confirms a separate road drayage operation; an industry association reports about 45 km and a 2026 marketplace posting supplies the CNY 200 sensitivity value.",
+      "observed_spot_context": {"container": "single 20-foot loaded", "weight_tonnes": "17-21", "posted_cny": 200, "posted_at": "2026-09-10"},
+      "policy_support_context": {"loaded_cny_per_teu": 180, "empty_cny_per_teu": 130, "valid_from": "2025-01-01", "valid_to": "2026-12-31", "source_id": "SH_INTERMODAL_SUPPORT_2025", "treatment": "reported separately; not subtracted from customer cost"},
+      "operating_performance_context": {"within_one_hour_completion_rate": ">60%", "scope": "reported rail-to-port transfer operations at Luchaogang-related projects", "source_id": "SH_FREIGHT_HUB_PERFORMANCE_2024", "limitation": "No full dwell or gate-queue distribution is published."},
+      "field_provenance": {
+        "distance_km": {"evidence_class": "industry_association_reported", "source_ids": ["CAOP_LUCHAOGANG_2019"], "assumption": "Industry-association route statement; exact terminal gates are not specified."},
+        "quoted_cost_cny_per_20ft": {"evidence_class": "marketplace_observation", "source_ids": ["SH_YIGUIDA_SPOT_2026_09"], "assumption": "Single public spot posting; used as a central calibration, not a market average or contract rate."},
+        "service_hours": {"evidence_class": "model_assumption", "source_ids": ["SH_SEA_RAIL_2019"], "assumption": "Bridge travel band only; not an observed distribution."},
+        "handling_hours": {"evidence_class": "official_reported", "source_ids": ["SH_FREIGHT_HUB_PERFORMANCE_2024"], "assumption": "One-hour central value follows the published performance threshold; the exact rate above 60 percent and distribution are not published."},
+        "scheduled_wait_hours": {"evidence_class": "model_assumption", "source_ids": ["SH_SEA_RAIL_2019"], "assumption": "1/4/8-hour production-plan and gate-wait sensitivity band."}
+      }
+    },
+    {
+      "id": "cq-guoyuan-yangshan-water-express-calibrated",
+      "from_facility_id": "cq-guoyuan-port",
+      "to_facility_id": "sh-yangshan-port",
+      "mode": "water",
+      "distance_km": 2399,
+      "quoted_cost_cny_per_20ft": 1400,
+      "service_hours": {"optimistic": 192, "central": 204, "conservative": 216},
+      "cost_scope": "Operator-reported 2021 Chongqing-Shanghai 20-foot water comparison; exact inclusions and fast-service applicability are not fully stated.",
+      "admission_note": "Bundled through service. Reported intermediate routing via Waigaoqiao or Taicang is not exposed as a free route-choice node.",
+      "field_provenance": {
+        "distance_km": {"evidence_class": "team_collected_model_input", "source_ids": ["distance-network"]},
+        "quoted_cost_cny_per_20ft": {"evidence_class": "operator_reported", "source_ids": ["NDRC_COST_2021"], "assumption": "Used without the previous unsupported ten-percent surcharge; the source is a corridor comparison rather than a sailing quote."},
+        "service_hours": {"evidence_class": "official_reported", "source_ids": ["CQ_SH_EXPRESS_2022"], "assumption": "Endpoints are the reported 8-9 day range and central is its midpoint."}
+      }
+    },
+    {
+      "id": "cq-guoyuan-yangshan-water-regular-calibrated",
+      "from_facility_id": "cq-guoyuan-port",
+      "to_facility_id": "sh-yangshan-port",
+      "mode": "water",
+      "distance_km": 2399,
+      "quoted_cost_cny_per_20ft": 1130,
+      "service_hours": {"optimistic": 240, "central": 240, "conservative": 240},
+      "cost_scope": "August 2025 Chongqing-Shanghai 20-foot FIO export-feeder average; not door-to-door and not a Haohang-specific quote.",
+      "admission_note": "The current operator reports a ten-day Chongqing-Shanghai run at two sailings per week. The model keeps voyage time separate from unobserved booking wait.",
+      "operator_schedule": {"departures_per_week_each_direction": 2, "reported_weekly_teu": "700-800", "reported_weekly_tonnes": "9600-11000", "implied_tonnes_per_teu_range": [13.714, 13.75], "source_id": "CQ_HAOHANG_CURRENT", "consistency_note": "The page also states about 8000 TEU per month; that headline is not arithmetically reconciled with the weekly route table and is not used by the model."},
+      "terminal_process_context": {"non_inspected_export_process_hours": 20, "booking_lead_time": "shipper_or_agent_decides", "source_id": "CQ_PORT_PROCESS_2022", "treatment": "Reported separately; neither value is added to the ten-day voyage because the route-specific overlap and booking distribution are unknown."},
+      "field_provenance": {
+        "distance_km": {"evidence_class": "team_collected_model_input", "source_ids": ["distance-network"]},
+        "quoted_cost_cny_per_20ft": {"evidence_class": "official_market_index", "source_ids": ["MOT_INDEX_2025_08"], "assumption": "Monthly corridor average; not a specific operator quote."},
+        "service_hours": {"evidence_class": "operator_reported", "source_ids": ["CQ_HAOHANG_CURRENT"], "assumption": "Ten-day route-level disclosure; exact terminals and statistical distribution are not published."}
+      }
+    },
+    {
+      "id": "wuhu-zhujiaqiao-yangshan-water-current",
+      "from_facility_id": "ah-wuhu-zhujiaqiao-port",
+      "to_facility_id": "sh-yangshan-port",
+      "mode": "water",
+      "distance_km": 488,
+      "quoted_cost_cny_per_20ft": 418,
+      "service_hours": {"optimistic": 48, "central": 54, "conservative": 60},
+      "cost_scope": "September 2024 FIO external-trade feeder average; not door-to-door.",
+      "admission_note": "The terminal mapping combines Zhujiangqiao's documented Yangshan-feeder role with city-level Wuhu-Yangshan service and tariff evidence.",
+      "field_provenance": {
+        "distance_km": {"evidence_class": "team_collected_model_input", "source_ids": ["distance-network"]},
+        "quoted_cost_cny_per_20ft": {"evidence_class": "official_reported", "source_ids": ["MOT_INDEX_2024_09"]},
+        "service_hours": {"evidence_class": "model_assumption", "source_ids": ["WUH_13FIVE_RESULTS"], "assumption": "The published commitment is at most 60 hours; 48 and 54 hours are sensitivity values, not percentiles."}
+      }
+    },
+    {
+      "id": "nanjing-qiba-waigaoqiao-water-current",
+      "from_facility_id": "js-nanjing-qiba-port",
+      "to_facility_id": "sh-waigaoqiao-port",
+      "mode": "water",
+      "distance_km": 392,
+      "quoted_cost_cny_per_20ft": 294,
+      "service_hours": {"optimistic": 22, "central": 25, "conservative": 30},
+      "cost_scope": "September 2024 Nanjing-Shanghai FIO average mapped to the later Qiba-Waigaoqiao fast service; not door-to-door.",
+      "admission_note": "The 25-hour service is current-reference only and passes Longtan without creating a selectable transfer.",
+      "field_provenance": {
+        "distance_km": {"evidence_class": "team_collected_model_input", "source_ids": ["distance-network"]},
+        "quoted_cost_cny_per_20ft": {"evidence_class": "official_reported", "source_ids": ["MOT_INDEX_2024_09"]},
+        "service_hours": {"evidence_class": "model_assumption", "source_ids": ["NJ_QIBA_WAIGAOQIAO_2025"], "assumption": "Central uses the published 25 hours; 22 and 30 hours are sensitivity values, not an observed distribution."}
+      }
+    }
+  ],
+  "transfers": [
+    {
+      "id": "luchaogang-rail-road-calibrated",
+      "facility_id": "sh-luchaogang-rail",
+      "modes": ["rail", "road"],
+      "hours_per_1000_tonnes": 50,
+      "cost_cny_per_tonne": 2,
+      "emissions_kg_per_tonne": 0.128,
+      "admission_note": "Historical generic road-rail coefficients are localized to the documented Luchaogang transfer; they are not a measured terminal tariff.",
+      "field_provenance": {
+        "hours_per_1000_tonnes": {"evidence_class": "team_collected_model_input", "source_ids": ["parameters-transfer"]},
+        "cost_cny_per_tonne": {"evidence_class": "team_collected_model_input", "source_ids": ["parameters-transfer"]},
+        "emissions_kg_per_tonne": {"evidence_class": "team_collected_model_input", "source_ids": ["parameters-transfer"]}
+      }
+    }
+  ],
+  "cases": [
+    {
+      "id": "cq-guoyuan-to-yangshan-calibrated",
+      "origin": "cq-guoyuan-port",
+      "destination": "sh-yangshan-port",
+      "edge_ids": [
+        "cq-guoyuan-yangshan-road-calibrated",
+        "cq-guoyuan-luchaogang-rail-calibrated",
+        "luchaogang-yangshan-road-drayage-calibrated",
+        "cq-guoyuan-yangshan-water-express-calibrated",
+        "cq-guoyuan-yangshan-water-regular-calibrated"
+      ],
+      "transfer_ids": ["luchaogang-rail-road-calibrated"],
+      "classification": "mixed operator-reported, official index, marketplace spot, team-collected distance and explicit remaining assumptions",
+      "route_semantics": "Road direct; rail then Luchaogang-Yangshan road drayage; bundled express water; bundled regular water."
+    },
+    {
+      "id": "wuhu-zhujiaqiao-to-yangshan-current",
+      "origin": "ah-wuhu-zhujiaqiao-port",
+      "destination": "sh-yangshan-port",
+      "edge_ids": ["wuhu-zhujiaqiao-yangshan-water-current"],
+      "transfer_ids": [],
+      "classification": "current-reference feeder calibration; not a 2022 tariff snapshot",
+      "route_semantics": "Single documented feeder family with a modelled terminal mapping."
+    },
+    {
+      "id": "nanjing-qiba-to-waigaoqiao-current",
+      "origin": "js-nanjing-qiba-port",
+      "destination": "sh-waigaoqiao-port",
+      "edge_ids": ["nanjing-qiba-waigaoqiao-water-current"],
+      "transfer_ids": [],
+      "classification": "current-reference feeder calibration; service started after 2022",
+      "route_semantics": "Bundled Qiba-Longtan-Waigaoqiao service; Longtan is not a free route-choice node."
+    }
+  ]
+}

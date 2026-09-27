@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "unit": "CNY_per_tCO2e",
+  "legal_boundary": "Scenario shadow prices, not a claim that Chinese freight is directly covered by a carbon tax or the national ETS.",
+  "flat_prices": [
+    {"id": "zero", "value": 0, "class": "counterfactual"},
+    {"id": "low-50", "value": 50, "class": "observed-market-range"},
+    {"id": "ets-2025-average", "value": 62.36, "class": "observed-market-reference", "source_id": "CNEEEX_2025"},
+    {"id": "ets-2025-year-end", "value": 74.63, "class": "observed-market-reference", "source_id": "CNEEEX_2025"},
+    {"id": "ets-2024-year-end", "value": 97.49, "class": "observed-market-reference", "source_id": "CNEEEX_2024"},
+    {"id": "ets-2024-high", "value": 106, "class": "observed-market-range", "source_id": "CNEEEX_2024"},
+    {"id": "stress-150", "value": 150, "class": "model-stress"},
+    {"id": "stress-300", "value": 300, "class": "model-stress"},
+    {"id": "stress-1000", "value": 1000, "class": "model-stress"},
+    {"id": "structural-5000", "value": 5000, "class": "route-switch-stress"},
+    {"id": "structural-6000", "value": 6000, "class": "route-switch-stress"}
+  ],
+  "historical_progressive": {
+    "source_class": "2022_project_assumption",
+    "brackets": [
+      {"lower_bound_kg": 0, "rate_cny_per_kg": 0.05},
+      {"lower_bound_kg": 150000, "rate_cny_per_kg": 0.10},
+      {"lower_bound_kg": 500000, "rate_cny_per_kg": 0.15},
+      {"lower_bound_kg": 1000000, "rate_cny_per_kg": 0.20}
+    ],
+    "application": "Applied once to aggregate portfolio emissions, not reset per shipment."
+  }
+}

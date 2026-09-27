@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "scenario_id": "cq-shanghai-shared-capacity-v1",
+  "description": "A reproducible, explicitly modelled order portfolio for testing shared departure capacity on the calibrated Chongqing-Guoyuan to Shanghai-Yangshan facility graph.",
+  "evidence_boundary": "The corridor alternatives and quoted lane inputs come from the separately documented facility case. Order rows, departure phases and allocatable slot capacities are experimental assumptions, not observed bookings, train manifests or carrier contracts.",
+  "model_case_id": "cq-guoyuan-to-yangshan-calibrated",
+  "time_case": "central",
+  "carbon_price_cny_per_tonne": 97.49,
+  "orders": [
+    {"order_id": "CQSH-001", "origin": "cq-guoyuan-port", "destination": "sh-yangshan-port", "release_hour": 0, "deadline_hours": 72, "tonnes": 20, "shipment_units": 1, "container_type": "20ft", "cargo_type": "general", "source_type": "scenario_order"},
+    {"order_id": "CQSH-002", "origin": "cq-guoyuan-port", "destination": "sh-yangshan-port", "release_hour": 0, "deadline_hours": 72, "tonnes": 18, "shipment_units": 1, "container_type": "20ft", "cargo_type": "general", "source_type": "scenario_order"},
+    {"order_id": "CQSH-003", "origin": "cq-guoyuan-port", "destination": "sh-yangshan-port", "release_hour": 0, "deadline_hours": 96, "tonnes": 22, "shipment_units": 1, "container_type": "20ft", "cargo_type": "general", "source_type": "scenario_order"},
+    {"order_id": "CQSH-004", "origin": "cq-guoyuan-port", "destination": "sh-yangshan-port", "release_hour": 12, "deadline_hours": 120, "tonnes": 19, "shipment_units": 1, "container_type": "20ft", "cargo_type": "general", "source_type": "scenario_order"},
+    {"order_id": "CQSH-005", "origin": "cq-guoyuan-port", "destination": "sh-yangshan-port", "release_hour": 24, "deadline_hours": 168, "tonnes": 21, "shipment_units": 1, "container_type": "20ft", "cargo_type": "general", "source_type": "scenario_order"},
+    {"order_id": "CQSH-006", "origin": "cq-guoyuan-port", "destination": "sh-yangshan-port", "release_hour": 36, "deadline_hours": 168, "tonnes": 20, "shipment_units": 1, "container_type": "20ft", "cargo_type": "general", "source_type": "scenario_order"},
+    {"order_id": "CQSH-007", "origin": "cq-guoyuan-port", "destination": "sh-yangshan-port", "release_hour": 48, "deadline_hours": 204, "tonnes": 17, "shipment_units": 1, "container_type": "20ft", "cargo_type": "general", "source_type": "scenario_order"},
+    {"order_id": "CQSH-008", "origin": "cq-guoyuan-port", "destination": "sh-yangshan-port", "release_hour": 72, "deadline_hours": 240, "tonnes": 23, "shipment_units": 1, "container_type": "20ft", "cargo_type": "general", "source_type": "scenario_order"},
+    {"order_id": "CQSH-009", "origin": "cq-guoyuan-port", "destination": "sh-yangshan-port", "release_hour": 0, "deadline_hours": 216, "tonnes": 18, "shipment_units": 1, "container_type": "20ft", "cargo_type": "general", "source_type": "scenario_order"},
+    {"order_id": "CQSH-010", "origin": "cq-guoyuan-port", "destination": "sh-yangshan-port", "release_hour": 0, "deadline_hours": 240, "tonnes": 20, "shipment_units": 1, "container_type": "20ft", "cargo_type": "general", "source_type": "scenario_order"},
+    {"order_id": "CQSH-011", "origin": "cq-guoyuan-port", "destination": "sh-yangshan-port", "release_hour": 24, "deadline_hours": 300, "tonnes": 19, "shipment_units": 1, "container_type": "20ft", "cargo_type": "general", "source_type": "scenario_order"},
+    {"order_id": "CQSH-012", "origin": "cq-guoyuan-port", "destination": "sh-yangshan-port", "release_hour": 48, "deadline_hours": 420, "tonnes": 22, "shipment_units": 1, "container_type": "20ft", "cargo_type": "general", "source_type": "scenario_order"}
+  ],
+  "departures": [
+    {"departure_id": "RAIL-000", "edge_id": "cq-guoyuan-luchaogang-rail-calibrated", "departure_hour": 0, "capacity_tonnes": 45, "capacity_units": 2, "evidence_class": "scenario_allocated_capacity"},
+    {"departure_id": "RAIL-084", "edge_id": "cq-guoyuan-luchaogang-rail-calibrated", "departure_hour": 84, "capacity_tonnes": 60, "capacity_units": 3, "evidence_class": "scenario_allocated_capacity"},
+    {"departure_id": "RAIL-168", "edge_id": "cq-guoyuan-luchaogang-rail-calibrated", "departure_hour": 168, "capacity_tonnes": 60, "capacity_units": 3, "evidence_class": "scenario_allocated_capacity"},
+    {"departure_id": "WATER-X-000", "edge_id": "cq-guoyuan-yangshan-water-express-calibrated", "departure_hour": 0, "capacity_tonnes": 30, "capacity_units": 1, "evidence_class": "scenario_allocated_capacity"},
+    {"departure_id": "WATER-X-168", "edge_id": "cq-guoyuan-yangshan-water-express-calibrated", "departure_hour": 168, "capacity_tonnes": 50, "capacity_units": 2, "evidence_class": "scenario_allocated_capacity"},
+    {"departure_id": "WATER-R-000", "edge_id": "cq-guoyuan-yangshan-water-regular-calibrated", "departure_hour": 0, "capacity_tonnes": 25, "capacity_units": 1, "evidence_class": "scenario_allocated_capacity"},
+    {"departure_id": "WATER-R-084", "edge_id": "cq-guoyuan-yangshan-water-regular-calibrated", "departure_hour": 84, "capacity_tonnes": 45, "capacity_units": 2, "evidence_class": "scenario_allocated_capacity"},
+    {"departure_id": "WATER-R-168", "edge_id": "cq-guoyuan-yangshan-water-regular-calibrated", "departure_hour": 168, "capacity_tonnes": 45, "capacity_units": 2, "evidence_class": "scenario_allocated_capacity"}
+  ],
+  "exact_oracle_order_ids": ["CQSH-001", "CQSH-002", "CQSH-003", "CQSH-004"]
+}

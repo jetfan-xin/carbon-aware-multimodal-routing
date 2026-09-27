@@ -1,0 +1,21 @@
+{
+  "schema_version": 2,
+  "unit": "hours",
+  "deadlines": [48, 55, 60, 72, 96, 120, 192, 204, 216, 240, 276, 360],
+  "time_cases": ["p10", "p50", "p90"],
+  "interpretation": {
+    "48": "intentionally infeasible lower-bound stress",
+    "55": "historical same-corridor rail lower bound",
+    "60": "historical same-corridor rail upper bound",
+    "72": "optimistic road assumption; rail is already feasible in the central time case",
+    "96": "central road assumption",
+    "120": "conservative road assumption",
+    "192": "lower bound of published 8-9 day express-water range",
+    "204": "midpoint of published 8-9 day express-water range",
+    "216": "upper bound of published 8-9 day express-water range",
+    "240": "operator-reported current ten-day water service",
+    "276": "legacy 11.5-day midpoint retained only as a comparison deadline",
+    "360": "relaxed stress case"
+  },
+  "warning": "The road band is a model assumption. Rail uses a historical same-corridor operating range, not statistical percentiles or proof of a current train. The ten-day water value excludes unknown booking wait."
+}

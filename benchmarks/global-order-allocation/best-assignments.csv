@@ -1,0 +1,13 @@
+method,seed,order_id,release_hour,deadline_hour,tonnes,candidate_id,route,modes,departure_ids,arrival_hour,total_noncarbon_cost_cny,emissions_kg
+greedy,,CQSH-001,0.0,72.0,20.0,CQSH-001|cq-guoyuan-luchaogang-rail-calibrated>luchaogang-yangshan-road-drayage-calibrated|RAIL-000,cq-guoyuan-port>sh-luchaogang-rail>sh-yangshan-port,rail+road,RAIL-000,65.0,4840.0,174.94
+greedy,,CQSH-002,0.0,72.0,18.0,CQSH-002|cq-guoyuan-luchaogang-rail-calibrated>luchaogang-yangshan-road-drayage-calibrated|RAIL-000,cq-guoyuan-port>sh-luchaogang-rail>sh-yangshan-port,rail+road,RAIL-000,64.9,4836.0,157.446
+greedy,,CQSH-003,0.0,96.0,22.0,CQSH-003|cq-guoyuan-yangshan-road-calibrated|ondemand-0,cq-guoyuan-port>sh-yangshan-port,road,,96.0,15000.0,2834.04
+greedy,,CQSH-004,12.0,120.0,19.0,CQSH-004|cq-guoyuan-yangshan-road-calibrated|ondemand-0,cq-guoyuan-port>sh-yangshan-port,road,,108.0,15000.0,2447.58
+greedy,,CQSH-005,24.0,168.0,21.0,CQSH-005|cq-guoyuan-luchaogang-rail-calibrated>luchaogang-yangshan-road-drayage-calibrated|RAIL-084,cq-guoyuan-port>sh-luchaogang-rail>sh-yangshan-port,rail+road,RAIL-084,149.05,4842.0,183.68699999999998
+greedy,,CQSH-006,36.0,168.0,20.0,CQSH-006|cq-guoyuan-luchaogang-rail-calibrated>luchaogang-yangshan-road-drayage-calibrated|RAIL-084,cq-guoyuan-port>sh-luchaogang-rail>sh-yangshan-port,rail+road,RAIL-084,149.0,4840.0,174.94
+greedy,,CQSH-007,48.0,204.0,17.0,CQSH-007|cq-guoyuan-luchaogang-rail-calibrated>luchaogang-yangshan-road-drayage-calibrated|RAIL-084,cq-guoyuan-port>sh-luchaogang-rail>sh-yangshan-port,rail+road,RAIL-084,148.85,4834.0,148.69899999999998
+greedy,,CQSH-008,72.0,240.0,23.0,CQSH-008|cq-guoyuan-luchaogang-rail-calibrated>luchaogang-yangshan-road-drayage-calibrated|RAIL-168,cq-guoyuan-port>sh-luchaogang-rail>sh-yangshan-port,rail+road,RAIL-168,233.15,4846.0,201.18099999999998
+greedy,,CQSH-009,0.0,216.0,18.0,CQSH-009|cq-guoyuan-yangshan-water-express-calibrated|WATER-X-000,cq-guoyuan-port>sh-yangshan-port,water,WATER-X-000,204.0,1400.0,863.6400000000001
+greedy,,CQSH-010,0.0,240.0,20.0,CQSH-010|cq-guoyuan-yangshan-water-regular-calibrated|WATER-R-000,cq-guoyuan-port>sh-yangshan-port,water,WATER-R-000,240.0,1130.0,959.6000000000001
+greedy,,CQSH-011,24.0,300.0,19.0,CQSH-011|cq-guoyuan-luchaogang-rail-calibrated>luchaogang-yangshan-road-drayage-calibrated|RAIL-168,cq-guoyuan-port>sh-luchaogang-rail>sh-yangshan-port,rail+road,RAIL-168,232.95,4838.0,166.19299999999998
+greedy,,CQSH-012,48.0,420.0,22.0,CQSH-012|cq-guoyuan-yangshan-water-regular-calibrated|WATER-R-084,cq-guoyuan-port>sh-yangshan-port,water,WATER-R-084,324.0,1130.0,1055.5600000000002

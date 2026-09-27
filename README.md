@@ -71,10 +71,22 @@ Objective-function evaluations are computational work, not source-data rows. See
 - [`routing/native_ga.py`](routing/native_ga.py): dependency-free, equal-budget GA ablations.
 - [`routing/pipeline.py`](routing/pipeline.py): order consolidation, edge-state filtering, routing and SVG output.
 - [`routing/synthetic.py`](routing/synthetic.py): explicitly synthetic 23-city and larger benchmark generator.
+- [`routing/real_world.py`](routing/real_world.py): evidence-calibrated corridor configurations with source and assumption boundaries.
+- [`routing/facility_data.py`](routing/facility_data.py): facility/service/transfer registry validation that prevents planning evidence from becoming invented optimizer edges.
+- [`routing/facility_network.py`](routing/facility_network.py): runnable facility cases built only from field-level classified numeric inputs.
+- [`routing/portfolio.py`](routing/portfolio.py): portfolio-level progressive carbon accounting without resetting brackets per shipment.
+- [`routing/allocation.py`](routing/allocation.py): per-order route/departure candidates, shared-capacity evaluation, greedy baseline and small exact oracle.
+- [`routing/allocation_ga.py`](routing/allocation_ga.py): order-level fixed/adaptive/catastrophe GA variants with one candidate-choice gene per order.
 - [`docs/ORIGINAL_GA_CODE_ANALYSIS_CN.md`](docs/ORIGINAL_GA_CODE_ANALYSIS_CN.md): Chinese evidence analysis.
 - [`docs/ORIGINAL_VS_CURRENT_CN.md`](docs/ORIGINAL_VS_CURRENT_CN.md): historical/current comparison.
 - [`docs/CURRENT_IMPLEMENTATION_CN.md`](docs/CURRENT_IMPLEMENTATION_CN.md): current end-to-end implementation, benchmark and interview claim boundaries.
 - [`docs/GEATPY_RESULTS_ANALYSIS_CN.md`](docs/GEATPY_RESULTS_ANALYSIS_CN.md): real-Geatpy ablation analysis, convergence plots and route visualization.
+- [`docs/REAL_WORLD_SCENARIO_DESIGN_CN.md`](docs/REAL_WORLD_SCENARIO_DESIGN_CN.md): official-source calibration and experiment design.
+- [`docs/REAL_WORLD_RESULTS_CN.md`](docs/REAL_WORLD_RESULTS_CN.md): deterministic sensitivity, portfolio carbon and 2,250-run algorithm results.
+- [`docs/FACILITY_NETWORK_DESIGN_CN.md`](docs/FACILITY_NETWORK_DESIGN_CN.md): facility-level Yangtze/Yangtze River Delta node selection, evidence grades and remaining data gaps.
+- [`docs/FACILITY_NUMERIC_MODEL_CN.md`](docs/FACILITY_NUMERIC_MODEL_CN.md): numeric facility model, corrected distance, route-switch analysis and assumption boundary.
+- [`docs/GLOBAL_ORDER_ALLOCATION_CN.md`](docs/GLOBAL_ORDER_ALLOCATION_CN.md): global allocation formulation, two-level experiment and result interpretation.
+- [`docs/ALLOCATION_CONTROL_TUNING_CN.md`](docs/ALLOCATION_CONTROL_TUNING_CN.md): diversity-controlled mutation, partial restart, separated tuning/validation seeds and paired results.
 
 The earlier document-derived implementation first appeared in commit `329d84ea50ed9b19169d410f596266c333531f12`; the source-recovery baseline was `2f3551f4db70f79ca39471f2226676686c1caad8`.
 
@@ -85,12 +97,17 @@ The extension keeps the historical single-objective model available while adding
 - historical 500/1,000 km rate bands, progressive carbon pricing, scenarios, capacity and edge availability;
 - input validation, cycle-safe decoding and deterministic seeds;
 - exact enumeration for small instances and a fast state-Dijkstra comparison baseline;
-- four equal-candidate-budget GA variants: fixed baseline, adaptive-only, catastrophe-only and combined;
+- five equal-candidate-budget GA variants: fixed, adaptive-only, catastrophe-only, combined and graph-heuristic-seeded combined;
 - greedy order consolidation, simulated road/rail/water closures and end-to-end batch planning;
 - self-contained SVG maps generated from the computed solution;
-- calibrated synthetic generation for 23-city/754-edge networks and up to user-selected order counts.
+- calibrated synthetic generation for 23-city/754-edge networks and up to user-selected order counts;
+- official-source lane quotes/service times, scheduled-service edge times, container-quote pricing and aggregate portfolio carbon brackets;
+- a separate 18-facility evidence registry with historical/current snapshots, plus a non-observational calibrated layer containing seven numeric edges and three runnable cases;
+- facility-specific transfers, including an explicit rail-to-road change at Luchaogang instead of a free or globally available mode switch.
+- globally coupled order allocation: orders compete for timed departures or planning-horizon lane capacity and carbon brackets apply once to aggregate emissions;
+- diversity/stagnation-controlled mutation, partial population restart and an external opportunity-loss heuristic archive, selected and validated on disjoint seed sets.
 
-The fitness-spread adaptive formula in the current solver is a later engineering choice. It is not presented as the unrecovered 2022 formula.
+The allocation solver's diversity controller and the route solver's earlier fitness-spread controller are later engineering choices. Neither is presented as the unrecovered 2022 formula.
 
 ## Run and verify
 
@@ -100,6 +117,14 @@ Core tests require only Python 3.10+:
 python3 -B -m unittest discover -s tests -v
 python3 -B tools/audit_results.py
 python3 -B tools/verify_repository.py
+```
+
+Reproduce allocation-controller selection, held-out validation and the formal figures:
+
+```bash
+python3 -B tools/tune_allocation_control.py
+python3 -B tools/validate_allocation_control.py
+python3 -B tools/run_synthetic_allocation_experiment.py
 ```
 
 Run the mandatory real-Geatpy suite in its pinned Linux amd64 container (also supported through Docker Desktop on Apple Silicon):
@@ -115,6 +140,40 @@ Generate the 30-seed real-Geatpy ablation, machine-readable results and SVG figu
 ```bash
 sh tools/run_geatpy_experiment.sh
 ```
+
+Run the evidence-calibrated lane sensitivity grid and five-method experiment (standard library only):
+
+```bash
+python3 -B tools/run_real_case_sensitivity.py \
+  --output-dir benchmarks/real-case-sensitivity
+```
+
+The checked-in run contains 1,188 deterministic grid cells, 60 portfolio cells and 2,250 heuristic runs across 15 selected scenarios. Operator disclosures, official market indices, historical same-corridor evidence and labelled assumptions remain distinguishable. See the [result report](docs/REAL_WORLD_RESULTS_CN.md) and [operator-data replacement audit](docs/OPERATOR_DATA_REPLACEMENT_CN.md).
+
+Rebuild the facility-level evidence inventory and schematic:
+
+```bash
+python3 -B tools/build_facility_network.py
+```
+
+The current inventory contains 20 candidates, twelve published service records and five transfer-capability records. None is silently promoted into a numeric optimizer edge: every published service is still missing at least one comparable endpoint, distance, tariff, timing or handling field. A separate [operational-gap audit](docs/OPERATIONAL_DATA_GAP_AUDIT_CN.md) records what public evidence can and cannot establish about current rail service, quote scope, drayage, water reliability, real orders and equipment-specific emissions. See the [facility-network report](docs/FACILITY_NETWORK_DESIGN_CN.md) and [generated tables](benchmarks/facility-network/README.md).
+
+Run the separate facility-calibrated Chongqing-Yangshan analysis:
+
+```bash
+python3 -B tools/run_facility_case_analysis.py
+```
+
+This produces 1,260 deadline/carbon-price/payload/time cells, four route-component rows and seven SVG figures. The true multileg option is Guoyuan—rail→Luchaogang—road→Yangshan. A public 20-foot spot posting now calibrates the short-haul price, while handling and waiting remain labelled assumptions rather than being written back into the raw service registry. See the [Chinese numeric-model report](docs/FACILITY_NUMERIC_MODEL_CN.md) and [generated results](benchmarks/facility-case-analysis/README.md).
+
+Run the globally coupled allocation experiments:
+
+```bash
+python3 -B tools/run_allocation_experiment.py
+python3 -B tools/run_synthetic_allocation_experiment.py
+```
+
+The first command uses the three-node/five-edge calibrated facility case with twelve explicitly modelled orders and timed shared capacity; it also exhaustively checks a four-order subset. The second uses 48 synthetic orders across 23 OD pairs on an explicitly synthetic 23-city graph and compares the greedy baseline with five GA variants over 30 seeds. See the [global-allocation report](docs/GLOBAL_ORDER_ALLOCATION_CN.md), [facility allocation outputs](benchmarks/global-order-allocation/README.md) and [scale outputs](benchmarks/synthetic-global-allocation/README.md).
 
 Run the small exact example or the dependency-free GA:
 

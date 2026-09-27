@@ -22,7 +22,7 @@ On a machine with Docker:
 sh tools/run_geatpy_tests.sh
 ```
 
-The script builds [`Dockerfile.geatpy`](../Dockerfile.geatpy), runs the separate [`integration_geatpy.py`](../tests/integration_geatpy.py) real-library suite and then executes the Geatpy CLI solver on the synthetic fixture. On Apple Silicon, Docker uses Linux amd64 emulation because the official wheel is x86-64 only. The platform-independent default discovery therefore reports 51 core tests with no skipped Geatpy cases; the container supplies the other 12 mandatory tests.
+The script builds [`Dockerfile.geatpy`](../Dockerfile.geatpy), runs the separate [`integration_geatpy.py`](../tests/integration_geatpy.py) real-library suite and then executes the Geatpy CLI solver on the synthetic fixture. On Apple Silicon, Docker uses Linux amd64 emulation because the official wheel is x86-64 only. The platform-independent default discovery therefore reports 66 core tests with no skipped Geatpy cases; the container supplies the other 12 mandatory tests.
 
 ## Verified result
 

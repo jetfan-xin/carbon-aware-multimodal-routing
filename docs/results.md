@@ -59,6 +59,36 @@ The recovered `main.py` currently stores 100,000 individuals and `MAXGEN=1`; tha
 
 No seed is recorded and intermediate city IDs depend on Python set order. Exact reruns are consequently not deterministic from the available record, even though the historical runs themselves are evidenced.
 
+## Evidence-calibrated corridor sensitivity
+
+The checked-in [operator-calibrated corridor experiment](../benchmarks/real-case-sensitivity/README.md) evaluates 1,188 deterministic combinations of twelve deadlines, eleven carbon shadow prices, three payload assumptions and three time cases. At the 15-tonne/central setting, deadlines below 57.5 hours are infeasible; rail is selected from 60 through 192 hours, express water at 204/216 hours and regular water from 240 hours. Road becomes feasible at the assumed 96-hour central time but is dominated by rail in both price and modeled emissions. Observed-market carbon-price references do not change those selections; rail returns only near the explicitly labelled CNY 5,000-6,000/tCO2 structural stress range.
+
+The corridor rerun uses 1,733 km for the explicit Chongqing-Shanghai rail row. The earlier 1,754 km value was the rail-column maximum from Chongqing to Zhangjiagang, not Shanghai. This correction slightly changes rail emissions and carbon costs but not the reported route sequence.
+
+The portfolio grid applies the historical progressive schedule once to cumulative emissions. At 250 15-tonne water shipments, 179,925 kg crosses the 150,000 kg bracket and costs CNY 10,492.50, compared with CNY 8,996.25 if the first bracket were incorrectly reset on every shipment.
+
+The selected 15-scenario algorithm experiment contains 2,250 dependency-free runs: five methods, 30 seeds and 400 GA candidate evaluations per run. The hybrid reports an additional mean 127.73 cost-time label expansions. Its median gap from the best observed route in each scenario is 0%, compared with 27.59% fixed, 23.94% adaptive, 15.82% catastrophe and 14.33% combined. This is an operator-calibrated-parameter/synthetic-topology search experiment, not historical competition performance and not an optimality certificate.
+
+## Facility-network inventory
+
+The generated [facility inventory](../benchmarks/facility-network/README.md) contains 20 candidates, including 15 resolved facilities, eight core candidates, twelve published service records and five intermodal-capability records. Thirteen facilities are supported as operational in both the historical and current snapshots. The raw evidence inventory still has zero optimizer-eligible service edges and transfers because no single public record supplies every numeric field required by the model. This blocks false precision while preserving a concrete collection queue for the Guoyuan-Waigaoqiao/Yangshan, Wuhu-Shanghai, Longtan-Yangshan, Luchaogang-Yangshan and Chuanshan corridors.
+
+The [schematic](../benchmarks/facility-network/facility-network.svg) visualizes facility decisions and published service evidence. Dashed lines are not a complete transport graph and are not used in the 1,188-cell end-to-end lane sensitivity experiment.
+
+## Facility-calibrated numeric case
+
+A separate [1,260-cell facility experiment](../benchmarks/facility-case-analysis/README.md) combines operator disclosures, official market indices, a public spot observation, team-collected distances and explicitly labelled assumptions. It does not change the raw registry's evidence status. The central 15-tonne case admits four routes: road direct (96 h, CNY 15,000, 1,932.30 kg), rail plus Luchaogang-Yangshan road drayage (64.75 h, CNY 4,830 including transfer, 131.205 kg), bundled express water (204 h, CNY 1,400, 719.70 kg) and bundled regular water (240 h, CNY 1,130, 719.70 kg). The one-hour handling component now follows a published greater-than-60-percent completion threshold; the 1/4/8-hour scheduled-wait band remains an assumption.
+
+The central feasible sequence is rail-road from 64.75 hours, express water from 204 hours and regular water from 240 hours; the direct road option is already dominated when it becomes feasible at 96 hours. At the 62.36/97.49 CNY/tCO2e reference prices, carbon cost is too small to change the selection. Rail-road beats express water above approximately 5,828 CNY/tCO2e and regular water above approximately 6,287 CNY/tCO2e in the central 15-tonne model. Those values are structural stress thresholds, not forecast carbon taxes. The result also shows that under the selected official default factors rail, not water, has the lowest modelled emissions.
+
+## Globally coupled order allocation
+
+The [facility allocation experiment](../benchmarks/global-order-allocation/README.md) assigns twelve modelled orders (239 tonnes) against eight timed capacity resources. A four-order subset is exhaustively evaluated over 3,072 candidate combinations. On the full twelve-order case, greedy and most 30-seed GA runs reach the same CNY 68,449.24 best-known value. This is an important negative result: adding a chromosome does not make GA necessary on a tiny, easily separable instance.
+
+The separate [23-city allocation stress test](../benchmarks/synthetic-global-allocation/README.md) uses 48 synthetic orders, 2,055 tonnes, 23 OD pairs, 145 synthetic edges and 96 synthetic planning-horizon capacity resources. All 150 formal GA runs are feasible under 100 individuals × 150 generations. After selecting the controller on seeds 30--39 and validating it on untouched seeds 40--69, the formal 0--29 run has a CNY 372,578.33 deadline-greedy baseline and a CNY 304,051.85 best observed hybrid run: 18.39% below greedy when savings use greedy as denominator (equivalently, greedy is 22.54% above the best-known result). The hybrid has the lowest mean and standard deviation; combined has a CNY 34.72 lower median, so no method wins every statistic. A five-order candidate subset is exhaustively solved over 7,776 assignments, but the 48-order result has no global-optimality certificate.
+
+The held-out paired validation gives selected hybrid 23 wins and 7 losses against legacy hybrid, with a mean change of -CNY 6,414.15 and an approximate 95% interval of [-9,333.41, -3,494.89]. This is evidence for one fixed synthetic instance, not universal superiority. The experiment demonstrates why joint capacity allocation can reward population search; it does not demonstrate enterprise-scale data, real carrier capacity, production benefit or historical 2022 performance. Full formulas, method distinctions, plots and claim boundaries are in [`GLOBAL_ORDER_ALLOCATION_CN.md`](GLOBAL_ORDER_ALLOCATION_CN.md) and [`ALLOCATION_CONTROL_TUNING_CN.md`](ALLOCATION_CONTROL_TUNING_CN.md).
+
 ## Preserved inconsistencies and defects
 
 - The economic and combined totals differ from their displayed component sums by one cent; the reference multimodal total differs by one cent in the other direction.

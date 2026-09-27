@@ -1,0 +1,129 @@
+{
+  "experiment_id": "facility-calibrated-cq-yangshan-v2-operator-data",
+  "model_case_id": "cq-guoyuan-to-yangshan-calibrated",
+  "grid": {
+    "rows": 1260,
+    "time_cases": [
+      "optimistic",
+      "central",
+      "conservative"
+    ],
+    "payloads_tonnes": [
+      10,
+      15,
+      20
+    ],
+    "deadlines_hours": [
+      48,
+      55,
+      60,
+      66,
+      72,
+      96,
+      120,
+      168,
+      192,
+      204,
+      216,
+      240,
+      276,
+      360
+    ],
+    "carbon_prices_cny_per_tonne": [
+      0,
+      62.36,
+      97.49,
+      500,
+      1000,
+      3000,
+      6000,
+      6500,
+      7000,
+      10000
+    ]
+  },
+  "central_15t_routes": [
+    {
+      "route_id": "rail-road-via-luchaogang",
+      "route_nodes": "cq-guoyuan-port>sh-luchaogang-rail>sh-yangshan-port",
+      "modes": "rail+road",
+      "arrival_hours": 64.75,
+      "travel_hours": 59.0,
+      "handling_hours": 1.0,
+      "scheduled_wait_hours": 4.0,
+      "transfer_hours": 0.75,
+      "transport_cost_cny": 4800.0,
+      "transfer_cost_cny": 30.0,
+      "transport_plus_transfer_cost_cny": 4830.0,
+      "emissions_kg": 131.20499999999998,
+      "edge_ids": "cq-guoyuan-luchaogang-rail-calibrated>luchaogang-yangshan-road-drayage-calibrated"
+    },
+    {
+      "route_id": "road-direct",
+      "route_nodes": "cq-guoyuan-port>sh-yangshan-port",
+      "modes": "road",
+      "arrival_hours": 96.0,
+      "travel_hours": 96.0,
+      "handling_hours": 0.0,
+      "scheduled_wait_hours": 0.0,
+      "transfer_hours": 0.0,
+      "transport_cost_cny": 15000.0,
+      "transfer_cost_cny": 0.0,
+      "transport_plus_transfer_cost_cny": 15000.0,
+      "emissions_kg": 1932.3,
+      "edge_ids": "cq-guoyuan-yangshan-road-calibrated"
+    },
+    {
+      "route_id": "water-express-bundled",
+      "route_nodes": "cq-guoyuan-port>sh-yangshan-port",
+      "modes": "water",
+      "arrival_hours": 204.0,
+      "travel_hours": 204.0,
+      "handling_hours": 0.0,
+      "scheduled_wait_hours": 0.0,
+      "transfer_hours": 0.0,
+      "transport_cost_cny": 1400.0,
+      "transfer_cost_cny": 0.0,
+      "transport_plus_transfer_cost_cny": 1400.0,
+      "emissions_kg": 719.7,
+      "edge_ids": "cq-guoyuan-yangshan-water-express-calibrated"
+    },
+    {
+      "route_id": "water-regular-bundled",
+      "route_nodes": "cq-guoyuan-port>sh-yangshan-port",
+      "modes": "water",
+      "arrival_hours": 240.0,
+      "travel_hours": 240.0,
+      "handling_hours": 0.0,
+      "scheduled_wait_hours": 0.0,
+      "transfer_hours": 0.0,
+      "transport_cost_cny": 1130.0,
+      "transfer_cost_cny": 0.0,
+      "transport_plus_transfer_cost_cny": 1130.0,
+      "emissions_kg": 719.7,
+      "edge_ids": "cq-guoyuan-yangshan-water-regular-calibrated"
+    }
+  ],
+  "switch_boundaries_central_15t": {
+    "road_arrival_hours": 96.0,
+    "rail_road_arrival_hours": 64.75,
+    "express_water_arrival_hours": 204.0,
+    "regular_water_arrival_hours": 240.0,
+    "rail_beats_express_water_above_cny_per_tco2": 5828.426749590055,
+    "rail_beats_regular_water_above_cny_per_tco2": 6287.224190519884
+  },
+  "interpretation": [
+    "At observed-reference carbon prices around 62-97 CNY/tCO2e, carbon cost is too small to change the cost-minimizing route.",
+    "Under the central cases, rail-road becomes feasible before the conservative road-time band; the selected route then changes to express water and current-reference regular water as deadlines relax.",
+    "Rail has the lowest modeled emissions under the cited default factors; a route switch back from water occurs only at a stress-test carbon price around the reported thresholds."
+  ],
+  "warnings": [
+    "This is a calibrated analysis network, not an observed end-to-end operational dataset.",
+    "The rail time is real historical Yangpu-Tuanjiecun operation mapped to Guoyuan-Luchaogang; current service and endpoint equivalence remain unverified.",
+    "The CNY 200 Luchaogang-area drayage input is one public spot posting. The one-hour handling value follows an official greater-than-60-percent completion threshold, while scheduled waiting remains an explicit assumption.",
+    "The CNY 180 loaded-TEU policy support is paid to eligible operators and is reported separately, not subtracted from the customer cost.",
+    "Lane quotes mix publication dates and scopes: operator comparisons, FIO corridor averages and a spot drayage posting are not a single end-to-end invoice.",
+    "Carbon prices are shadow prices; the national ETS is not represented as directly regulating freight shipments.",
+    "Exact enumeration proves the best route only within this four-route model, not a global real-world optimum."
+  ]
+}

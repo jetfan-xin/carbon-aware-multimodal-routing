@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "snapshots": {
+    "historical_2022": {"cutoff": "2022-11-20"},
+    "current_reference": {"cutoff": "2026-09-27"}
+  },
+  "facilities": [
+    {
+      "id": "cq-guoyuan-port", "name_zh": "重庆果园港", "province": "重庆", "yrd_scope": "corridor_external",
+      "resolution": "exact_facility", "decision": "core", "cargo_types": ["container", "automobile", "general_cargo"],
+      "modes": ["road", "rail", "water"], "source_ids": ["CQ_GUOYUAN_2021", "CQ_SH_FAST_2019"],
+      "snapshot_status": {"historical_2022": "operational", "current_reference": "operational"},
+      "notes": "Corridor origin gateway; a through service need not stop at every intermediate Yangtze port."
+    },
+    {
+      "id": "cq-tuanjiecun-rail", "name_zh": "重庆团结村铁路集装箱中心站", "province": "重庆", "yrd_scope": "corridor_external",
+      "resolution": "exact_facility", "decision": "evidence_only", "cargo_types": ["container"],
+      "modes": ["road", "rail"], "source_ids": ["SH_CQ_RAIL_2011"],
+      "snapshot_status": {"historical_2022": "operational", "current_reference": "unverified"},
+      "notes": "Verified endpoint of the 2011 five-fixed Chongqing-Shanghai train; it must not be silently collapsed into Guoyuan Port."
+    },
+    {
+      "id": "hb-wuhan-yangluo-port", "name_zh": "武汉阳逻港区", "province": "湖北", "yrd_scope": "corridor_external",
+      "resolution": "exact_facility", "decision": "conditional", "cargo_types": ["container", "general_cargo"],
+      "modes": ["road", "rail", "water"], "source_ids": ["NDRC_LOGISTICS_HUBS_2018", "HB_YANGLUO_INTERMODAL_2018"],
+      "snapshot_status": {"historical_2022": "operational", "current_reference": "operational"},
+      "notes": "Admit only when a relevant calling or transfer service is documented; geographic position alone is insufficient."
+    },
+    {
+      "id": "jx-jiujiang-port-unresolved", "name_zh": "九江港（港区待解析）", "province": "江西", "yrd_scope": "corridor_external",
+      "resolution": "port_area_unresolved", "decision": "evidence_only", "cargo_types": ["container", "general_cargo"],
+      "modes": ["road", "rail", "water"], "source_ids": ["NDRC_LOGISTICS_HUBS_2018", "MOT_INLAND_PORT_LAYOUT"],
+      "snapshot_status": {"historical_2022": "unverified", "current_reference": "unverified"},
+      "notes": "The historical model used Jiujiang as a transfer city, but the public registry still needs a terminal and service-level match."
+    },
+    {
+      "id": "ah-anqing-port-unresolved", "name_zh": "安庆港（港区待解析）", "province": "安徽", "yrd_scope": "yrd",
+      "resolution": "port_area_unresolved", "decision": "evidence_only", "cargo_types": ["container", "general_cargo"],
+      "modes": ["road", "rail", "water"], "source_ids": ["NDRC_LOGISTICS_HUBS_2018", "MOT_INLAND_PORT_LAYOUT"],
+      "snapshot_status": {"historical_2022": "unverified", "current_reference": "unverified"},
+      "notes": "National-hub eligibility does not prove the historical model's rail-water transfer at an exact terminal."
+    },
+    {
+      "id": "ah-wuhu-zhujiaqiao-port", "name_zh": "芜湖港朱家桥港区", "province": "安徽", "yrd_scope": "yrd",
+      "resolution": "exact_facility", "decision": "core", "cargo_types": ["container", "automobile", "general_cargo"],
+      "modes": ["road", "rail", "water"], "source_ids": ["WUH_PORT_PROFILE_2022", "WUH_PORT_PLAN_2023"],
+      "snapshot_status": {"historical_2022": "operational", "current_reference": "operational"},
+      "notes": "Container and foreign-trade hub; later station upgrades must not be backdated into the 2022 snapshot."
+    },
+    {
+      "id": "ah-wuhu-yuxikou-port", "name_zh": "芜湖港裕溪口港区", "province": "安徽", "yrd_scope": "yrd",
+      "resolution": "exact_facility", "decision": "cargo_specific", "cargo_types": ["coal", "bulk"],
+      "modes": ["road", "rail", "water"], "source_ids": ["WUH_PORT_PROFILE_2022", "WUH_PORT_PLAN_2023"],
+      "snapshot_status": {"historical_2022": "operational", "current_reference": "operational"},
+      "notes": "Coal rail-water hub; excluded from the default general-container graph."
+    },
+    {
+      "id": "ah-maanshan-port-unresolved", "name_zh": "马鞍山港（港区待解析）", "province": "安徽", "yrd_scope": "yrd",
+      "resolution": "port_area_unresolved", "decision": "cargo_specific", "cargo_types": ["bulk", "steel"],
+      "modes": ["road", "rail", "water"], "source_ids": ["YRD_INTEGRATION_2019", "MOT_INLAND_PORT_LAYOUT"],
+      "snapshot_status": {"historical_2022": "unverified", "current_reference": "unverified"},
+      "notes": "Retain as a commodity-specific candidate until an exact terminal and service are verified."
+    },
+    {
+      "id": "js-nanjing-longtan-port", "name_zh": "南京港龙潭港区", "province": "江苏", "yrd_scope": "yrd",
+      "resolution": "exact_facility", "decision": "core", "cargo_types": ["container", "general_cargo"],
+      "modes": ["road", "rail", "water"], "source_ids": ["NJ_LONGTAN_RAIL_2020", "NJ_SH_DAILY_2023", "NJ_SH_NETWORK_2025"],
+      "snapshot_status": {"historical_2022": "operational", "current_reference": "operational"},
+      "notes": "Verified rail access and later daily Shanghai service evidence."
+    },
+    {
+      "id": "js-nanjing-qiba-port", "name_zh": "南京港七坝港区", "province": "江苏", "yrd_scope": "yrd",
+      "resolution": "exact_facility", "decision": "conditional", "cargo_types": ["container"],
+      "modes": ["road", "water"], "source_ids": ["NJ_QIBA_WAIGAOQIAO_2025"],
+      "snapshot_status": {"historical_2022": "unverified", "current_reference": "operational"},
+      "notes": "Current-reference feeder origin; not backdated to 2022."
+    },
+    {
+      "id": "js-taicang-port", "name_zh": "苏州港太仓港区", "province": "江苏", "yrd_scope": "yrd",
+      "resolution": "exact_facility", "decision": "core", "cargo_types": ["container", "automobile", "general_cargo"],
+      "modes": ["road", "rail", "water"], "source_ids": ["YRD_INTEGRATION_2019", "TAICANG_HUB_2020", "JIANGSU_WATER_2024"],
+      "snapshot_status": {"historical_2022": "operational", "current_reference": "operational"},
+      "notes": "Container core and Shanghai feeder; railway commissioning must be evaluated by snapshot date."
+    },
+    {
+      "id": "js-taicang-shanggang-zhenghe", "name_zh": "太仓港上港正和码头", "province": "江苏", "yrd_scope": "yrd",
+      "resolution": "exact_facility", "decision": "conditional", "cargo_types": ["container"],
+      "modes": ["road", "water"], "source_ids": ["CQ_SH_EXPRESS_2020"],
+      "snapshot_status": {"historical_2022": "operational", "current_reference": "operational"},
+      "notes": "Explicit intermediate terminal in the Shanghai-Chongqing express-water description."
+    },
+    {
+      "id": "js-nantong-tonghai-terminal", "name_zh": "南通港通海集装箱码头", "province": "江苏", "yrd_scope": "yrd",
+      "resolution": "exact_facility", "decision": "conditional", "cargo_types": ["container"],
+      "modes": ["road", "rail", "water"], "source_ids": ["NANTONG_TONGHAI_2026"],
+      "snapshot_status": {"historical_2022": "not_applicable", "current_reference": "operational"},
+      "notes": "Current-reference only; the cited first movement occurred in 2026."
+    },
+    {
+      "id": "sh-waigaoqiao-port", "name_zh": "上海港外高桥港区", "province": "上海", "yrd_scope": "yrd",
+      "resolution": "exact_facility", "decision": "core", "cargo_types": ["container", "general_cargo"],
+      "modes": ["road", "water"], "source_ids": ["CQ_SH_FAST_2019", "CQ_SH_EXPRESS_2020", "WUH_SH_DIRECT_2021"],
+      "snapshot_status": {"historical_2022": "operational", "current_reference": "operational"},
+      "notes": "Do not treat planned direct rail access as operational in the historical snapshot."
+    },
+    {
+      "id": "sh-yangpu-rail", "name_zh": "上海杨浦铁路货运站", "province": "上海", "yrd_scope": "yrd",
+      "resolution": "exact_facility", "decision": "evidence_only", "cargo_types": ["container"],
+      "modes": ["road", "rail"], "source_ids": ["SH_CQ_RAIL_2011"],
+      "snapshot_status": {"historical_2022": "operational", "current_reference": "unverified"},
+      "notes": "Verified Shanghai endpoint of the 2011 trial train; the source does not identify a Luchaogang or Yangshan rail endpoint."
+    },
+    {
+      "id": "sh-luchaogang-rail", "name_zh": "芦潮港铁路集装箱中心站", "province": "上海", "yrd_scope": "yrd",
+      "resolution": "exact_facility", "decision": "core", "cargo_types": ["container"],
+      "modes": ["road", "rail"], "source_ids": ["SH_SEA_RAIL_2019"],
+      "snapshot_status": {"historical_2022": "operational", "current_reference": "operational"},
+      "notes": "Separate railway node; connection to Yangshan is a road transfer leg, not a zero-cost in-node mode switch."
+    },
+    {
+      "id": "sh-yangshan-port", "name_zh": "上海港洋山深水港区", "province": "上海", "yrd_scope": "yrd",
+      "resolution": "exact_facility", "decision": "core", "cargo_types": ["container"],
+      "modes": ["road", "water"], "source_ids": ["CQ_SH_FAST_2019", "CQ_SH_EXPRESS_2020", "SH_SEA_RAIL_2019"],
+      "snapshot_status": {"historical_2022": "operational", "current_reference": "operational"},
+      "notes": "Deep-sea container gateway; not the same physical node as Luchaogang railway centre."
+    },
+    {
+      "id": "zj-ningbo-chuanshan-port", "name_zh": "宁波舟山港穿山港区", "province": "浙江", "yrd_scope": "yrd",
+      "resolution": "exact_facility", "decision": "core", "cargo_types": ["container", "bulk"],
+      "modes": ["road", "rail", "water"], "source_ids": ["YRD_INTEGRATION_2019", "NINGBO_CHUANSHAN_RAIL"],
+      "snapshot_status": {"historical_2022": "operational", "current_reference": "operational"},
+      "notes": "South-wing sea-rail alternative when the destination is an export gateway, not a Shanghai city consignee."
+    },
+    {
+      "id": "zj-jiaxing-port-unresolved", "name_zh": "嘉兴港（港区待解析）", "province": "浙江", "yrd_scope": "yrd",
+      "resolution": "port_area_unresolved", "decision": "evidence_only", "cargo_types": ["container", "general_cargo"],
+      "modes": ["road", "water"], "source_ids": ["MOT_INLAND_PORT_LAYOUT"],
+      "snapshot_status": {"historical_2022": "unverified", "current_reference": "unverified"},
+      "notes": "Requires a cargo-relevant scheduled-service record before graph admission."
+    },
+    {
+      "id": "zj-huzhou-port-unresolved", "name_zh": "湖州港（港区待解析）", "province": "浙江", "yrd_scope": "yrd",
+      "resolution": "port_area_unresolved", "decision": "evidence_only", "cargo_types": ["container", "general_cargo"],
+      "modes": ["road", "water"], "source_ids": ["MOT_INLAND_PORT_LAYOUT"],
+      "snapshot_status": {"historical_2022": "unverified", "current_reference": "unverified"},
+      "notes": "Candidate inland feeder only; city-level port evidence is insufficient for an optimizer node."
+    }
+  ]
+}

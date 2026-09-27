@@ -1,0 +1,49 @@
+{
+  "schema_version": 2,
+  "as_of": "2026-09-27",
+  "sources": [
+    {"id": "CQ_MOT_2022", "publisher": "Chongqing Municipal Commission of Transport", "published_at": "2022-07-19", "url": "https://jtj.cq.gov.cn/sy_240/bmdt/202207/t20220719_10931568.html", "supports": "Chongqing-Shanghai ordinary water 11-12 days; express water 8-9 days; more than 3000 sailings and 718000 TEU by June 2022."},
+    {"id": "CQ_MOT_2024", "publisher": "Chongqing Municipal Commission of Transport", "published_at": "2024-08-12", "url": "https://jtj.cq.gov.cn/sy_240/bmdt/202408/t20240812_13489305.html", "supports": "Downstream average 11 days; upstream average 15.8 days; 5523 sailings and 1.3908 million TEU."},
+    {"id": "NDRC_COST_2021", "publisher": "National Development and Reform Commission", "published_at": "2021-05-21", "url": "https://cjjjd.ndrc.gov.cn/zhongshuochangjiang/ztbd/202105/t20210521_1280776.htm", "supports": "A Minsheng Shipping operations manager reported comparative Chongqing-Shanghai 20-foot container costs: road CNY 15000, rail CNY 4600 and water CNY 1400; exact inclusions were not stated."},
+    {"id": "SH_CQ_RAIL_2011", "publisher": "Shanghai Municipal Commission of Commerce", "published_at": "2011-07-01", "url": "https://kab.sww.sh.gov.cn/gzzt/002002/002002001/20110701/A5F63D0F-DDB2-4F75-B433-236CF321971F.html", "supports": "Historical Yangpu-Tuanjiecun five-fixed train: 55-60 hours, one train per week at launch and 40-48 containers per train; not proof of a current Guoyuan-Luchaogang train."},
+    {"id": "CQ_HAOHANG_CURRENT", "publisher": "Chongqing Haohang Shipping Co., Ltd.", "published_at": null, "url": "https://cqhaohang.com/col17/", "supports": "The operator reports two Chongqing-Shanghai sailings per week in each direction, ten days running time, 700-800 TEU and 9600-11000 tonnes per week; exact terminals are not identified."},
+    {"id": "MOT_INDEX_2025_08", "publisher": "Ministry of Transport / Yangtze River Shipping Development Research Center", "published_at": "2025-10", "url": "https://www.mot.gov.cn/yunjiazhishu/changjianghangyunzsfx/202510/P020251010365847531433.pdf", "supports": "August 2025 Chongqing-Shanghai 20-foot FIO export-feeder average CNY 1130; this is not a door-to-door or operator-specific quote."},
+    {"id": "MOT_INDEX_2024_09", "publisher": "Ministry of Transport", "published_at": "2024-10", "url": "https://www.mot.gov.cn/yunjiazhishu/changjianghangyunzsfx/202410/P020241011534099345503.pdf", "supports": "Chongqing-Shanghai export FIO averages: CNY 1112 per 20-foot box and CNY 2114 per 40-foot box; scope differs from door-to-door quotes."},
+    {"id": "MOT_CASE_2024", "publisher": "Ministry of Transport and partner agencies", "published_at": "2024-11", "url": "https://xxgk.mot.gov.cn/2020/jigou/syj/202411/P020241122515163541793.pdf", "supports": "Chengdu-Shanghai 20-foot case: road 3 days/CNY 13000, rail 6 days/CNY 9502, rail-water 11 days/CNY 8275, all-water 25 days."},
+    {"id": "MEE_FACTORS_2025", "publisher": "Ministry of Ecology and Environment", "published_at": "2025-03", "url": "https://www.mee.gov.cn/xxgk2018/xxgk/xxgk06/202503/W020250328550111204656.pdf", "supports": "Default factors: road 0.076, rail 0.003 and water 0.020 kgCO2e per tonne-km."},
+    {"id": "CNEEEX_2024", "publisher": "Shanghai Environment and Energy Exchange", "published_at": "2024-12-31", "url": "https://overview.cneeex.com/c/2024-12-31/495881.shtml", "supports": "National ETS 2024 daily close range about CNY 69-106/tCO2; year-end CNY 97.49."},
+    {"id": "CNEEEX_2025", "publisher": "Shanghai Environment and Energy Exchange", "published_at": "2026-01-01", "url": "https://overview.cneeex.com/c/2026-01-01/497018.shtml", "supports": "National ETS 2025 average CNY 62.36/tCO2; year-end CNY 74.63."},
+    {"id": "MEE_SCOPE_2025", "publisher": "Ministry of Ecology and Environment", "published_at": "2025-03-26", "url": "https://www.mee.gov.cn/xxgk2018/xxgk/xxgk03/202503/t20250326_1104736.html", "supports": "National ETS expansion covers power, steel, cement and aluminum, not direct freight-transport compliance."},
+    {"id": "SODA_DERIVED_DISTANCES", "publisher": "Team-collected 2022 project workbook", "published_at": "2022", "url": null, "supports": "Model distances used here: road 1695 km, rail 1733 km, water 2399 km. A previous analysis incorrectly used the rail-column maximum 1754 km (the Chongqing-Zhangjiagang row) for Shanghai; the explicit Chongqing-Shanghai row is 1733 km. These are project parameters, not government observations."}
+  ],
+  "emission_factors_kg_per_tonne_km": {
+    "road": {"value": 0.076, "source_id": "MEE_FACTORS_2025"},
+    "rail": {"value": 0.003, "source_id": "MEE_FACTORS_2025"},
+    "water": {"value": 0.020, "source_id": "MEE_FACTORS_2025"}
+  },
+  "payload_sensitivity_tonnes_per_20ft": [10, 15, 20],
+  "portfolio_shipments": [1, 10, 50, 100, 250],
+  "corridors": [
+    {
+      "id": "chongqing-shanghai", "origin": "Chongqing", "destination": "Shanghai",
+      "description": "Operator-reported and official-market corridor values with explicitly labelled endpoint mappings, road-time assumptions and payload sensitivity.",
+      "coordinates": {"Chongqing": [106.5516, 29.5630], "Shanghai": [121.4737, 31.2304]},
+      "route_options": [
+        {"id": "cq-sh-road", "mode": "road", "quoted_cost_cny_per_20ft": 15000, "cost_scope": "operator-reported comparative 20-foot lane value; exact inclusions not stated", "distance_km": 1695, "service_hours": {"p10": 72, "p50": 96, "p90": 120}, "source_ids": ["NDRC_COST_2021", "SODA_DERIVED_DISTANCES"], "evidence_class": {"cost": "operator_reported", "distance": "team_collected_model_input", "time": "model_assumption"}, "time_note": "A conservative 3-5 day sensitivity band pending a Chongqing-Shanghai carrier dispatch record."},
+        {"id": "cq-sh-rail", "mode": "rail", "quoted_cost_cny_per_20ft": 4600, "cost_scope": "operator-reported comparative 20-foot lane value; exact inclusions not stated", "distance_km": 1733, "service_hours": {"p10": 55, "p50": 57.5, "p90": 60}, "source_ids": ["NDRC_COST_2021", "SH_CQ_RAIL_2011", "SODA_DERIVED_DISTANCES"], "evidence_class": {"cost": "operator_reported", "distance": "team_collected_model_input", "time": "corridor_specific_historical_operation"}, "time_note": "Historical Yangpu-Tuanjiecun running time used as a city-level corridor sensitivity; current service availability is unverified."},
+        {"id": "cq-sh-water-express", "mode": "water", "quoted_cost_cny_per_20ft": 1400, "cost_scope": "operator-reported 2021 water comparison; applied without the former unsupported express surcharge", "distance_km": 2399, "service_hours": {"p10": 192, "p50": 204, "p90": 216}, "source_ids": ["NDRC_COST_2021", "CQ_MOT_2022", "SODA_DERIVED_DISTANCES"], "evidence_class": {"cost": "operator_reported_corridor_comparison", "distance": "team_collected_model_input", "time": "official_reported_range"}},
+        {"id": "cq-sh-water-regular", "mode": "water", "quoted_cost_cny_per_20ft": 1130, "cost_scope": "August 2025 Chongqing-Shanghai 20-foot FIO export-feeder average; not door-to-door", "distance_km": 2399, "service_hours": {"p10": 240, "p50": 240, "p90": 240}, "source_ids": ["MOT_INDEX_2025_08", "CQ_HAOHANG_CURRENT", "SODA_DERIVED_DISTANCES"], "evidence_class": {"cost": "official_market_index", "distance": "team_collected_model_input", "time": "operator_reported"}, "schedule_note": "Operator reports two sailings per week each direction; booking wait is not included because its distribution is unknown."}
+      ]
+    },
+    {
+      "id": "chengdu-shanghai", "origin": "Chengdu", "destination": "Shanghai",
+      "description": "Official comparative benchmark retained for validation; no unsourced emissions distance is invented.",
+      "route_options": [
+        {"id": "cd-sh-road", "mode": "road", "quoted_cost_cny_per_20ft": 13000, "service_hours_p50": 72, "source_ids": ["MOT_CASE_2024"], "evidence_class": "observed_reported"},
+        {"id": "cd-sh-rail", "mode": "rail", "quoted_cost_cny_per_20ft": 9502, "service_hours_p50": 144, "source_ids": ["MOT_CASE_2024"], "evidence_class": "observed_reported"},
+        {"id": "cd-sh-rail-water", "mode": "rail_water", "quoted_cost_cny_per_20ft": 8275, "service_hours_p50": 264, "source_ids": ["MOT_CASE_2024"], "evidence_class": "observed_reported"},
+        {"id": "cd-sh-water", "mode": "water", "quoted_cost_cny_per_20ft": null, "service_hours_p50": 600, "source_ids": ["MOT_CASE_2024"], "evidence_class": "observed_time_cost_not_reported"}
+      ]
+    }
+  ]
+}

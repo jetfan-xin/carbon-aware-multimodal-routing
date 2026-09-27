@@ -189,6 +189,294 @@
       "bytes": 33,
       "sha256": "dcfb6bf25a7294f56c671f5c31d5fc3e91cb0d0a61768e578e3182ea2b77556d",
       "format": "txt"
+    },
+    {
+      "id": "CQ_MOT_2022",
+      "format": "web",
+      "url": "https://jtj.cq.gov.cn/sy_240/bmdt/202207/t20220719_10931568.html",
+      "note": "Official Chongqing-Shanghai ordinary and express water service times and cumulative volume."
+    },
+    {
+      "id": "CQ_MOT_2024",
+      "format": "web",
+      "url": "https://jtj.cq.gov.cn/sy_240/bmdt/202408/t20240812_13489305.html",
+      "note": "Official average downstream/upstream service times and cumulative sailings/TEU."
+    },
+    {
+      "id": "NDRC_COST_2021",
+      "format": "web",
+      "url": "https://cjjjd.ndrc.gov.cn/zhongshuochangjiang/ztbd/202105/t20210521_1280776.htm",
+      "note": "NDRC-hosted article quoting a Minsheng Shipping operations manager's Chongqing-Shanghai road, rail and water comparison."
+    },
+    {
+      "id": "MOT_INDEX_2024_09",
+      "format": "pdf",
+      "url": "https://www.mot.gov.cn/yunjiazhishu/changjianghangyunzsfx/202410/P020241011534099345503.pdf",
+      "note": "Official FIO container-rate index; retained separately because its scope differs from door-to-door comparisons."
+    },
+    {
+      "id": "MOT_INDEX_2025_08",
+      "format": "pdf",
+      "url": "https://www.mot.gov.cn/yunjiazhishu/changjianghangyunzsfx/202510/P020251010365847531433.pdf",
+      "note": "Official August 2025 Chongqing-Shanghai CY and FIO 20-foot average rates."
+    },
+    {
+      "id": "MOT_CASE_2024",
+      "format": "pdf",
+      "url": "https://xxgk.mot.gov.cn/2020/jigou/syj/202411/P020241122515163541793.pdf",
+      "note": "Official Chengdu-Wuhan-Shanghai multimodal cost and time comparison."
+    },
+    {
+      "id": "MOT_INTERMODAL_CASES_2024",
+      "format": "pdf",
+      "url": "https://xxgk.mot.gov.cn/jigou/syj/202411/P020241206513167638896.pdf",
+      "note": "Official brand-corridor casebook identifying Luchaogang operators, operating pattern and support scope."
+    },
+    {
+      "id": "SH_CQ_SEARAIL_2021",
+      "format": "web",
+      "url": "https://jtw.sh.gov.cn/ysqgkzzdgk/20211113/082afb32cdfa43f7b263e38c8380d087.html",
+      "note": "Official 2021 endpoint evidence: Chongqing was connected to Shanghai Port and the Shanghai endpoint was Luchaogang; it was not named among six daily fixed-cycle lines."
+    },
+    {
+      "id": "SH_SEARAIL_OPERATION_2025",
+      "format": "web",
+      "url": "https://www.shanghai.gov.cn/nw4411/20251206/c07e3ab678f846f69692e1a3e27ca183.html",
+      "note": "Official 2025 Shanghai sea-rail throughput, Luchaogang capacity and per-container equipment-operation context; not a Chongqing timetable."
+    },
+    {
+      "id": "SH_FREIGHT_HUB_PERFORMANCE_2024",
+      "format": "pdf",
+      "url": "https://jtw.sh.gov.cn/cmsres/a2/a2719ba31b574ed88839e7d57a7927c3/4ba244331fbecd91178a110d5ea757cc.pdf",
+      "note": "Official project self-assessment reporting more than 60 percent of measured Luchaogang rail-to-port transfer operations within one hour."
+    },
+    {
+      "id": "SH_CQ_RAIL_2011",
+      "format": "web",
+      "url": "https://kab.sww.sh.gov.cn/gzzt/002002/002002001/20110701/A5F63D0F-DDB2-4F75-B433-236CF321971F.html",
+      "note": "Official historical Yangpu-Tuanjiecun five-fixed train: 55-60 hours, weekly at trial launch and 40-48 containers."
+    },
+    {
+      "id": "CQ_HAOHANG_CURRENT",
+      "format": "web",
+      "url": "https://cqhaohang.com/col17/",
+      "note": "Current operator disclosure: Chongqing-Shanghai water route, two sailings per week, ten days and weekly volume bands."
+    },
+    {
+      "id": "CQ_PORT_PROCESS_2022",
+      "format": "web",
+      "url": "https://zfkawlb.cq.gov.cn/zwxx/tzgg/202203/t20220304_10464066_wap.html",
+      "note": "Official water-export process timing: booking lead is shipper-decided and non-inspected port processing is committed within 20 hours."
+    },
+    {
+      "id": "CQ_WATER_RELIABILITY_2023",
+      "format": "web",
+      "url": "https://zfkawlb.cq.gov.cn/zwgk/jytabl/202311/t20231107_12525096_wap.html",
+      "note": "Official relative statement that Chongqing-Shanghai water punctuality improved by 50 percent; no absolute rate or baseline."
+    },
+    {
+      "id": "CQ_WATER_OPERATION_2025",
+      "format": "web",
+      "url": "https://www.cq.gov.cn/zt/yhyshj/aljd/202508/t20250822_14928056.html",
+      "note": "Official first-half 2025 aggregate corridor sailings and TEU; not a completed-order or operator-level reliability dataset."
+    },
+    {
+      "id": "SH_YIGUIDA_SPOT_2026_09",
+      "format": "web",
+      "url": "https://www.yiguida.com/informations/20727690",
+      "note": "Sanitized single marketplace spot observation: loaded 20-foot box, Luchaogang area to Yangshan, CNY 200; not a contract or invoice."
+    },
+    {
+      "id": "CAOP_LUCHAOGANG_2019",
+      "format": "web",
+      "url": "https://www.caop.org.cn/xinwenzixun/zonghexinwen/2019-02-21/9480.html",
+      "note": "Industry-association statement that Luchaogang-Yangshan requires about 45 km of truck drayage."
+    },
+    {
+      "id": "SH_INTERMODAL_SUPPORT_2025",
+      "format": "pdf",
+      "url": "https://jtw.sh.gov.cn/cmsres/10/1081da9134714665980c56ead5b1e7bf/3385e02038297d10a835787a7065df27.pdf",
+      "note": "Official 2025-2026 Luchaogang program: CNY 180 per loaded TEU and CNY 130 per empty TEU to eligible signed last-mile operators."
+    },
+    {
+      "id": "MEE_FACTORS_2025",
+      "format": "pdf",
+      "url": "https://www.mee.gov.cn/xxgk2018/xxgk/xxgk06/202503/W020250328550111204656.pdf",
+      "note": "Official default road, rail and water freight emission factors."
+    },
+    {
+      "id": "SFC_CHINA_ROAD_GHG_2024",
+      "format": "web+pdf",
+      "url": "https://smartfreightcentre.org/news/13311552",
+      "note": "ISO 14083/GLEC-aligned China road defaults by vehicle class, including load-factor and empty-running assumptions; not measured corridor emissions."
+    },
+    {
+      "id": "GB_WATER_GHG_2024",
+      "format": "web",
+      "url": "https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=E4CA4C12C6F4F835A78660927FE2AE5E",
+      "note": "Official current water-transport enterprise greenhouse-gas accounting standard."
+    },
+    {
+      "id": "CQ_COMPOSITE_TENDER_2025",
+      "format": "web",
+      "url": "https://www.cpicfiber.com/contents/22/1690.html",
+      "note": "Public shipper procurement profile with 20GP/40GP equipment, 19-27-tonne loaded boxes and factory/warehouse-to-Guoyuan-or-Tuanjiecun legs."
+    },
+    {
+      "id": "CNEEEX_2024",
+      "format": "web",
+      "url": "https://overview.cneeex.com/c/2024-12-31/495881.shtml",
+      "note": "Official 2024 national ETS market summary used only as a shadow-price reference."
+    },
+    {
+      "id": "CNEEEX_2025",
+      "format": "web",
+      "url": "https://overview.cneeex.com/c/2026-01-01/497018.shtml",
+      "note": "Official 2025 national ETS average and year-end price reference."
+    },
+    {
+      "id": "MEE_SCOPE_2025",
+      "format": "web",
+      "url": "https://www.mee.gov.cn/xxgk2018/xxgk/xxgk03/202503/t20250326_1104736.html",
+      "note": "Official national ETS sector-scope boundary; freight transport is not represented as a direct compliance sector."
+    },
+    {
+      "id": "NDRC_LOGISTICS_HUBS_2018",
+      "format": "pdf",
+      "url": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/201812/W020190905514211315785.pdf",
+      "note": "National logistics-hub candidate-city eligibility; not service-edge evidence."
+    },
+    {
+      "id": "YRD_INTEGRATION_2019",
+      "format": "web",
+      "url": "https://www.mofcom.gov.cn/zcfb/zgdwjjmywg/art/2020/art_70ccef7eec404025998a122b83ebf3e0.html",
+      "note": "Official Yangtze River Delta port functional roles and integration plan."
+    },
+    {
+      "id": "MOT_INLAND_PORT_LAYOUT",
+      "format": "web",
+      "url": "https://xxgk.mot.gov.cn/jigou/zhghs/202006/t20200630_3320034.html",
+      "note": "Official inland-port and high-grade-waterway candidate layout."
+    },
+    {
+      "id": "CQ_GUOYUAN_2021",
+      "format": "web",
+      "url": "https://jtj.cq.gov.cn/sy_240/bmdt/202101/t20210105_8733665.html",
+      "note": "Official Guoyuan water-rail-road facility evidence."
+    },
+    {
+      "id": "HB_YANGLUO_INTERMODAL_2018",
+      "format": "web",
+      "url": "https://tjj.hubei.gov.cn/ztzl/wqzl/sdgjz/zcwj_3/202104/t20210428_3504958.shtml",
+      "note": "Official Yangluo port-area rail-water facility evidence."
+    },
+    {
+      "id": "CQ_SH_FAST_2019",
+      "format": "web",
+      "url": "https://jtj.cq.gov.cn/sy_240/bmdt/201908/t20190809_4370466.html",
+      "note": "Official Guoyuan-Waigaoqiao and Guoyuan-Yangshan service-time commitments."
+    },
+    {
+      "id": "CQ_SH_EXPRESS_2020",
+      "format": "web",
+      "url": "https://jtj.cq.gov.cn/sy_240/bmdt/202001/t20200116_5988043.html",
+      "note": "Official Shanghai-Chongqing express-water terminal chain."
+    },
+    {
+      "id": "CQ_SH_EXPRESS_2022",
+      "format": "web",
+      "url": "https://jtj.cq.gov.cn/sy_240/bmdt/202207/t20220719_10931568.html",
+      "note": "Official express-water timing, volume and intermediate-non-call evidence."
+    },
+    {
+      "id": "SH_SEA_RAIL_2019",
+      "format": "web",
+      "url": "https://www.shanghai.gov.cn/nw44638/20200824/0001-44638_59537.html",
+      "note": "Official Luchaogang-Yangshan last-mile and sea-rail plan with current/planned boundaries."
+    },
+    {
+      "id": "SH_YANGSHAN_GEOGRAPHY",
+      "format": "web",
+      "url": "https://www.sh.msa.gov.cn/shfzjysghsj/index.jhtml",
+      "note": "Official 32.5 km East Sea Bridge and approximate Luchaogang-Yangshan geographic separation; not a complete drayage tariff or route distance."
+    },
+    {
+      "id": "WUH_SH_DIRECT_2021",
+      "format": "web",
+      "url": "https://jtj.wuhu.gov.cn/xwzx/bmyw/8292233.html",
+      "note": "Official Wuhu-Shanghai direct container service evidence."
+    },
+    {
+      "id": "WUH_13FIVE_RESULTS",
+      "format": "web",
+      "url": "https://jtj.wuhu.gov.cn/xwzx/bmyw/8262827.html",
+      "note": "Official Wuhu-Shanghai five-fixed liner time commitments."
+    },
+    {
+      "id": "WUH_PORT_PROFILE_2022",
+      "format": "web",
+      "url": "https://jtj.wuhu.gov.cn/xwzx/bmyw/8383522.html",
+      "note": "Official Wuhu port-area cargo roles and feeder structure."
+    },
+    {
+      "id": "WUH_PORT_PLAN_2023",
+      "format": "pdf",
+      "url": "https://jtj.wuhu.gov.cn/group4/M00/01/3D/rBwdT2VkUReAOC2jAO1YlGmllQw712.pdf",
+      "note": "Official facility-level Wuhu port and rail-access planning evidence."
+    },
+    {
+      "id": "NJ_LONGTAN_RAIL_2020",
+      "format": "web",
+      "url": "https://jtyst.jiangsu.gov.cn/art/2020/12/31/art_41362_9621680.html",
+      "note": "Official completion acceptance for Longtan port railway access."
+    },
+    {
+      "id": "NJ_SH_DAILY_2023",
+      "format": "web",
+      "url": "https://jsgzw.jiangsu.gov.cn/art/2023/3/27/art_61475_10843277.html",
+      "note": "Official report of Nanjing-Shanghai daily sea-rail operation."
+    },
+    {
+      "id": "NJ_SH_NETWORK_2025",
+      "format": "web",
+      "url": "https://www.jiangsu.gov.cn/art/2025/10/11/art_60096_11653323.html",
+      "note": "Official current-reference Longtan-Yangshan service description."
+    },
+    {
+      "id": "NJ_QIBA_WAIGAOQIAO_2025",
+      "format": "web",
+      "url": "https://jsgzw.jiangsu.gov.cn/art/2025/4/9/art_61970_11537580.html",
+      "note": "Official current-reference Qiba-Longtan-Waigaoqiao feeder time."
+    },
+    {
+      "id": "JIANGSU_WATER_2024",
+      "format": "web",
+      "url": "https://www.jiangsu.gov.cn/art/2024/3/20/art_88141_11260536.html",
+      "note": "Official Jiangsu intermodal hub roles and current/planned project boundaries."
+    },
+    {
+      "id": "TAICANG_HUB_2020",
+      "format": "web",
+      "url": "https://jtyst.jiangsu.gov.cn/art/2020/11/6/art_65478_9560329.html",
+      "note": "Official Taicang port-hub and container-role evidence."
+    },
+    {
+      "id": "NINGBO_CHUANSHAN_RAIL",
+      "format": "pdf",
+      "url": "https://sthjt.zj.gov.cn/module/download/downfile.jsp?classid=0&filename=5400e2994020402c9ebfb2366aced8c7.pdf",
+      "note": "Official environmental document describing completed Chuanshan rail access."
+    },
+    {
+      "id": "NANTONG_TONGHAI_2026",
+      "format": "web",
+      "url": "https://www.nantong.gov.cn/ntsrmzf/ntxw/content/614e7a70-f665-4ae7-bd1d-2f8dd493dc57.html",
+      "note": "Official current-reference first Sichuan-Nantong-Zhejiang rail-water movement."
+    },
+    {
+      "id": "SODA_DERIVED_DISTANCES",
+      "format": "derived-parameter",
+      "source_ids": ["distance-network"],
+      "note": "Selected corridor model distances derived from the team-collected workbook; the explicit Chongqing-Shanghai row is road 1695, rail 1733 and water 2399 km. These are not government observations."
     }
   ],
   "published_source_files": [

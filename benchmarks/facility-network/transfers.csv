@@ -1,0 +1,6 @@
+id,facility_id,modes,cargo_types,handling_hours,handling_cost_cny,evidence_grade,optimizer_eligible,missing_for_optimizer,source_ids
+guoyuan-rail-water,cq-guoyuan-port,rail|water,container|automobile|general_cargo,,,A,False,handling time distribution|tariff|capacity by cargo,CQ_GUOYUAN_2021
+longtan-rail-water,js-nanjing-longtan-port,rail|water,container,,,A,False,handling time distribution|tariff|capacity,NJ_LONGTAN_RAIL_2020|NJ_SH_NETWORK_2025
+zhujiaqiao-rail-water,ah-wuhu-zhujiaqiao-port,rail|water,container|automobile|general_cargo,,,A,False,snapshot-specific handling capability|handling time distribution|tariff,WUH_PORT_PLAN_2023
+chuanshan-rail-water,zj-ningbo-chuanshan-port,rail|water,container|bulk,,,A,False,handling time distribution|tariff|cargo-specific capacity,NINGBO_CHUANSHAN_RAIL
+luchaogang-rail-road,sh-luchaogang-rail,rail|road,container,,,A,False,handling time distribution|tariff,SH_SEA_RAIL_2019

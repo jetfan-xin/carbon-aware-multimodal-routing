@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-09-27",
+  "interpretation": "Public-web evidence can narrow assumptions but cannot be merged into a fictional completed-order dataset. Status values distinguish partially filled fields from unresolved enterprise-internal data.",
+  "gaps": [
+    {
+      "id": "rail-current-service",
+      "status": "partially_filled",
+      "public_evidence": {
+        "historical_corridor": "Yangpu-Tuanjiecun ran weekly at launch in 2011, 40-48 containers per train and 55-60 hours.",
+        "endpoint_snapshot": "In 2021 Shanghai listed Chongqing among 27 connected cities and stated that the Shanghai endpoint was Luchaogang centre station.",
+        "frequency_boundary": "Chongqing was not among the six lines explicitly named as fixed-cycle daily services in that 2021 response.",
+        "current_network_context": "Shanghai reported more than one million sea-rail TEU and service to over 40 cities in 2025, but did not publish a Chongqing-specific timetable."
+      },
+      "source_ids": ["SH_CQ_RAIL_2011", "SH_CQ_SEARAIL_2021", "SH_SEARAIL_OPERATION_2025"],
+      "remaining_unknowns": ["current_chongqing_origin_station", "current_train_number", "current_departures_per_week", "route_specific_cancellation_rate", "route_specific_actual_transit_distribution"],
+      "model_treatment": "Use the historical 55-60-hour band only as a labelled corridor sensitivity; do not claim a current scheduled direct train."
+    },
+    {
+      "id": "rail-quote-scope",
+      "status": "unresolved",
+      "public_evidence": {
+        "quoted_value_cny_per_20ft": 4600,
+        "published_scope": "Comparative Chongqing-Shanghai value quoted by a Minsheng Shipping operations manager; no fee decomposition."
+      },
+      "source_ids": ["NDRC_COST_2021"],
+      "remaining_unknowns": ["includes_shanghai_port_drayage", "includes_origin_drayage", "includes_terminal_handling", "includes_tax_or_insurance", "validity_period_and_contract_conditions"],
+      "model_treatment": "Apply to the rail leg and add drayage explicitly, while warning that this may double-count if the historical quote was all-in."
+    },
+    {
+      "id": "luchaogang-yangshan-drayage",
+      "status": "partially_filled",
+      "public_evidence": {
+        "distance_km": 45,
+        "single_spot_cny_per_loaded_20ft": 200,
+        "spot_weight_tonnes": "17-21",
+        "operator_support_cny_per_loaded_teu": 180,
+        "operator_support_cny_per_empty_teu": 130,
+        "rail_to_port_transfer_within_one_hour_rate": ">60%"
+      },
+      "source_ids": ["CAOP_LUCHAOGANG_2019", "SH_YIGUIDA_SPOT_2026_09", "SH_INTERMODAL_SUPPORT_2025", "SH_FREIGHT_HUB_PERFORMANCE_2024"],
+      "remaining_unknowns": ["signed_contract_tariff", "completed_order_price", "gate_queue_distribution", "release_time_distribution", "exceptions_and_surcharges"],
+      "model_treatment": "Use CNY 200 and one hour as transparent sensitivity inputs; keep scheduled waiting as 1/4/8-hour assumptions and never net policy support from customer price."
+    },
+    {
+      "id": "water-booking-reliability-quote",
+      "status": "partially_filled",
+      "public_evidence": {
+        "haohang_departures_per_week_each_direction": 2,
+        "haohang_run_days": 10,
+        "haohang_weekly_teu": "700-800",
+        "haohang_weekly_tonnes": "9600-11000",
+        "implied_tonnes_per_teu": "13.714-13.750",
+        "non_inspected_export_port_process_hours": 20,
+        "booking_lead_time_rule": "Decided by shipper or agent",
+        "official_reliability_statement": "Punctuality improved by 50 percent; no baseline or absolute rate published",
+        "official_market_index_cny_per_20ft_fio": 1130
+      },
+      "source_ids": ["CQ_HAOHANG_CURRENT", "CQ_PORT_PROCESS_2022", "CQ_WATER_RELIABILITY_2023", "CQ_WATER_OPERATION_2025", "MOT_INDEX_2025_08"],
+      "remaining_unknowns": ["booking_wait_distribution", "absolute_on_time_rate", "cancellation_rate", "haohang_own_quote", "exact_current_terminals", "fee_inclusions"],
+      "model_treatment": "Use ten days and the official market index as separately sourced values; do not describe CNY 1130 as Haohang's quote or add an invented booking wait."
+    },
+    {
+      "id": "real-orders",
+      "status": "partially_filled",
+      "public_evidence": {
+        "profile": "2025-2026 Chongqing Polycomp container-drayage procurement",
+        "container_types": ["20GP", "40GP"],
+        "loaded_weight_tonnes_per_container": "19-27",
+        "origin_examples": ["Dadukou factory", "Changshou factory", "Luohuang warehouse", "Yufu/Guoyuan warehouse"],
+        "gateway_destinations": ["Guoyuan Port", "Tuanjiecun station"],
+        "cargo_context": "Composite-material manufacturer procurement"
+      },
+      "source_ids": ["CQ_COMPOSITE_TENDER_2025"],
+      "remaining_unknowns": ["completed_chongqing_shanghai_order_od", "per_order_weight", "customer_deadline", "cargo_code", "booking_and_dispatch_timestamps", "realized_route_and_price"],
+      "model_treatment": "Retain 19/23/27 tonnes as an optional public shipper-profile sensitivity; do not call it completed Chongqing-Shanghai order data."
+    },
+    {
+      "id": "emissions-equipment-load",
+      "status": "partially_filled",
+      "public_evidence": {
+        "official_mode_defaults_kgco2e_per_tkm": {"road": 0.076, "rail": 0.003, "water": 0.02},
+        "china_road_default_assumptions": {"load_factor": 0.93, "empty_running_rate": 0.195},
+        "diesel_tractor_wtw_gco2e_per_tkm": {"18-27t_gvw": 107.25, "27-35t_gvw": 96.75, "35-40t_gvw": 80.86, "40-43t_gvw": 78.18, "43-46t_gvw": 75.05, "46-49t_gvw": 74.43},
+        "haohang_fleet_context": "Ten vessels, 345-434 TEU and 5300-7900 DWT",
+        "water_accounting_standard": "GB/T 32151.30-2024"
+      },
+      "source_ids": ["MEE_FACTORS_2025", "SFC_CHINA_ROAD_GHG_2024", "CQ_HAOHANG_CURRENT", "GB_WATER_GHG_2024"],
+      "remaining_unknowns": ["specific_truck_and_fuel", "train_consist_and_traction_energy", "vessel_engine_and_voyage_fuel", "actual_load_factor", "empty_running", "measured_route_emissions"],
+      "model_treatment": "Keep official aggregate mode factors as the comparable baseline; equipment-level road values are sensitivity context only, and no measured train or vessel emissions are claimed."
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+route_id,route_nodes,modes,arrival_hours,travel_hours,handling_hours,scheduled_wait_hours,transfer_hours,transport_cost_cny,transfer_cost_cny,transport_plus_transfer_cost_cny,emissions_kg,edge_ids
+rail-road-via-luchaogang,cq-guoyuan-port>sh-luchaogang-rail>sh-yangshan-port,rail+road,64.75,59.0,1.0,4.0,0.75,4800.0,30.0,4830.0,131.20499999999998,cq-guoyuan-luchaogang-rail-calibrated>luchaogang-yangshan-road-drayage-calibrated
+road-direct,cq-guoyuan-port>sh-yangshan-port,road,96.0,96.0,0.0,0.0,0.0,15000.0,0.0,15000.0,1932.3,cq-guoyuan-yangshan-road-calibrated
+water-express-bundled,cq-guoyuan-port>sh-yangshan-port,water,204.0,204.0,0.0,0.0,0.0,1400.0,0.0,1400.0,719.7,cq-guoyuan-yangshan-water-express-calibrated
+water-regular-bundled,cq-guoyuan-port>sh-yangshan-port,water,240.0,240.0,0.0,0.0,0.0,1130.0,0.0,1130.0,719.7,cq-guoyuan-yangshan-water-regular-calibrated

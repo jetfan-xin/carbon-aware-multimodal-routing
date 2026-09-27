@@ -1,0 +1,13 @@
+{
+  "facilities": 20,
+  "exact_facilities": 15,
+  "core_facilities": 8,
+  "historical_operational_facilities": 13,
+  "current_operational_facilities": 13,
+  "service_evidence_records": 12,
+  "optimizer_eligible_services": 0,
+  "transfer_evidence_records": 5,
+  "optimizer_eligible_transfers": 0,
+  "calibrated_model_edges": 7,
+  "runnable_model_cases": 3
+}

@@ -1,0 +1,284 @@
+{
+  "experiment_id": "operator-calibrated-corridor-sensitivity-v2",
+  "data_classification": "operator_reported_and_official_market_values_plus_labelled_model_assumptions",
+  "source_file": "data/real_world_benchmarks.json",
+  "grid": {
+    "rows": 1188,
+    "deadlines": [
+      48,
+      55,
+      60,
+      72,
+      96,
+      120,
+      192,
+      204,
+      216,
+      240,
+      276,
+      360
+    ],
+    "carbon_prices": [
+      0,
+      50,
+      62.36,
+      74.63,
+      97.49,
+      106,
+      150,
+      300,
+      1000,
+      5000,
+      6000
+    ],
+    "payloads": [
+      10,
+      15,
+      20
+    ],
+    "time_cases": [
+      "p10",
+      "p50",
+      "p90"
+    ]
+  },
+  "portfolio": {
+    "rows": 60,
+    "carbon_application": "aggregate once per portfolio"
+  },
+  "algorithm_experiment": {
+    "selected_scenarios": [
+      {
+        "scenario_id": "d60-c0",
+        "deadline_hours": 60,
+        "carbon_price_cny_per_tonne": 0,
+        "selection_reason": "deadline boundary and/or carbon-price route-switch stress",
+        "dijkstra_status": "feasible-heuristic",
+        "dijkstra_objective_cny": 3975.1644547028277,
+        "dijkstra_expanded_states": 213
+      },
+      {
+        "scenario_id": "d60-c5000",
+        "deadline_hours": 60,
+        "carbon_price_cny_per_tonne": 5000,
+        "selection_reason": "deadline boundary and/or carbon-price route-switch stress",
+        "dijkstra_status": "feasible-heuristic",
+        "dijkstra_objective_cny": 4312.124454702827,
+        "dijkstra_expanded_states": 102
+      },
+      {
+        "scenario_id": "d60-c6000",
+        "deadline_hours": 60,
+        "carbon_price_cny_per_tonne": 6000,
+        "selection_reason": "deadline boundary and/or carbon-price route-switch stress",
+        "dijkstra_status": "feasible-heuristic",
+        "dijkstra_objective_cny": 4379.516454702828,
+        "dijkstra_expanded_states": 85
+      },
+      {
+        "scenario_id": "d96-c97_49",
+        "deadline_hours": 96,
+        "carbon_price_cny_per_tonne": 97.49,
+        "selection_reason": "deadline boundary and/or carbon-price route-switch stress",
+        "dijkstra_status": "feasible-heuristic",
+        "dijkstra_objective_cny": 3082.571477586001,
+        "dijkstra_expanded_states": 381
+      },
+      {
+        "scenario_id": "d192-c97_49",
+        "deadline_hours": 192,
+        "carbon_price_cny_per_tonne": 97.49,
+        "selection_reason": "deadline boundary and/or carbon-price route-switch stress",
+        "dijkstra_status": "feasible-heuristic",
+        "dijkstra_objective_cny": 872.0671532651146,
+        "dijkstra_expanded_states": 65
+      },
+      {
+        "scenario_id": "d204-c0",
+        "deadline_hours": 204,
+        "carbon_price_cny_per_tonne": 0,
+        "selection_reason": "deadline boundary and/or carbon-price route-switch stress",
+        "dijkstra_status": "feasible-heuristic",
+        "dijkstra_objective_cny": 821.0846602751146,
+        "dijkstra_expanded_states": 59
+      },
+      {
+        "scenario_id": "d204-c97_49",
+        "deadline_hours": 204,
+        "carbon_price_cny_per_tonne": 97.49,
+        "selection_reason": "deadline boundary and/or carbon-price route-switch stress",
+        "dijkstra_status": "feasible-heuristic",
+        "dijkstra_objective_cny": 872.0671532651146,
+        "dijkstra_expanded_states": 65
+      },
+      {
+        "scenario_id": "d204-c5000",
+        "deadline_hours": 204,
+        "carbon_price_cny_per_tonne": 5000,
+        "selection_reason": "deadline boundary and/or carbon-price route-switch stress",
+        "dijkstra_status": "feasible-heuristic",
+        "dijkstra_objective_cny": 3435.8396602751145,
+        "dijkstra_expanded_states": 176
+      },
+      {
+        "scenario_id": "d204-c6000",
+        "deadline_hours": 204,
+        "carbon_price_cny_per_tonne": 6000,
+        "selection_reason": "deadline boundary and/or carbon-price route-switch stress",
+        "dijkstra_status": "feasible-heuristic",
+        "dijkstra_objective_cny": 3958.7906602751145,
+        "dijkstra_expanded_states": 135
+      },
+      {
+        "scenario_id": "d240-c0",
+        "deadline_hours": 240,
+        "carbon_price_cny_per_tonne": 0,
+        "selection_reason": "deadline boundary and/or carbon-price route-switch stress",
+        "dijkstra_status": "feasible-heuristic",
+        "dijkstra_objective_cny": 821.0846602751146,
+        "dijkstra_expanded_states": 59
+      },
+      {
+        "scenario_id": "d240-c97_49",
+        "deadline_hours": 240,
+        "carbon_price_cny_per_tonne": 97.49,
+        "selection_reason": "deadline boundary and/or carbon-price route-switch stress",
+        "dijkstra_status": "feasible-heuristic",
+        "dijkstra_objective_cny": 872.0671532651146,
+        "dijkstra_expanded_states": 65
+      },
+      {
+        "scenario_id": "d240-c5000",
+        "deadline_hours": 240,
+        "carbon_price_cny_per_tonne": 5000,
+        "selection_reason": "deadline boundary and/or carbon-price route-switch stress",
+        "dijkstra_status": "feasible-heuristic",
+        "dijkstra_objective_cny": 3435.8396602751145,
+        "dijkstra_expanded_states": 176
+      },
+      {
+        "scenario_id": "d240-c6000",
+        "deadline_hours": 240,
+        "carbon_price_cny_per_tonne": 6000,
+        "selection_reason": "deadline boundary and/or carbon-price route-switch stress",
+        "dijkstra_status": "feasible-heuristic",
+        "dijkstra_objective_cny": 3958.7906602751145,
+        "dijkstra_expanded_states": 135
+      },
+      {
+        "scenario_id": "d276-c97_49",
+        "deadline_hours": 276,
+        "carbon_price_cny_per_tonne": 97.49,
+        "selection_reason": "deadline boundary and/or carbon-price route-switch stress",
+        "dijkstra_status": "feasible-heuristic",
+        "dijkstra_objective_cny": 872.0671532651146,
+        "dijkstra_expanded_states": 65
+      },
+      {
+        "scenario_id": "d360-c6000",
+        "deadline_hours": 360,
+        "carbon_price_cny_per_tonne": 6000,
+        "selection_reason": "deadline boundary and/or carbon-price route-switch stress",
+        "dijkstra_status": "feasible-heuristic",
+        "dijkstra_objective_cny": 3958.7906602751145,
+        "dijkstra_expanded_states": 135
+      }
+    ],
+    "scenario_count": 15,
+    "seeds": 30,
+    "population": 16,
+    "generations": 25,
+    "candidate_budget_per_run": 400,
+    "variants": [
+      "fixed",
+      "adaptive",
+      "catastrophe",
+      "combined",
+      "hybrid-seeded"
+    ],
+    "summary": [
+      {
+        "variant": "fixed",
+        "runs": 450,
+        "feasible_runs": 411,
+        "feasible_rate": 0.9133333333333333,
+        "gap_mean_percent": 62.3003950144042,
+        "gap_median_percent": 27.58802813006067,
+        "gap_q1_percent": 17.21848124186316,
+        "gap_q3_percent": 69.48292947700222,
+        "gap_stdev_percent": 77.43961228768616,
+        "candidate_evaluations": 400,
+        "preprocessing_expanded_states_mean": 0.0,
+        "wall_seconds_total": 22.349034921324346,
+        "restarts_total": 0
+      },
+      {
+        "variant": "adaptive",
+        "runs": 450,
+        "feasible_runs": 423,
+        "feasible_rate": 0.94,
+        "gap_mean_percent": 48.08496155972527,
+        "gap_median_percent": 23.944169856986242,
+        "gap_q1_percent": 12.435390696260251,
+        "gap_q3_percent": 45.2150276049821,
+        "gap_stdev_percent": 62.21713963428733,
+        "candidate_evaluations": 400,
+        "preprocessing_expanded_states_mean": 0.0,
+        "wall_seconds_total": 23.61431774671655,
+        "restarts_total": 0
+      },
+      {
+        "variant": "catastrophe",
+        "runs": 450,
+        "feasible_runs": 432,
+        "feasible_rate": 0.96,
+        "gap_mean_percent": 29.309444752071503,
+        "gap_median_percent": 15.818881692548636,
+        "gap_q1_percent": 11.355174767808073,
+        "gap_q3_percent": 27.32934619723475,
+        "gap_stdev_percent": 35.657998137498105,
+        "candidate_evaluations": 400,
+        "preprocessing_expanded_states_mean": 0.0,
+        "wall_seconds_total": 24.761018658988178,
+        "restarts_total": 881
+      },
+      {
+        "variant": "combined",
+        "runs": 450,
+        "feasible_runs": 444,
+        "feasible_rate": 0.9866666666666667,
+        "gap_mean_percent": 27.191411659021142,
+        "gap_median_percent": 14.326336486950986,
+        "gap_q1_percent": 9.383694592638143,
+        "gap_q3_percent": 26.473812563437715,
+        "gap_stdev_percent": 34.96777460970819,
+        "candidate_evaluations": 400,
+        "preprocessing_expanded_states_mean": 0.0,
+        "wall_seconds_total": 25.346072424203157,
+        "restarts_total": 808
+      },
+      {
+        "variant": "hybrid-seeded",
+        "runs": 450,
+        "feasible_runs": 450,
+        "feasible_rate": 1.0,
+        "gap_mean_percent": 0.0,
+        "gap_median_percent": 0.0,
+        "gap_q1_percent": 0.0,
+        "gap_q3_percent": 0.0,
+        "gap_stdev_percent": 0.0,
+        "candidate_evaluations": 400,
+        "preprocessing_expanded_states_mean": 127.73333333333333,
+        "wall_seconds_total": 30.816947948071174,
+        "restarts_total": 900
+      }
+    ]
+  },
+  "warnings": [
+    "Lane values have different or incompletely specified scope; they are not silently normalized.",
+    "Road time, payloads, endpoint mappings and 23-city edge allocation remain labelled assumptions.",
+    "Rail time is historical same-corridor evidence, not proof of a current train; water sailing time excludes unknown booking wait.",
+    "National ETS prices are shadow-price references; freight is not claimed to be directly covered.",
+    "GA outcomes are heuristic; scenario best means best observed in this experiment, not proven global optimum."
+  ]
+}

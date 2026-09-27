@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "interpretation": "A record documents service evidence. optimizer_eligible=false means the public evidence lacks at least one resolved endpoint or numeric field required for cost/emissions routing.",
+  "services": [
+    {
+      "id": "gy-waigaoqiao-fast-water-2019", "from_facility_id": "cq-guoyuan-port", "to_facility_id": "sh-waigaoqiao-port",
+      "mode": "water", "cargo_types": ["container"], "valid_from": "2019-05-29", "valid_to": null,
+      "service_hours": 192, "distance_km": null, "quoted_cost_cny": null, "frequency": "approximately daily during the reported first two months",
+      "via_facility_ids": [], "evidence_grade": "A", "source_ids": ["CQ_SH_FAST_2019"], "optimizer_eligible": false,
+      "missing_for_optimizer": ["facility-level navigable distance", "comparable tariff"],
+      "notes": "Published maximum voyage time, not a statistical travel-time distribution."
+    },
+    {
+      "id": "gy-yangshan-via-lower-yangtze-2019", "from_facility_id": "cq-guoyuan-port", "to_facility_id": "sh-yangshan-port",
+      "mode": "water", "cargo_types": ["container"], "valid_from": "2019-05-29", "valid_to": null,
+      "service_hours": 240, "distance_km": null, "quoted_cost_cny": 1400, "frequency": "approximately daily in the 2021 operator report",
+      "via_facility_ids": ["sh-waigaoqiao-port", "js-taicang-shanggang-zhenghe"], "via_logic": "one of the two reported transfer ports, not both",
+      "evidence_grade": "A", "source_ids": ["CQ_SH_FAST_2019", "CQ_SH_EXPRESS_2020", "NDRC_COST_2021"], "optimizer_eligible": false,
+      "missing_for_optimizer": ["selected transfer terminal per sailing", "segment distances", "route-specific current tariff"],
+      "notes": "Retained as a bundled service; its intermediate call must not be converted into a free route-choice node. CNY 1400 is the operator's 2021 Chongqing-Shanghai water comparison, not a current sailing quote."
+    },
+    {
+      "id": "cq-sh-express-corridor-2022", "from_facility_id": null, "to_facility_id": null,
+      "from_area": "Chongqing Port", "to_area": "Shanghai Port", "mode": "water", "cargo_types": ["container"],
+      "valid_from": "2020-01-15", "valid_to": null, "service_hours_range": [192, 216], "service_hours": null,
+      "distance_km": null, "quoted_cost_cny": null, "frequency": null, "via_facility_ids": [],
+      "evidence_grade": "A", "source_ids": ["CQ_SH_EXPRESS_2022"], "optimizer_eligible": false,
+      "missing_for_optimizer": ["resolved terminals", "single service-time statistic", "distance", "tariff"],
+      "notes": "The official description explicitly says intermediate ports are not called, so Wuhan/Jiujiang/Anqing are not implicit transfers."
+    },
+    {
+      "id": "yangpu-tuanjiecun-five-fixed-rail-2011", "from_facility_id": "sh-yangpu-rail", "to_facility_id": "cq-tuanjiecun-rail",
+      "mode": "rail", "cargo_types": ["container"], "valid_from": "2011-06-30", "valid_to": null,
+      "service_hours_range": [55, 60], "service_hours": 57.5, "distance_km": null, "quoted_cost_cny": null,
+      "frequency": "one train per week at trial launch; 40-48 containers per train", "via_facility_ids": [],
+      "evidence_grade": "A", "source_ids": ["SH_CQ_RAIL_2011"], "optimizer_eligible": false,
+      "missing_for_optimizer": ["current operating status", "distance", "tariff", "first/last-mile links"],
+      "notes": "This is real corridor-specific historical operation. It does not prove a Guoyuan-Luchaogang service or the same 2026 timetable."
+    },
+    {
+      "id": "chongqing-luchaogang-searail-2021", "from_facility_id": null, "to_facility_id": "sh-luchaogang-rail",
+      "from_area": "Chongqing; origin station not published", "mode": "rail", "cargo_types": ["container"],
+      "valid_from": "2021-10-26", "valid_to": null, "service_hours": null, "distance_km": null, "quoted_cost_cny": null,
+      "frequency": "connected service reported; Chongqing was not among the six named fixed-cycle daily lines", "via_facility_ids": [],
+      "evidence_grade": "A", "source_ids": ["SH_CQ_SEARAIL_2021"], "optimizer_eligible": false,
+      "missing_for_optimizer": ["resolved Chongqing station", "current operating status", "current frequency", "cancellation rate", "distance", "time", "full-scope tariff"],
+      "notes": "This record resolves the 2021 Shanghai endpoint to Luchaogang but does not establish a current daily Chongqing train."
+    },
+    {
+      "id": "haohang-chongqing-shanghai-water-current", "from_facility_id": null, "to_facility_id": null,
+      "from_area": "Chongqing ports", "to_area": "Shanghai and intermediate Yangtze ports", "mode": "water", "cargo_types": ["container"],
+      "valid_from": null, "valid_to": null, "service_hours": 240, "distance_km": 2700, "quoted_cost_cny": null,
+      "frequency": "two sailings per week in each direction; reported weekly 700-800 TEU and 9600-11000 tonnes", "via_facility_ids": [],
+      "evidence_grade": "B", "source_ids": ["CQ_HAOHANG_CURRENT"], "optimizer_eligible": false,
+      "missing_for_optimizer": ["resolved terminals", "comparable tariff", "route-specific navigable distance"],
+      "notes": "Current operator disclosure. The 2700 km figure is the operator's approximate corridor length and is not substituted for the team's 2399 km model distance."
+    },
+    {
+      "id": "wuhu-waigaoqiao-direct-2020", "from_facility_id": null, "to_facility_id": "sh-waigaoqiao-port",
+      "from_area": "Wuhu Port; port area unresolved in the service source", "mode": "water", "cargo_types": ["container"],
+      "valid_from": "2020-01-01", "valid_to": null, "service_hours": 60, "distance_km": null,
+      "quoted_cost_cny": null, "frequency": "five-fixed liner; exact weekly count not reported in this source",
+      "via_facility_ids": [], "evidence_grade": "A", "source_ids": ["WUH_SH_DIRECT_2021", "WUH_13FIVE_RESULTS"],
+      "optimizer_eligible": false, "missing_for_optimizer": ["resolved Wuhu terminal", "distance", "tariff"],
+      "notes": "The 60-hour statement is a voyage commitment; the same source separately states port stay below eight hours."
+    },
+    {
+      "id": "longtan-yangshan-daily-rail", "from_facility_id": "js-nanjing-longtan-port", "to_facility_id": "sh-yangshan-port",
+      "mode": "rail", "cargo_types": ["container"], "valid_from": "2023-01-01", "valid_to": null,
+      "service_hours": null, "distance_km": null, "quoted_cost_cny": null, "frequency": "daily",
+      "via_facility_ids": ["sh-luchaogang-rail"], "evidence_grade": "A", "source_ids": ["NJ_SH_DAILY_2023", "NJ_SH_NETWORK_2025"],
+      "optimizer_eligible": false, "missing_for_optimizer": ["rail arrival terminal interpretation", "short-haul time", "distance", "tariff"],
+      "notes": "The public description calls the destination Yangshan although Yangshan itself has no direct railway; model promotion must represent the terminal short-haul explicitly."
+    },
+    {
+      "id": "qiba-longtan-waigaoqiao-fast-water-2025", "from_facility_id": "js-nanjing-qiba-port", "to_facility_id": "sh-waigaoqiao-port",
+      "mode": "water", "cargo_types": ["container"], "valid_from": "2025-04-01", "valid_to": null,
+      "service_hours": 25, "distance_km": null, "quoted_cost_cny": null, "frequency": null,
+      "via_facility_ids": ["js-nanjing-longtan-port"], "evidence_grade": "A", "source_ids": ["NJ_QIBA_WAIGAOQIAO_2025"],
+      "optimizer_eligible": false, "missing_for_optimizer": ["distance", "tariff", "frequency"],
+      "notes": "Current-reference service; excluded from historical_2022."
+    },
+    {
+      "id": "luchaogang-yangshan-drayage", "from_facility_id": "sh-luchaogang-rail", "to_facility_id": "sh-yangshan-port",
+      "mode": "road", "cargo_types": ["container"], "valid_from": "2019-07-12", "valid_to": null,
+      "service_hours": null, "distance_km": 45, "quoted_cost_cny": null, "frequency": "scheduled around production plans",
+      "via_facility_ids": [], "evidence_grade": "A", "source_ids": ["SH_SEA_RAIL_2019", "CAOP_LUCHAOGANG_2019", "SH_INTERMODAL_SUPPORT_2025"], "optimizer_eligible": false,
+      "missing_for_optimizer": ["short-haul time distribution", "contract tariff"],
+      "notes": "Institutional evidence confirms the road leg and an approximately 45 km distance. The CNY 180 loaded-TEU support is paid to eligible signed operators and is not substituted for the customer tariff."
+    },
+    {
+      "id": "luchaogang-area-yangshan-spot-20ft-2026", "from_facility_id": null, "to_facility_id": "sh-yangshan-port",
+      "from_area": "Yitian Road, Luchaogang area", "mode": "road", "cargo_types": ["container"],
+      "valid_from": "2026-09-10", "valid_to": "2026-09-10", "service_hours": null, "distance_km": 45,
+      "quoted_cost_cny": 200, "quoted_cost_scope": "one loaded single 20-foot box at 17-21 tonnes",
+      "frequency": "one spot-market posting", "via_facility_ids": [], "evidence_grade": "C",
+      "source_ids": ["SH_YIGUIDA_SPOT_2026_09", "CAOP_LUCHAOGANG_2019"], "optimizer_eligible": false,
+      "missing_for_optimizer": ["exact rail-terminal pickup point", "completed-trip confirmation", "time distribution", "contract tariff"],
+      "notes": "Sanitized public spot observation. It calibrates a sensitivity value but must not be described as an operator contract, invoice or average market price."
+    },
+    {
+      "id": "sichuan-nantong-zhejiang-2026", "from_facility_id": null, "to_facility_id": null,
+      "from_area": "Sichuan origin via Yangtze water", "to_area": "Zhejiang destination", "mode": "rail",
+      "cargo_types": ["container"], "valid_from": "2026-05-19", "valid_to": null, "service_hours": null,
+      "distance_km": null, "quoted_cost_cny": null, "frequency": "first reported movement", "via_facility_ids": ["js-nantong-tonghai-terminal"],
+      "evidence_grade": "A", "source_ids": ["NANTONG_TONGHAI_2026"], "optimizer_eligible": false,
+      "missing_for_optimizer": ["resolved origin", "resolved destination", "time", "distance", "tariff", "recurrence"],
+      "notes": "Proof of a facility capability and one movement, not proof of a stable scheduled lane."
+    }
+  ]
+}

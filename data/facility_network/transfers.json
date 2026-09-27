@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "transfers": [
+    {
+      "id": "guoyuan-rail-water", "facility_id": "cq-guoyuan-port", "modes": ["rail", "water"],
+      "cargo_types": ["container", "automobile", "general_cargo"], "handling_hours": null, "handling_cost_cny": null,
+      "evidence_grade": "A", "source_ids": ["CQ_GUOYUAN_2021"], "optimizer_eligible": false,
+      "missing_for_optimizer": ["handling time distribution", "tariff", "capacity by cargo"]
+    },
+    {
+      "id": "longtan-rail-water", "facility_id": "js-nanjing-longtan-port", "modes": ["rail", "water"],
+      "cargo_types": ["container"], "handling_hours": null, "handling_cost_cny": null,
+      "evidence_grade": "A", "source_ids": ["NJ_LONGTAN_RAIL_2020", "NJ_SH_NETWORK_2025"], "optimizer_eligible": false,
+      "missing_for_optimizer": ["handling time distribution", "tariff", "capacity"]
+    },
+    {
+      "id": "zhujiaqiao-rail-water", "facility_id": "ah-wuhu-zhujiaqiao-port", "modes": ["rail", "water"],
+      "cargo_types": ["container", "automobile", "general_cargo"], "handling_hours": null, "handling_cost_cny": null,
+      "evidence_grade": "A", "source_ids": ["WUH_PORT_PLAN_2023"], "optimizer_eligible": false,
+      "missing_for_optimizer": ["snapshot-specific handling capability", "handling time distribution", "tariff"]
+    },
+    {
+      "id": "chuanshan-rail-water", "facility_id": "zj-ningbo-chuanshan-port", "modes": ["rail", "water"],
+      "cargo_types": ["container", "bulk"], "handling_hours": null, "handling_cost_cny": null,
+      "evidence_grade": "A", "source_ids": ["NINGBO_CHUANSHAN_RAIL"], "optimizer_eligible": false,
+      "missing_for_optimizer": ["handling time distribution", "tariff", "cargo-specific capacity"]
+    },
+    {
+      "id": "luchaogang-rail-road", "facility_id": "sh-luchaogang-rail", "modes": ["rail", "road"],
+      "cargo_types": ["container"], "handling_hours": null, "handling_cost_cny": null,
+      "evidence_grade": "A", "source_ids": ["SH_SEA_RAIL_2019"], "optimizer_eligible": false,
+      "missing_for_optimizer": ["handling time distribution", "tariff"]
+    }
+  ]
+}

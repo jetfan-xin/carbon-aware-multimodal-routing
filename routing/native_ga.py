@@ -71,8 +71,19 @@ def _adaptive_rates(population, dimension):
     return 0.60 + 0.35 * convergence, min(0.50, (1 + 4 * convergence) / max(1, dimension))
 
 
+def encode_route_seed(network, edge_indices):
+    """Encode a continuous route for the priority decoder without NumPy."""
+    chromosome = [0] * len(network.edges)
+    for offset, edge_index in enumerate(edge_indices):
+        chromosome[edge_index] = len(network.edges) - 1 - offset
+    if tuple(network.decode(chromosome)) != tuple(edge_indices):
+        raise ValueError("route cannot be represented by the priority decoder")
+    return tuple(chromosome)
+
+
 def solve_native_ga(network, population=80, generations=100, seed=42,
-                    patience=20, adaptive=True, catastrophe=True):
+                    patience=20, adaptive=True, catastrophe=True,
+                    heuristic_seed=False):
     """Run a reproducible priority GA with a fixed evaluation budget.
 
     Every generation evaluates exactly ``population`` candidates, including a
@@ -99,6 +110,13 @@ def solve_native_ga(network, population=80, generations=100, seed=42,
         return evaluated
 
     chromosomes = [tuple(rng.randrange(dimension) for _ in range(dimension)) for _ in range(population)]
+    preprocessing_expanded_states = 0
+    if heuristic_seed:
+        from .model import solve_state_dijkstra
+        heuristic = solve_state_dijkstra(network)
+        preprocessing_expanded_states = heuristic.get("expanded_states", 0)
+        if heuristic["solution"] is not None:
+            chromosomes[0] = encode_route_seed(network, heuristic["solution"]["edge_indices"])
     current = evaluate_many(chromosomes)
     current.sort(key=lambda x: x.rank)
     best = current[0]
@@ -137,8 +155,10 @@ def solve_native_ga(network, population=80, generations=100, seed=42,
             "restarted": restarted,
         })
 
-    variant = "combined" if adaptive and catastrophe else (
+    variant = "hybrid-seeded" if heuristic_seed and adaptive and catastrophe else (
+        "combined" if adaptive and catastrophe else (
         "adaptive-only" if adaptive else "catastrophe-only" if catastrophe else "baseline"
+        )
     )
     solution = best.result if best.result is not None and best.result["feasible"] else None
     return {
@@ -150,6 +170,8 @@ def solve_native_ga(network, population=80, generations=100, seed=42,
         "restart_patience": patience,
         "adaptive": adaptive,
         "catastrophe": catastrophe,
+        "heuristic_seed": heuristic_seed,
+        "preprocessing_expanded_states": preprocessing_expanded_states,
         "restarts": restarts,
         "candidate_evaluations": population * generations,
         "unique_route_evaluations": len(route_cache),
