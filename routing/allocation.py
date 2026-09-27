@@ -388,12 +388,16 @@ def generate_candidate_pools(base_config, orders, departures=(), *, top_k=5,
                 noncarbon = math.fsum(costs.values())
                 first_carbon = network.brackets[0][1] * scenario["emissions_kg"]
                 edge_ids = [network.edges[index]["id"] for index in route]
+                route_distance_km = math.fsum(
+                    network.edges[index]["distance_km"] for index in route)
                 suffix = "+".join(timing["departure_ids"]) or f"ondemand-{label_index}"
                 candidates.append({
                     "candidate_id": f"{order['order_id']}|{'>'.join(edge_ids)}|{suffix}",
                     "order_id": order["order_id"],
                     "edge_indices": list(route),
                     "edge_ids": edge_ids,
+                    "distance_km": route_distance_km,
+                    "transport_work_tonne_km": route_distance_km * order["tonnes"],
                     "route": base["route"],
                     "modes": base["modes"],
                     "departure_ids": timing["departure_ids"],
@@ -437,7 +441,7 @@ def evaluate_assignment(orders, candidate_pools, departures, chromosome, bracket
     intrinsic_violation = deadline_violation = 0.0
     costs = {"transport_cost_cny": 0.0, "transfer_cost_cny": 0.0,
              "scheduled_wait_cost_cny": 0.0, "lateness_cost_cny": 0.0}
-    emissions = 0.0
+    emissions = transport_work = 0.0
     for order, gene in zip(orders, chromosome):
         pool = candidate_pools.get(order["order_id"], ())
         if isinstance(gene, bool) or not isinstance(gene, int) or not 0 <= gene < len(pool):
@@ -450,6 +454,7 @@ def evaluate_assignment(orders, candidate_pools, departures, chromosome, bracket
         for key in costs:
             costs[key] += candidate["costs"][key]
         emissions += candidate["emissions_kg"]
+        transport_work += candidate.get("transport_work_tonne_km", 0.0)
         for claim in candidate["capacity_claims"]:
             if claim["departure_id"] not in usage:
                 invalid += 1
@@ -496,6 +501,9 @@ def evaluate_assignment(orders, candidate_pools, departures, chromosome, bracket
         "carbon_cost_cny": carbon,
         "total_cost_cny": noncarbon + carbon,
         "emissions_kg": emissions,
+        "transport_work_tonne_km": transport_work,
+        "emissions_kg_per_tonne_km": (
+            emissions / transport_work if transport_work else None),
         "emission_cap_kg": emission_cap_kg,
         "emissions_excess_kg": emissions_excess_kg,
         "emission_violation": emission_violation,

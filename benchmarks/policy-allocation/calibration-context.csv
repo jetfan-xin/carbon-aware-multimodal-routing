@@ -1,0 +1,8 @@
+benchmark,classification,cost_cny_per_tonne,emissions_kg_per_tonne,comparison_limit
+facility-road,corridor_calibrated_single_shipment,1000.0,128.82,One 15-t Chongqing-Yangshan model shipment; mixed quote scopes.
+facility-rail-road,corridor_calibrated_single_shipment,322.0,8.746999999999998,One 15-t Chongqing-Yangshan model shipment; mixed quote scopes.
+facility-water-express,corridor_calibrated_single_shipment,93.33333333333333,47.980000000000004,One 15-t Chongqing-Yangshan model shipment; mixed quote scopes.
+facility-water-regular,corridor_calibrated_single_shipment,75.33333333333333,47.980000000000004,One 15-t Chongqing-Yangshan model shipment; mixed quote scopes.
+synthetic-23city-best-known,synthetic_multi_od_algorithm_stress_test,147.95710386374697,45.30437727493917,Multiple synthetic OD distances; not a Chongqing-Shanghai tariff observation.
+corridor-policy-uncapped,corridor_calibrated_model_portfolio,253.54921938750002,20.73486111111111,Model orders and planning-horizon capacities; not completed shipments.
+corridor-policy-20pct,corridor_calibrated_model_portfolio,272.98534992416666,16.375638888888886,Model orders and planning-horizon capacities; not completed shipments.

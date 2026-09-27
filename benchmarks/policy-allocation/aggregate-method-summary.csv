@@ -1,0 +1,7 @@
+method,runs,feasible_runs,feasible_rate,runs_on_scenarios_with_known_feasible_solution,feasible_runs_on_scenarios_with_known_feasible_solution,conditional_feasible_rate,mean_restarts,median_feasible_cost_cny
+greedy,12,5,0.4166666666666667,9,5,0.5555555555555556,0.0,193492.4449522
+fixed,360,269,0.7472222222222222,270,269,0.9962962962962963,0.0,189552.4449522
+adaptive,360,270,0.75,270,270,1.0,0.0,189552.4449522
+catastrophe,360,270,0.75,270,270,1.0,1.1194444444444445,189552.4449522
+combined,360,270,0.75,270,270,1.0,0.9444444444444444,189552.4449522
+hybrid-seeded,360,270,0.75,270,270,1.0,1.2666666666666666,189552.4449522

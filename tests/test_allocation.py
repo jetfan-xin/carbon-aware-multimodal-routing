@@ -214,6 +214,7 @@ class AllocationSolverTests(unittest.TestCase):
             *self.args, population=8, generations=3, seed=4,
             adaptive=False, catastrophe=False, emission_cap_kg=cap)
         self.assertEqual(result["emission_cap_kg"], cap)
+        self.assertTrue(result["constraint_seeded"])
         self.assertIsNotNone(result["solution"])
         self.assertLessEqual(result["solution"]["emissions_kg"], cap)
 

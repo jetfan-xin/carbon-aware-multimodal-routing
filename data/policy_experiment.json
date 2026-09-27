@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "experiment_id": "cq-shanghai-policy-allocation-v1",
+  "purpose": "Evaluate cost, service and emissions trade-offs for a modelled Chongqing-Guoyuan to Shanghai-Yangshan order portfolio under hard emissions targets.",
+  "evidence_boundary": "Published corridor prices, service times, distances and mode emissions factors are read from the field-level facility model. Every order, release pattern and allocatable capacity below is a deterministic experiment assumption, not an observed booking, manifest, contract or current timetable.",
+  "facility_case_id": "cq-guoyuan-to-yangshan-calibrated",
+  "portfolio_seed": 202209,
+  "demand_profiles": {
+    "low": 24,
+    "central": 48,
+    "high": 72
+  },
+  "lead_time_profiles_hours": {
+    "tight": [72, 96, 120],
+    "balanced": [72, 96, 168, 204, 240, 276],
+    "relaxed": [96, 168, 204, 240, 276, 360]
+  },
+  "release_hours": [0, 0, 24, 48, 72],
+  "payload_tonnes": [10, 15, 20],
+  "capacity_resources": [
+    {
+      "departure_id": "POLICY-RAIL-HORIZON",
+      "edge_id": "cq-guoyuan-luchaogang-rail-calibrated",
+      "capacity_only": true,
+      "capacity_tonnes": 650,
+      "capacity_units": 44,
+      "evidence_class": "scenario_capacity_assumption"
+    },
+    {
+      "departure_id": "POLICY-WATER-EXPRESS-HORIZON",
+      "edge_id": "cq-guoyuan-yangshan-water-express-calibrated",
+      "capacity_only": true,
+      "capacity_tonnes": 360,
+      "capacity_units": 24,
+      "evidence_class": "scenario_capacity_assumption"
+    },
+    {
+      "departure_id": "POLICY-WATER-REGULAR-HORIZON",
+      "edge_id": "cq-guoyuan-yangshan-water-regular-calibrated",
+      "capacity_only": true,
+      "capacity_tonnes": 360,
+      "capacity_units": 24,
+      "evidence_class": "scenario_capacity_assumption"
+    }
+  ],
+  "carbon_shadow_prices_cny_per_tco2e": [0, 97.49, 6000],
+  "emissions_reduction_targets": [0, 0.095, 0.2, 0.3],
+  "policy_anchors": [
+    {
+      "target": 0.095,
+      "label": "China 2030 transport-intensity anchor",
+      "url": "https://www.mee.gov.cn/zcwj/gwywj/202110/t20211026_957879.shtml",
+      "scope_limit": "The policy states an economy-wide operating-transport carbon-intensity change from 2020, not a mandatory shipment-level cap for this corridor."
+    },
+    {
+      "target": 0.2,
+      "label": "IMO 2030 minimum absolute-GHG checkpoint used as a stress target",
+      "url": "https://www.imo.org/en/ourwork/environment/pages/2023-imo-strategy-on-reduction-of-ghg-emissions-from-ships.aspx",
+      "scope_limit": "The IMO checkpoint covers international shipping against 2008; this domestic multimodal experiment uses the percentage only as a transparent stress scenario."
+    },
+    {
+      "target": 0.3,
+      "label": "IMO 2030 striving checkpoint used as an ambitious stress target",
+      "url": "https://www.imo.org/en/ourwork/environment/pages/2023-imo-strategy-on-reduction-of-ghg-emissions-from-ships.aspx",
+      "scope_limit": "The target is not asserted as a legal requirement for Chongqing-Shanghai freight."
+    }
+  ],
+  "carbon_price_scope": {
+    "reference_price": 97.49,
+    "stress_price": 6000,
+    "national_ets_url": "https://www.mee.gov.cn/ywgz/ydqhbh/wsqtkz/202601/t20260101_1139528.shtml",
+    "limit": "The 2025 national ETS record covers power, steel, cement and aluminium entities, not domestic freight as a directly covered compliance sector. The prices are model shadow prices."
+  },
+  "algorithm_screening": {
+    "variant": "hybrid-seeded",
+    "seeds": [70, 71, 72],
+    "population": 40,
+    "generations": 60
+  },
+  "algorithm_comparison": {
+    "seeds": 30,
+    "population": 40,
+    "generations": 60,
+    "patience": 20,
+    "selected_scenarios": [
+      ["central", "balanced", 97.49, 0],
+      ["central", "balanced", 97.49, 0.095],
+      ["central", "balanced", 97.49, 0.2],
+      ["central", "balanced", 97.49, 0.3],
+      ["low", "balanced", 97.49, 0.2],
+      ["high", "balanced", 97.49, 0.2],
+      ["central", "tight", 97.49, 0],
+      ["central", "tight", 97.49, 0.2],
+      ["central", "relaxed", 97.49, 0],
+      ["central", "relaxed", 97.49, 0.2],
+      ["central", "balanced", 0, 0.2],
+      ["central", "balanced", 6000, 0.2]
+    ]
+  }
+}

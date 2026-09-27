@@ -129,6 +129,57 @@ def _capacity_feasible_chromosome(orders, candidate_pools, departures, rng):
     return tuple(genes)
 
 
+def _low_emission_feasible_chromosome(orders, candidate_pools, departures, rng):
+    """Construct one capacity-aware low-emission seed for hard-cap runs.
+
+    This is common constraint handling used by every GA variant when an
+    emissions cap is active.  It does not replace the hybrid variant's
+    opportunity-cost archive and is not an optimality claim.
+    """
+    capacities = {row["departure_id"]: row for row in departures}
+    usage = {key: {"tonnes": 0.0, "shipment_units": 0.0} for key in capacities}
+    genes = [None] * len(orders)
+    order_indices = list(range(len(orders)))
+    rng.shuffle(order_indices)
+    order_indices.sort(key=lambda index: (
+        sum(candidate["intrinsic_violation"] == 0 and candidate["lateness_hours"] == 0
+            for candidate in candidate_pools[orders[index]["order_id"]]),
+        orders[index]["deadline_hours"],
+    ))
+    for index in order_indices:
+        pool = candidate_pools[orders[index]["order_id"]]
+        tie_breakers = {gene: rng.random() for gene in range(len(pool))}
+        choices = sorted(range(len(pool)), key=lambda gene: (
+            pool[gene]["intrinsic_violation"], pool[gene]["lateness_hours"],
+            pool[gene]["emissions_kg"], pool[gene]["surrogate_cost_cny"],
+            tie_breakers[gene]))
+        selected = None
+        for gene in choices:
+            candidate = pool[gene]
+            if candidate["intrinsic_violation"] or candidate["lateness_hours"]:
+                continue
+            if all(
+                claim["departure_id"] in capacities
+                and (capacities[claim["departure_id"]].get("capacity_tonnes") is None
+                     or usage[claim["departure_id"]]["tonnes"] + claim["tonnes"]
+                     <= capacities[claim["departure_id"]]["capacity_tonnes"])
+                and (capacities[claim["departure_id"]].get("capacity_units") is None
+                     or usage[claim["departure_id"]]["shipment_units"] + claim["shipment_units"]
+                     <= capacities[claim["departure_id"]]["capacity_units"])
+                for claim in candidate["capacity_claims"]
+            ):
+                selected = gene
+                break
+        if selected is None:
+            selected = choices[0]
+        genes[index] = selected
+        for claim in pool[selected]["capacity_claims"]:
+            if claim["departure_id"] in usage:
+                usage[claim["departure_id"]]["tonnes"] += claim["tonnes"]
+                usage[claim["departure_id"]]["shipment_units"] += claim["shipment_units"]
+    return tuple(genes)
+
+
 def solve_allocation_ga(orders, candidate_pools, departures, brackets, *,
                         population=80, generations=100, seed=42, patience=30,
                         adaptive=True, catastrophe=True, heuristic_seed=False,
@@ -178,6 +229,10 @@ def solve_allocation_ga(orders, candidate_pools, departures, brackets, *,
 
     chromosomes = [_capacity_feasible_chromosome(
         orders, candidate_pools, departures, rng) for _ in range(population)]
+    constraint_seeded = emission_cap_kg is not None
+    if constraint_seeded:
+        chromosomes[0] = _low_emission_feasible_chromosome(
+            orders, candidate_pools, departures, rng)
     greedy_evaluations = 0
     greedy_pair = None
     if heuristic_seed:
@@ -279,6 +334,7 @@ def solve_allocation_ga(orders, candidate_pools, departures, brackets, *,
         "mutation_base": mutation_base,
         "mutation_cap": mutation_cap,
         "emission_cap_kg": emission_cap_kg,
+        "constraint_seeded": constraint_seeded,
         "heuristic_seed_evaluations": greedy_evaluations,
         "candidate_evaluations": population * generations,
         "unique_assignment_evaluations": len(cache),

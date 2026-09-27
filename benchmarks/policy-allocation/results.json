@@ -1,0 +1,581 @@
+{
+  "experiment_id": "cq-shanghai-policy-allocation-v1",
+  "data_classification": "corridor_calibrated_inputs_plus_deterministic_model_orders",
+  "evidence_boundary": "Published corridor prices, service times, distances and mode emissions factors are read from the field-level facility model. Every order, release pattern and allocatable capacity below is a deterministic experiment assumption, not an observed booking, manifest, contract or current timetable.",
+  "design_file": "data/policy_experiment.json",
+  "screening_grid": {
+    "rows": 108,
+    "base_scenarios": 27,
+    "demand_profiles": {
+      "low": 24,
+      "central": 48,
+      "high": 72
+    },
+    "time_profiles": [
+      "tight",
+      "balanced",
+      "relaxed"
+    ],
+    "carbon_prices": [
+      0,
+      97.49,
+      6000
+    ],
+    "emissions_targets": [
+      0,
+      0.095,
+      0.2,
+      0.3
+    ],
+    "controller": {
+      "variant": "hybrid-seeded",
+      "seeds": [
+        70,
+        71,
+        72
+      ],
+      "population": 40,
+      "generations": 60
+    }
+  },
+  "formal_comparison": {
+    "selected_scenarios": 12,
+    "ga_runs": 1800,
+    "greedy_runs": 12,
+    "settings": {
+      "seeds": 30,
+      "population": 40,
+      "generations": 60,
+      "patience": 20,
+      "selected_scenarios": [
+        [
+          "central",
+          "balanced",
+          97.49,
+          0
+        ],
+        [
+          "central",
+          "balanced",
+          97.49,
+          0.095
+        ],
+        [
+          "central",
+          "balanced",
+          97.49,
+          0.2
+        ],
+        [
+          "central",
+          "balanced",
+          97.49,
+          0.3
+        ],
+        [
+          "low",
+          "balanced",
+          97.49,
+          0.2
+        ],
+        [
+          "high",
+          "balanced",
+          97.49,
+          0.2
+        ],
+        [
+          "central",
+          "tight",
+          97.49,
+          0
+        ],
+        [
+          "central",
+          "tight",
+          97.49,
+          0.2
+        ],
+        [
+          "central",
+          "relaxed",
+          97.49,
+          0
+        ],
+        [
+          "central",
+          "relaxed",
+          97.49,
+          0.2
+        ],
+        [
+          "central",
+          "balanced",
+          0,
+          0.2
+        ],
+        [
+          "central",
+          "balanced",
+          6000,
+          0.2
+        ]
+      ]
+    },
+    "aggregate_method_summary": [
+      {
+        "method": "greedy",
+        "runs": 12,
+        "feasible_runs": 5,
+        "feasible_rate": 0.4166666666666667,
+        "runs_on_scenarios_with_known_feasible_solution": 9,
+        "feasible_runs_on_scenarios_with_known_feasible_solution": 5,
+        "conditional_feasible_rate": 0.5555555555555556,
+        "mean_restarts": 0.0,
+        "median_feasible_cost_cny": 193492.4449522
+      },
+      {
+        "method": "fixed",
+        "runs": 360,
+        "feasible_runs": 269,
+        "feasible_rate": 0.7472222222222222,
+        "runs_on_scenarios_with_known_feasible_solution": 270,
+        "feasible_runs_on_scenarios_with_known_feasible_solution": 269,
+        "conditional_feasible_rate": 0.9962962962962963,
+        "mean_restarts": 0.0,
+        "median_feasible_cost_cny": 189552.4449522
+      },
+      {
+        "method": "adaptive",
+        "runs": 360,
+        "feasible_runs": 270,
+        "feasible_rate": 0.75,
+        "runs_on_scenarios_with_known_feasible_solution": 270,
+        "feasible_runs_on_scenarios_with_known_feasible_solution": 270,
+        "conditional_feasible_rate": 1.0,
+        "mean_restarts": 0.0,
+        "median_feasible_cost_cny": 189552.4449522
+      },
+      {
+        "method": "catastrophe",
+        "runs": 360,
+        "feasible_runs": 270,
+        "feasible_rate": 0.75,
+        "runs_on_scenarios_with_known_feasible_solution": 270,
+        "feasible_runs_on_scenarios_with_known_feasible_solution": 270,
+        "conditional_feasible_rate": 1.0,
+        "mean_restarts": 1.1194444444444445,
+        "median_feasible_cost_cny": 189552.4449522
+      },
+      {
+        "method": "combined",
+        "runs": 360,
+        "feasible_runs": 270,
+        "feasible_rate": 0.75,
+        "runs_on_scenarios_with_known_feasible_solution": 270,
+        "feasible_runs_on_scenarios_with_known_feasible_solution": 270,
+        "conditional_feasible_rate": 1.0,
+        "mean_restarts": 0.9444444444444444,
+        "median_feasible_cost_cny": 189552.4449522
+      },
+      {
+        "method": "hybrid-seeded",
+        "runs": 360,
+        "feasible_runs": 270,
+        "feasible_rate": 0.75,
+        "runs_on_scenarios_with_known_feasible_solution": 270,
+        "feasible_runs_on_scenarios_with_known_feasible_solution": 270,
+        "conditional_feasible_rate": 1.0,
+        "mean_restarts": 1.2666666666666666,
+        "median_feasible_cost_cny": 189552.4449522
+      }
+    ],
+    "scenario_outcomes": [
+      {
+        "scenario_id": "central-balanced-c97p49-r0",
+        "demand": "central",
+        "time_profile": "balanced",
+        "carbon_price_cny_per_tco2e": 97.49,
+        "reduction_target": 0,
+        "emission_cap_kg": 14929.099999999997,
+        "baseline_cost_cny": 182555.437959,
+        "baseline_emissions_kg": 14929.099999999997,
+        "outcome": "feasible_solution_found",
+        "feasible_ga_runs": 150,
+        "best_known_cost_cny": 182555.437959,
+        "methods_with_feasible_solution": [
+          "adaptive",
+          "catastrophe",
+          "combined",
+          "fixed",
+          "hybrid-seeded"
+        ]
+      },
+      {
+        "scenario_id": "central-balanced-c97p49-r9p5",
+        "demand": "central",
+        "time_profile": "balanced",
+        "carbon_price_cny_per_tco2e": 97.49,
+        "reduction_target": 0.095,
+        "emission_cap_kg": 13510.835499999997,
+        "baseline_cost_cny": 182555.437959,
+        "baseline_emissions_kg": 14929.099999999997,
+        "outcome": "feasible_solution_found",
+        "feasible_ga_runs": 150,
+        "best_known_cost_cny": 189282.4449522,
+        "methods_with_feasible_solution": [
+          "adaptive",
+          "catastrophe",
+          "combined",
+          "fixed",
+          "hybrid-seeded"
+        ]
+      },
+      {
+        "scenario_id": "central-balanced-c97p49-r20p0",
+        "demand": "central",
+        "time_profile": "balanced",
+        "carbon_price_cny_per_tco2e": 97.49,
+        "reduction_target": 0.2,
+        "emission_cap_kg": 11943.279999999999,
+        "baseline_cost_cny": 182555.437959,
+        "baseline_emissions_kg": 14929.099999999997,
+        "outcome": "feasible_solution_found",
+        "feasible_ga_runs": 150,
+        "best_known_cost_cny": 196549.4519454,
+        "methods_with_feasible_solution": [
+          "adaptive",
+          "catastrophe",
+          "combined",
+          "fixed",
+          "hybrid-seeded"
+        ]
+      },
+      {
+        "scenario_id": "central-balanced-c97p49-r30p0",
+        "demand": "central",
+        "time_profile": "balanced",
+        "carbon_price_cny_per_tco2e": 97.49,
+        "reduction_target": 0.3,
+        "emission_cap_kg": 10450.369999999997,
+        "baseline_cost_cny": 182555.437959,
+        "baseline_emissions_kg": 14929.099999999997,
+        "outcome": "feasible_solution_found",
+        "feasible_ga_runs": 150,
+        "best_known_cost_cny": 203555.58306445,
+        "methods_with_feasible_solution": [
+          "adaptive",
+          "catastrophe",
+          "combined",
+          "fixed",
+          "hybrid-seeded"
+        ]
+      },
+      {
+        "scenario_id": "low-balanced-c97p49-r20p0",
+        "demand": "low",
+        "time_profile": "balanced",
+        "carbon_price_cny_per_tco2e": 97.49,
+        "reduction_target": 0.2,
+        "emission_cap_kg": 7070.164000000001,
+        "baseline_cost_cny": 81141.58786045,
+        "baseline_emissions_kg": 8837.705,
+        "outcome": "feasible_solution_found",
+        "feasible_ga_runs": 150,
+        "best_known_cost_cny": 91250.34660195,
+        "methods_with_feasible_solution": [
+          "adaptive",
+          "catastrophe",
+          "combined",
+          "fixed",
+          "hybrid-seeded"
+        ]
+      },
+      {
+        "scenario_id": "high-balanced-c97p49-r20p0",
+        "demand": "high",
+        "time_profile": "balanced",
+        "carbon_price_cny_per_tco2e": 97.49,
+        "reduction_target": 0.2,
+        "emission_cap_kg": 21505.32000000001,
+        "baseline_cost_cny": 239330.6920585,
+        "baseline_emissions_kg": 26881.650000000012,
+        "outcome": "no_feasible_solution_found_within_tested_methods",
+        "feasible_ga_runs": 0,
+        "best_known_cost_cny": null,
+        "methods_with_feasible_solution": []
+      },
+      {
+        "scenario_id": "central-tight-c97p49-r0",
+        "demand": "central",
+        "time_profile": "tight",
+        "carbon_price_cny_per_tco2e": 97.49,
+        "reduction_target": 0,
+        "emission_cap_kg": 15347.049999999994,
+        "baseline_cost_cny": 284196.1839045,
+        "baseline_emissions_kg": 15347.049999999994,
+        "outcome": "feasible_solution_found",
+        "feasible_ga_runs": 149,
+        "best_known_cost_cny": 273996.1839045,
+        "methods_with_feasible_solution": [
+          "adaptive",
+          "catastrophe",
+          "combined",
+          "fixed",
+          "hybrid-seeded"
+        ]
+      },
+      {
+        "scenario_id": "central-tight-c97p49-r20p0",
+        "demand": "central",
+        "time_profile": "tight",
+        "carbon_price_cny_per_tco2e": 97.49,
+        "reduction_target": 0.2,
+        "emission_cap_kg": 12277.639999999996,
+        "baseline_cost_cny": 284196.1839045,
+        "baseline_emissions_kg": 15347.049999999994,
+        "outcome": "no_feasible_solution_found_within_tested_methods",
+        "feasible_ga_runs": 0,
+        "best_known_cost_cny": null,
+        "methods_with_feasible_solution": []
+      },
+      {
+        "scenario_id": "central-relaxed-c97p49-r0",
+        "demand": "central",
+        "time_profile": "relaxed",
+        "carbon_price_cny_per_tco2e": 97.49,
+        "reduction_target": 0,
+        "emission_cap_kg": 26460.385,
+        "baseline_cost_cny": 114809.62293365,
+        "baseline_emissions_kg": 26460.385,
+        "outcome": "feasible_solution_found",
+        "feasible_ga_runs": 150,
+        "best_known_cost_cny": 114809.62293365,
+        "methods_with_feasible_solution": [
+          "adaptive",
+          "catastrophe",
+          "combined",
+          "fixed",
+          "hybrid-seeded"
+        ]
+      },
+      {
+        "scenario_id": "central-relaxed-c97p49-r20p0",
+        "demand": "central",
+        "time_profile": "relaxed",
+        "carbon_price_cny_per_tco2e": 97.49,
+        "reduction_target": 0.2,
+        "emission_cap_kg": 21168.308,
+        "baseline_cost_cny": 114809.62293365,
+        "baseline_emissions_kg": 26460.385,
+        "outcome": "feasible_solution_found",
+        "feasible_ga_runs": 150,
+        "best_known_cost_cny": 138624.14740985,
+        "methods_with_feasible_solution": [
+          "adaptive",
+          "catastrophe",
+          "combined",
+          "fixed",
+          "hybrid-seeded"
+        ]
+      },
+      {
+        "scenario_id": "central-balanced-c0-r20p0",
+        "demand": "central",
+        "time_profile": "balanced",
+        "carbon_price_cny_per_tco2e": 0,
+        "reduction_target": 0.2,
+        "emission_cap_kg": 11943.279999999999,
+        "baseline_cost_cny": 181100.0,
+        "baseline_emissions_kg": 14929.099999999997,
+        "outcome": "feasible_solution_found",
+        "feasible_ga_runs": 150,
+        "best_known_cost_cny": 195400.0,
+        "methods_with_feasible_solution": [
+          "adaptive",
+          "catastrophe",
+          "combined",
+          "fixed",
+          "hybrid-seeded"
+        ]
+      },
+      {
+        "scenario_id": "central-balanced-c6000-r20p0",
+        "demand": "central",
+        "time_profile": "balanced",
+        "carbon_price_cny_per_tco2e": 6000,
+        "reduction_target": 0.2,
+        "emission_cap_kg": 7706.115999999999,
+        "baseline_cost_cny": 264045.87,
+        "baseline_emissions_kg": 9632.644999999999,
+        "outcome": "no_feasible_solution_found_within_tested_methods",
+        "feasible_ga_runs": 0,
+        "best_known_cost_cny": null,
+        "methods_with_feasible_solution": []
+      }
+    ],
+    "scenarios_with_known_feasible_solution": 9,
+    "scenarios_without_a_found_feasible_solution": 3
+  },
+  "central_balanced_current_price_frontier": [
+    {
+      "scenario_id": "central-balanced-c97p49-r0",
+      "demand": "central",
+      "time_profile": "balanced",
+      "carbon_price_cny_per_tco2e": 97.49,
+      "reduction_target": 0,
+      "baseline_emissions_kg": 14929.099999999997,
+      "emission_cap_kg": 14929.099999999997,
+      "orders": 48,
+      "tonnes": 720.0,
+      "screening_seed": 70,
+      "feasible": true,
+      "total_cost_cny": 182555.437959,
+      "noncarbon_cost_cny": 181100.0,
+      "carbon_cost_cny": 1455.4379589999996,
+      "emissions_kg": 14929.099999999997,
+      "transport_work_tonne_km": 1416780.0,
+      "emissions_kg_per_tonne_km": 0.010537345247674301,
+      "constraint_violation": 0.0,
+      "emission_violation": 0.0,
+      "emissions_excess_kg": 0.0,
+      "cost_premium_percent": 0.0,
+      "operating_cost_premium_percent": 0.0,
+      "achieved_reduction_percent": 0.0,
+      "average_abatement_cost_cny_per_tco2e": null
+    },
+    {
+      "scenario_id": "central-balanced-c97p49-r9p5",
+      "demand": "central",
+      "time_profile": "balanced",
+      "carbon_price_cny_per_tco2e": 97.49,
+      "reduction_target": 0.095,
+      "baseline_emissions_kg": 14929.099999999997,
+      "emission_cap_kg": 13510.835499999997,
+      "orders": 48,
+      "tonnes": 720.0,
+      "screening_seed": 70,
+      "feasible": true,
+      "total_cost_cny": 189282.4449522,
+      "noncarbon_cost_cny": 187980.0,
+      "carbon_cost_cny": 1302.4449522,
+      "emissions_kg": 13359.78,
+      "transport_work_tonne_km": 1391940.0,
+      "emissions_kg_per_tonne_km": 0.009597956808483125,
+      "constraint_violation": 0.0,
+      "emission_violation": 0.0,
+      "emissions_excess_kg": 0.0,
+      "cost_premium_percent": 3.6849118648061285,
+      "operating_cost_premium_percent": 3.7990060739922615,
+      "achieved_reduction_percent": 10.511819198746048,
+      "average_abatement_cost_cny_per_tco2e": 4384.064435551715
+    },
+    {
+      "scenario_id": "central-balanced-c97p49-r20p0",
+      "demand": "central",
+      "time_profile": "balanced",
+      "carbon_price_cny_per_tco2e": 97.49,
+      "reduction_target": 0.2,
+      "baseline_emissions_kg": 14929.099999999997,
+      "emission_cap_kg": 11943.279999999999,
+      "orders": 48,
+      "tonnes": 720.0,
+      "screening_seed": 71,
+      "feasible": true,
+      "total_cost_cny": 199670.32781955,
+      "noncarbon_cost_cny": 198540.0,
+      "carbon_cost_cny": 1130.32781955,
+      "emissions_kg": 11594.295,
+      "transport_work_tonne_km": 1363995.0,
+      "emissions_kg_per_tonne_km": 0.008500247434924614,
+      "constraint_violation": 0.0,
+      "emission_violation": 0.0,
+      "emissions_excess_kg": 0.0,
+      "cost_premium_percent": 9.37517394819749,
+      "operating_cost_premium_percent": 9.630038652678085,
+      "achieved_reduction_percent": 22.33761579733539,
+      "average_abatement_cost_cny_per_tco2e": 5229.69109138316
+    },
+    {
+      "scenario_id": "central-balanced-c97p49-r30p0",
+      "demand": "central",
+      "time_profile": "balanced",
+      "carbon_price_cny_per_tco2e": 97.49,
+      "reduction_target": 0.3,
+      "baseline_emissions_kg": 14929.099999999997,
+      "emission_cap_kg": 10450.369999999997,
+      "orders": 48,
+      "tonnes": 720.0,
+      "screening_seed": 71,
+      "feasible": true,
+      "total_cost_cny": 203825.58306445,
+      "noncarbon_cost_cny": 202810.0,
+      "carbon_cost_cny": 1015.5830644499998,
+      "emissions_kg": 10417.304999999998,
+      "transport_work_tonne_km": 1345365.0,
+      "emissions_kg_per_tonne_km": 0.007743106889208503,
+      "constraint_violation": 0.0,
+      "emission_violation": 0.0,
+      "emissions_excess_kg": 0.0,
+      "cost_premium_percent": 11.651334708652762,
+      "operating_cost_premium_percent": 11.987852015461065,
+      "achieved_reduction_percent": 30.221480196394957,
+      "average_abatement_cost_cny_per_tco2e": 4811.832097867923
+    }
+  ],
+  "representative_mode_tonnes": [
+    {
+      "reduction_target": 0,
+      "mode_tonnes": {
+        "road": 0.0,
+        "rail+road": 500.0,
+        "water": 220.0
+      },
+      "total_cost_cny": 182555.437959,
+      "emissions_kg": 14929.099999999997
+    },
+    {
+      "reduction_target": 0.2,
+      "mode_tonnes": {
+        "road": 0.0,
+        "rail+road": 580.0,
+        "water": 140.0
+      },
+      "total_cost_cny": 196549.4519454,
+      "emissions_kg": 11790.46
+    }
+  ],
+  "policy_anchors": [
+    {
+      "target": 0.095,
+      "label": "China 2030 transport-intensity anchor",
+      "url": "https://www.mee.gov.cn/zcwj/gwywj/202110/t20211026_957879.shtml",
+      "scope_limit": "The policy states an economy-wide operating-transport carbon-intensity change from 2020, not a mandatory shipment-level cap for this corridor."
+    },
+    {
+      "target": 0.2,
+      "label": "IMO 2030 minimum absolute-GHG checkpoint used as a stress target",
+      "url": "https://www.imo.org/en/ourwork/environment/pages/2023-imo-strategy-on-reduction-of-ghg-emissions-from-ships.aspx",
+      "scope_limit": "The IMO checkpoint covers international shipping against 2008; this domestic multimodal experiment uses the percentage only as a transparent stress scenario."
+    },
+    {
+      "target": 0.3,
+      "label": "IMO 2030 striving checkpoint used as an ambitious stress target",
+      "url": "https://www.imo.org/en/ourwork/environment/pages/2023-imo-strategy-on-reduction-of-ghg-emissions-from-ships.aspx",
+      "scope_limit": "The target is not asserted as a legal requirement for Chongqing-Shanghai freight."
+    }
+  ],
+  "interpretation_rules": [
+    "The hard cap is computed from the best feasible uncapped hybrid screening result under the same demand, deadline and carbon-price scenario.",
+    "Because that reference is heuristic, a reduction target is relative to a reproducible best-known baseline, not a proven global cost optimum.",
+    "Operating-cost premium excludes the model carbon charge; total-cost premium includes it. Average abatement cost uses the change in non-carbon operating cost.",
+    "The 23-city stress test and the facility-calibrated corridor portfolio answer different questions and are compared only for scale and directional plausibility."
+  ],
+  "warnings": [
+    "The 2025 national ETS record covers power, steel, cement and aluminium entities, not domestic freight as a directly covered compliance sector. The prices are model shadow prices.",
+    "Policy percentages are transparent scenario anchors, not asserted shipment-level legal obligations.",
+    "Order rows and shared capacities are experiment assumptions; the outputs are not quotes, timetables, completed orders or measured savings.",
+    "All full-portfolio results are heuristic best-known solutions and do not certify global optimality.",
+    "No-solution-found scenarios are search and model-capacity boundaries, not mathematical infeasibility certificates."
+  ]
+}
