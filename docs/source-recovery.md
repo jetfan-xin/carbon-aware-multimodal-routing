@@ -26,7 +26,7 @@ The adjacent Geatpy source identifies version 2.7.0. Its SEGA template and opera
 
 Before `GA_code` was found, a runnable optimizer was built from screenshots and documents at commit `329d84ea50ed9b19169d410f596266c333531f12`; its last pre-recovery baseline was `2f3551f4db70f79ca39471f2226676686c1caad8`. Its tested successor is now maintained under [`routing`](../routing).
 
-That implementation added a backtracking decoder, input validation, expected/worst scenario objectives, hard constraints, a new adaptive formula, elite-preserving restarts, fixed seeds and an exact small-network baseline. The current maintained version also includes equal-budget native-GA ablations, historical rate bands, capacity/edge-state handling, order consolidation, synthetic scale generation and computed SVG maps. These are later engineering additions, not silently backdated historical behavior. The detailed comparison is in [`ORIGINAL_VS_CURRENT_CN.md`](ORIGINAL_VS_CURRENT_CN.md).
+That implementation added a backtracking decoder, input validation, expected/worst scenario objectives, hard constraints, a new adaptive formula, elite-preserving restarts, fixed seeds and an exact small-network baseline. The current maintained version also includes equal-budget native-GA ablations, historical rate bands, capacity/edge-state handling, order consolidation, synthetic scale generation and computed SVG maps. These are later engineering additions, not silently backdated historical behavior. The detailed comparison is in [`original-vs-current.md`](original-vs-current.md).
 
 ## Reproducibility status
 

@@ -1,5 +1,5 @@
 {
-  "audit_date": "2026-09-27",
+  "audit_date": "2026-09-28",
   "historical_year": 2022,
   "notes": "The recovered project-specific GA_code is published as a byte-exact snapshot. Raw workbooks and documents were inspected read-only and are not distributed. Paths are retained in a separate private index.",
   "sources": [
@@ -471,6 +471,24 @@
       "format": "web",
       "url": "https://www.nantong.gov.cn/ntsrmzf/ntxw/content/614e7a70-f665-4ae7-bd1d-2f8dd493dc57.html",
       "note": "Official current-reference first Sichuan-Nantong-Zhejiang rail-water movement."
+    },
+    {
+      "id": "CHINA_2030_TRANSPORT_CARBON",
+      "format": "web",
+      "url": "https://www.mee.gov.cn/zcwj/gwywj/202110/t20211026_957879.shtml",
+      "note": "Official 2030 action plan used only to anchor the 9.5 percent transport-intensity stress target; not a shipment-level corridor cap."
+    },
+    {
+      "id": "IMO_2023_GHG_STRATEGY",
+      "format": "web",
+      "url": "https://www.imo.org/en/ourwork/environment/pages/2023-imo-strategy-on-reduction-of-ghg-emissions-from-ships.aspx",
+      "note": "Official international-shipping 2030 checkpoints used only as 20 and 30 percent policy stress targets."
+    },
+    {
+      "id": "MEE_NATIONAL_ETS_2025",
+      "format": "web",
+      "url": "https://www.mee.gov.cn/ywgz/ydqhbh/wsqtkz/202601/t20260101_1139528.shtml",
+      "note": "Official 2025 national ETS coverage record; used to preserve the boundary that domestic freight is not represented as a directly covered compliance sector."
     },
     {
       "id": "SODA_DERIVED_DISTANCES",

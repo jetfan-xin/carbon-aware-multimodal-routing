@@ -38,6 +38,6 @@ The first clean-container attempt established that the Python wheel installs but
 - invalid search-budget rejection.
 - graph-heuristic seed insertion and preservation.
 
-The larger result experiment and its figures are documented in [`GEATPY_RESULTS_ANALYSIS_CN.md`](GEATPY_RESULTS_ANALYSIS_CN.md).
+The larger result experiment and its figures are documented in [`geatpy-results.md`](geatpy-results.md).
 
 This validates the maintained Geatpy integration in the stated container. It does not reproduce the unknown 2022 random state or turn heuristic results into global-optimality certificates.

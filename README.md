@@ -77,16 +77,14 @@ Objective-function evaluations are computational work, not source-data rows. See
 - [`routing/portfolio.py`](routing/portfolio.py): portfolio-level progressive carbon accounting without resetting brackets per shipment.
 - [`routing/allocation.py`](routing/allocation.py): per-order route/departure candidates, shared-capacity evaluation, greedy baseline and small exact oracle.
 - [`routing/allocation_ga.py`](routing/allocation_ga.py): order-level fixed/adaptive/catastrophe GA variants with one candidate-choice gene per order.
-- [`docs/ORIGINAL_GA_CODE_ANALYSIS_CN.md`](docs/ORIGINAL_GA_CODE_ANALYSIS_CN.md): Chinese evidence analysis.
-- [`docs/ORIGINAL_VS_CURRENT_CN.md`](docs/ORIGINAL_VS_CURRENT_CN.md): historical/current comparison.
-- [`docs/CURRENT_IMPLEMENTATION_CN.md`](docs/CURRENT_IMPLEMENTATION_CN.md): current end-to-end implementation, benchmark and interview claim boundaries.
-- [`docs/GEATPY_RESULTS_ANALYSIS_CN.md`](docs/GEATPY_RESULTS_ANALYSIS_CN.md): real-Geatpy ablation analysis, convergence plots and route visualization.
-- [`docs/REAL_WORLD_SCENARIO_DESIGN_CN.md`](docs/REAL_WORLD_SCENARIO_DESIGN_CN.md): official-source calibration and experiment design.
-- [`docs/REAL_WORLD_RESULTS_CN.md`](docs/REAL_WORLD_RESULTS_CN.md): deterministic sensitivity, portfolio carbon and 2,250-run algorithm results.
-- [`docs/FACILITY_NETWORK_DESIGN_CN.md`](docs/FACILITY_NETWORK_DESIGN_CN.md): facility-level Yangtze/Yangtze River Delta node selection, evidence grades and remaining data gaps.
-- [`docs/FACILITY_NUMERIC_MODEL_CN.md`](docs/FACILITY_NUMERIC_MODEL_CN.md): numeric facility model, corrected distance, route-switch analysis and assumption boundary.
-- [`docs/GLOBAL_ORDER_ALLOCATION_CN.md`](docs/GLOBAL_ORDER_ALLOCATION_CN.md): global allocation formulation, two-level experiment and result interpretation.
-- [`docs/ALLOCATION_CONTROL_TUNING_CN.md`](docs/ALLOCATION_CONTROL_TUNING_CN.md): diversity-controlled mutation, partial restart, separated tuning/validation seeds and paired results.
+- [`docs/PROJECT_REPORT.md`](docs/PROJECT_REPORT.md): integrated problem definition, requirements, data, algorithms, results, conclusions and interview narrative.
+- [`docs/original-ga-code-analysis.md`](docs/original-ga-code-analysis.md): function-level evidence analysis of the recovered implementation.
+- [`docs/original-vs-current.md`](docs/original-vs-current.md): historical/current behavior and provenance comparison.
+- [`docs/current-system.md`](docs/current-system.md): maintained architecture and validation boundary.
+- [`docs/geatpy-results.md`](docs/geatpy-results.md): real-Geatpy ablation interpretation.
+- [`docs/facility-network.md`](docs/facility-network.md) and [`docs/facility-numeric-model.md`](docs/facility-numeric-model.md): facility admission, field provenance and route economics.
+- [`docs/global-order-allocation.md`](docs/global-order-allocation.md): allocation formulation and three experiment roles.
+- [`docs/allocation-control-tuning.md`](docs/allocation-control-tuning.md): controller formulas and held-out validation.
 
 The earlier document-derived implementation first appeared in commit `329d84ea50ed9b19169d410f596266c333531f12`; the source-recovery baseline was `2f3551f4db70f79ca39471f2226676686c1caad8`.
 
@@ -102,9 +100,10 @@ The extension keeps the historical single-objective model available while adding
 - self-contained SVG maps generated from the computed solution;
 - calibrated synthetic generation for 23-city/754-edge networks and up to user-selected order counts;
 - official-source lane quotes/service times, scheduled-service edge times, container-quote pricing and aggregate portfolio carbon brackets;
-- a separate 18-facility evidence registry with historical/current snapshots, plus a non-observational calibrated layer containing seven numeric edges and three runnable cases;
+- a separate 20-facility evidence registry with historical/current snapshots, plus a non-observational calibrated layer containing seven numeric edges and three runnable cases;
 - facility-specific transfers, including an explicit rail-to-road change at Luchaogang instead of a free or globally available mode switch.
 - globally coupled order allocation: orders compete for timed departures or planning-horizon lane capacity and carbon brackets apply once to aggregate emissions;
+- a hard portfolio emissions cap with feasibility-first ranking and low-emission candidate/initialization safeguards shared by all GA variants;
 - diversity/stagnation-controlled mutation, partial population restart and an external opportunity-loss heuristic archive, selected and validated on disjoint seed sets.
 
 The allocation solver's diversity controller and the route solver's earlier fitness-spread controller are later engineering choices. Neither is presented as the unrecovered 2022 formula.
@@ -148,7 +147,7 @@ python3 -B tools/run_real_case_sensitivity.py \
   --output-dir benchmarks/real-case-sensitivity
 ```
 
-The checked-in run contains 1,188 deterministic grid cells, 60 portfolio cells and 2,250 heuristic runs across 15 selected scenarios. Operator disclosures, official market indices, historical same-corridor evidence and labelled assumptions remain distinguishable. See the [result report](docs/REAL_WORLD_RESULTS_CN.md) and [operator-data replacement audit](docs/OPERATOR_DATA_REPLACEMENT_CN.md).
+The checked-in run contains 1,188 deterministic grid cells, 60 portfolio cells and 2,250 heuristic runs across 15 selected scenarios. Operator disclosures, official market indices, historical same-corridor evidence and labelled assumptions remain distinguishable. See the [result report](docs/corridor-sensitivity-results.md) and [operator-data calibration](docs/operator-data-calibration.md).
 
 Rebuild the facility-level evidence inventory and schematic:
 
@@ -156,7 +155,7 @@ Rebuild the facility-level evidence inventory and schematic:
 python3 -B tools/build_facility_network.py
 ```
 
-The current inventory contains 20 candidates, twelve published service records and five transfer-capability records. None is silently promoted into a numeric optimizer edge: every published service is still missing at least one comparable endpoint, distance, tariff, timing or handling field. A separate [operational-gap audit](docs/OPERATIONAL_DATA_GAP_AUDIT_CN.md) records what public evidence can and cannot establish about current rail service, quote scope, drayage, water reliability, real orders and equipment-specific emissions. See the [facility-network report](docs/FACILITY_NETWORK_DESIGN_CN.md) and [generated tables](benchmarks/facility-network/README.md).
+The current inventory contains 20 candidates, twelve published service records and five transfer-capability records. None is silently promoted into a numeric optimizer edge: every published service is still missing at least one comparable endpoint, distance, tariff, timing or handling field. A separate [operational-gap audit](docs/operational-data-gaps.md) records what public evidence can and cannot establish about current rail service, quote scope, drayage, water reliability, real orders and equipment-specific emissions. See the [facility-network report](docs/facility-network.md) and [generated tables](benchmarks/facility-network/README.md).
 
 Run the separate facility-calibrated Chongqing-Yangshan analysis:
 
@@ -164,7 +163,7 @@ Run the separate facility-calibrated Chongqing-Yangshan analysis:
 python3 -B tools/run_facility_case_analysis.py
 ```
 
-This produces 1,260 deadline/carbon-price/payload/time cells, four route-component rows and seven SVG figures. The true multileg option is Guoyuan—rail→Luchaogang—road→Yangshan. A public 20-foot spot posting now calibrates the short-haul price, while handling and waiting remain labelled assumptions rather than being written back into the raw service registry. See the [Chinese numeric-model report](docs/FACILITY_NUMERIC_MODEL_CN.md) and [generated results](benchmarks/facility-case-analysis/README.md).
+This produces 1,260 deadline/carbon-price/payload/time cells, four route-component rows and seven SVG figures. The true multileg option is Guoyuan—rail→Luchaogang—road→Yangshan. A public 20-foot spot posting calibrates the short-haul price, while handling and waiting remain labelled assumptions rather than being written back into the raw service registry. See the [numeric-model report](docs/facility-numeric-model.md) and [generated results](benchmarks/facility-case-analysis/README.md).
 
 Run the globally coupled allocation experiments:
 
@@ -173,7 +172,15 @@ python3 -B tools/run_allocation_experiment.py
 python3 -B tools/run_synthetic_allocation_experiment.py
 ```
 
-The first command uses the three-node/five-edge calibrated facility case with twelve explicitly modelled orders and timed shared capacity; it also exhaustively checks a four-order subset. The second uses 48 synthetic orders across 23 OD pairs on an explicitly synthetic 23-city graph and compares the greedy baseline with five GA variants over 30 seeds. See the [global-allocation report](docs/GLOBAL_ORDER_ALLOCATION_CN.md), [facility allocation outputs](benchmarks/global-order-allocation/README.md) and [scale outputs](benchmarks/synthetic-global-allocation/README.md).
+The first command uses the three-node/five-edge calibrated facility case with twelve explicitly modelled orders and timed shared capacity; it also exhaustively checks a four-order subset. The second uses 48 synthetic orders across 23 OD pairs on an explicitly synthetic 23-city graph and compares the greedy baseline with five GA variants over 30 seeds. See the [global-allocation report](docs/global-order-allocation.md), [facility allocation outputs](benchmarks/global-order-allocation/README.md) and [scale outputs](benchmarks/synthetic-global-allocation/README.md).
+
+Run the hard-emissions-cap policy experiment:
+
+```bash
+python3 -B tools/run_policy_allocation_experiment.py
+```
+
+The checked-in run screens 108 demand/deadline/carbon-price/cap cells and compares five GA variants over 30 seeds in twelve boundary scenarios. Orders and planning capacities are deterministic model inputs, not observed bookings. See the [integrated report](docs/PROJECT_REPORT.md), [scenario design](docs/corridor-scenario-design.md) and [policy outputs](benchmarks/policy-allocation/README.md).
 
 Run the small exact example or the dependency-free GA:
 
