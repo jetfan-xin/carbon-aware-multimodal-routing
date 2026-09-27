@@ -1,0 +1,9 @@
+# Evidence-derived dependencies only; this is not a reproducible lock file.
+# The recovered bundled Geatpy source identifies version 2.7.0 and declares
+# NumPy >=1.17.0 and Matplotlib >=3.0.0. Exact 2022 versions remain unknown.
+geatpy==2.7.0
+numpy>=1.17.0
+matplotlib>=3.0.0
+pandas
+openpyxl
+folium

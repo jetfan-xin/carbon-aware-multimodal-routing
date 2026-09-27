@@ -1,4 +1,4 @@
-"""Real Geatpy integration tests; optional locally, mandatory in the Linux CI job."""
+"""Real Geatpy integration suite; mandatory in the container and Linux CI job."""
 
 import importlib.util
 import os
@@ -38,9 +38,18 @@ class GeatpyTests(unittest.TestCase):
         self.assertEqual(best, sorted(best, reverse=True))
 
     def test_baseline_has_no_restarts(self):
-        r = self.solve(population=12, generations=12, patience=2, adaptive=False)
+        r = self.solve(population=12, generations=12, patience=2, adaptive=False, catastrophe=False)
         self.assertEqual(r["restarts"], 0)
         self.assertEqual(r["route_evaluations"], 144)
+
+    def test_ablation_flags_are_independent(self):
+        adaptive = self.solve(population=12, generations=8, patience=1,
+                              adaptive=True, catastrophe=False)
+        catastrophe = self.solve(population=12, generations=8, patience=1,
+                                 adaptive=False, catastrophe=True)
+        self.assertEqual(adaptive["solver"], "geatpy-sega-adaptive-only")
+        self.assertEqual(adaptive["restarts"], 0)
+        self.assertEqual(catastrophe["solver"], "geatpy-sega-catastrophe-only")
 
     def test_infeasible_is_not_reported_as_a_solution(self):
         c = fixture()
@@ -82,6 +91,14 @@ class GeatpyTests(unittest.TestCase):
         c["edges"] = [c["edges"][2]]
         r = self.solve(c, population=8, generations=5)
         self.assertEqual(r["solution"]["modes"], ["road"])
+
+    def test_graph_heuristic_seed_is_inserted(self):
+        from routing.model import solve_state_dijkstra
+        network = Network(fixture())
+        expected = solve_state_dijkstra(network)["solution"]["objective_cny"]
+        result = self.solve(population=8, generations=1, heuristic_seed=True)
+        self.assertEqual(result["solver"], "geatpy-sega-hybrid")
+        self.assertAlmostEqual(result["solution"]["objective_cny"], expected)
 
     def test_disconnected_network(self):
         c = fixture()

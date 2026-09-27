@@ -1,7 +1,7 @@
 {
-  "audit_date": "2026-09-06",
+  "audit_date": "2026-09-27",
   "historical_year": 2022,
-  "notes": "Source documents were inspected read-only and are not distributed. Paths are retained in a separate private index.",
+  "notes": "The recovered project-specific GA_code is published as a byte-exact snapshot. Raw workbooks and documents were inspected read-only and are not distributed. Paths are retained in a separate private index.",
   "sources": [
     {
       "id": "final-presentation",
@@ -52,6 +52,13 @@
       "format": "txt"
     },
     {
+      "id": "trace-altered-costs-100-generations",
+      "bytes": 28954,
+      "sha256": "3c985bca587261465f2857c397b0f3447a1ea169bda0383730559a62dfa329ea",
+      "format": "png",
+      "note": "Byte-identical to the trace image embedded in source routing-defense."
+    },
+    {
       "id": "terminal-distance-example",
       "bytes": 1065123,
       "sha256": "35ae41cff179a29c8728649987f263c19fa525c287325446bdc4cffa3a181e42",
@@ -61,6 +68,12 @@
       "id": "distance-network",
       "bytes": 23716,
       "sha256": "bf2d0291e741324ebb0f3ec17ca85662e8297df5961d06af5fe61eeff33a9bf4",
+      "format": "xlsx"
+    },
+    {
+      "id": "transfer-coordinates",
+      "bytes": 10073,
+      "sha256": "c946a3be7ddc451be5508ab19e2578a6451d16e9bead0d08bdfc247e24d53a47",
       "format": "xlsx"
     },
     {
@@ -134,6 +147,85 @@
       "bytes": 525641,
       "sha256": "3afa3d01881879e44b03ffe484c02914310c267fd929f4aed8658744873f3646",
       "format": "pdf"
+    },
+    {
+      "id": "ga-code-calculate",
+      "bytes": 3722,
+      "sha256": "8f9e9a28c54b01cdec19f5168a41ed5702f776e61f9e5353871803acb3919887",
+      "format": "py"
+    },
+    {
+      "id": "ga-code-ga",
+      "bytes": 5353,
+      "sha256": "f85c7c19b429419342946c0d84af296b930049d2322b3e336c248f6c35507053",
+      "format": "py"
+    },
+    {
+      "id": "ga-code-input",
+      "bytes": 4334,
+      "sha256": "2b27a3be5c44c5a42941f98d837f134ebcdffbfb18e757b54b8c06511305d5d2",
+      "format": "py"
+    },
+    {
+      "id": "ga-code-main",
+      "bytes": 1610,
+      "sha256": "5320c431933769d16e3f5953012bd0b5bf2948b402dd354739814c837acb8543",
+      "format": "py"
+    },
+    {
+      "id": "ga-code-map",
+      "bytes": 6528,
+      "sha256": "4091ec1eb3829c65b8febcebfdeec08585463a25a1778accbbe8eaa5f1a98430",
+      "format": "py"
+    },
+    {
+      "id": "ga-code-utils",
+      "bytes": 2391,
+      "sha256": "a085c9180e2de9e2df0ab16b27eb1045b18401fa007ea35235a17efbee628eef",
+      "format": "py"
+    },
+    {
+      "id": "ga-code-recovery-note",
+      "bytes": 33,
+      "sha256": "dcfb6bf25a7294f56c671f5c31d5fc3e91cb0d0a61768e578e3182ea2b77556d",
+      "format": "txt"
+    }
+  ],
+  "published_source_files": [
+    {
+      "path": "historical/GA_code/calculate.py",
+      "source_id": "ga-code-calculate",
+      "sha256": "8f9e9a28c54b01cdec19f5168a41ed5702f776e61f9e5353871803acb3919887"
+    },
+    {
+      "path": "historical/GA_code/ga.py",
+      "source_id": "ga-code-ga",
+      "sha256": "f85c7c19b429419342946c0d84af296b930049d2322b3e336c248f6c35507053"
+    },
+    {
+      "path": "historical/GA_code/input.py",
+      "source_id": "ga-code-input",
+      "sha256": "2b27a3be5c44c5a42941f98d837f134ebcdffbfb18e757b54b8c06511305d5d2"
+    },
+    {
+      "path": "historical/GA_code/main.py",
+      "source_id": "ga-code-main",
+      "sha256": "5320c431933769d16e3f5953012bd0b5bf2948b402dd354739814c837acb8543"
+    },
+    {
+      "path": "historical/GA_code/map.py",
+      "source_id": "ga-code-map",
+      "sha256": "4091ec1eb3829c65b8febcebfdeec08585463a25a1778accbbe8eaa5f1a98430"
+    },
+    {
+      "path": "historical/GA_code/utils.py",
+      "source_id": "ga-code-utils",
+      "sha256": "a085c9180e2de9e2df0ab16b27eb1045b18401fa007ea35235a17efbee628eef"
+    },
+    {
+      "path": "historical/GA_code/readme.txt",
+      "source_id": "ga-code-recovery-note",
+      "sha256": "dcfb6bf25a7294f56c671f5c31d5fc3e91cb0d0a61768e578e3182ea2b77556d"
     }
   ],
   "published_image_assets": [

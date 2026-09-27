@@ -7,7 +7,7 @@
     "rail": {"speed_kmh": 60, "rate_bands_cny_per_tonne_km": [0.196, 0.17, 0.1365], "emissions_kg_per_tonne_km": 0.042},
     "water": {"speed_kmh": 30, "rate_bands_cny_per_tonne_km": [0.045, 0.0365, 0.0255], "emissions_kg_per_tonne_km": 0.012}
   },
-  "rate_band_boundaries": null,
+  "rate_band_boundaries_km": [500, 1000],
   "transfer_pairs": [
     {"modes": ["road", "rail"], "hours_per_1000_tonnes": 50, "emissions_kg_per_tonne": 0.128, "cost_cny_per_tonne": 2},
     {"modes": ["road", "water"], "hours_per_1000_tonnes": 50, "emissions_kg_per_tonne": 0.117, "cost_cny_per_tonne": 2.25},
@@ -29,8 +29,8 @@
   ],
   "notes": [
     "Carbon brackets are historical modelling assumptions, not a description of current tax law.",
-    "The three transport-rate bands have no recovered boundaries in this workbook.",
+    "The workbook has no boundary cells, but recovered calculate.py selects bands at 500 km and 1000 km.",
     "The weighted mean scenario demand is 102.1 tonnes, not the 100-tonne presentation example.",
-    "At 100 tonnes the listed rail-water transfer cost is 250 CNY; the presentation reports 500 CNY. Different versions must not be silently merged."
+    "At 100 tonnes the listed rail-water transfer rate gives 250 CNY per change; recovered transit_cost counts every change twice and therefore reproduces the reported 500 CNY."
   ]
 }

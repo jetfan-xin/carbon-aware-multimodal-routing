@@ -2,9 +2,9 @@
 
 ## Context
 
-This was a September-November 2022 student team project for the Shanghai Open Data Innovative Application Competition. The original entry proposed a multimodal freight information platform for the Yangtze River Delta. The team name was Zhuiguang; the inspected award certificate records Third Prize.
+This was a September-November 2022 student team project for the Shanghai Open Data Innovative Application Competition. The team, Zhuiguang, received Third Prize. The English repository title describes the routing component; SODA is the competition acronym, not the software name.
 
-The English repository title describes the routing component. SODA is the competition acronym, not a project or product name. A precise overall top-ten ranking is not asserted here because the inspected certificate does not specify a ranking.
+The wider proposal combined shipper/carrier interfaces, multimodal routing and an information-sharing architecture. The recovered executable scope is narrower: one Chongqing-Shanghai shipment over a 23-city road/rail/water network with cost, time and carbon accounting.
 
 ## Competition progression
 
@@ -18,30 +18,26 @@ Selected non-personal pages from the semifinal and final materials are published
 
 ## Problem and users
 
-Shippers need a route that meets delivery requirements without treating each transport leg independently. Carriers need advance information about handovers. A public-sector operator could benefit from aggregated transport and emissions information.
+The intended users were freight shippers, carriers and public-sector stakeholders comparing multimodal routing alternatives.
 
-The team proposed a shared information layer and shipper/carrier interfaces. Within that larger concept, the routing work investigated how road, rail and inland water transport can be combined while accounting for transfers, time windows and carbon costs.
+## Contribution boundary
 
-## My contribution
+Jingfan Xin confirms that he wrote the 2022 project-specific code and designed the routing algorithm; one teammate shared the manual data-collection work. This supports first-person ownership of the routing and quantitative-analysis workflow, but not of the whole team platform.
 
-My focus was greener route planning and its algorithmic integration into the team platform concept. The project involved formulating transport choices as an optimization problem and evaluating the cost/time/emissions consequences of alternative routes.
+Geatpy's SEGA template, selection, crossover and mutation operators are third-party framework code. Downloaded reference repositories and Matlab examples found in the archive are also not personal implementations.
 
-The final presentation identifies Jingfan Xin as the team member from Renmin University's Gaoling School of Artificial Intelligence. Project records describe a Python/Geatpy implementation and retain code screenshots, route outputs and input workbooks. The complete custom solver source has not been recovered, so this repository does not assign unsupported line-by-line authorship or claim sole ownership of the team platform.
+## Demonstrated by code and data
 
-## What was demonstrated
+- A 23-city, three-mode expanded graph loaded from Excel.
+- A 69-integer priority chromosome and greedy route decoder.
+- A single cost objective combining distance-banded transport, transfer, time-window and carbon costs.
+- Historical route/cost/time/emissions output and a separate Folium map script.
+- Saved 100-generation runs with 100,000 reported evaluations, trace plots and decoded routes.
 
-- A 23-city case-study network with distances for three transport modes.
-- A cost model that distinguishes transport, transfer, delivery-time and carbon components.
-- Reported routing outputs for alternative objectives and transport-mode restrictions.
-- Saved Folium/Leaflet route-map exports and interface designs.
-- A competition presentation and award certificate.
+The defense material documents adaptive operators and a 20-generation catastrophe condition as implemented work. The exact custom-controller source revision has not been matched to the byte-exact `GA_code` snapshot, so the public repository preserves both facts instead of using the snapshot's current `MAXGEN` value to deny the historical implementation. Scenario robustness, a hard emission constraint and multi-objective optimization still require separate code-level confirmation.
 
-## What remained a platform proposal
+## Platform proposal boundary
 
-The documents also discuss order allocation, shipment tracking, consortium-blockchain data sharing, smart contracts, one-stop settlement and government dashboards. These belong to the broader design narrative. The inspected folder does not supply a deployable backend, smart-contract implementation, live sensor pipeline, or production-operating evidence for them.
+Order allocation, live shipment tracking, consortium blockchain, smart contracts, one-stop settlement and government dashboards remain architecture/interface proposals. No deployable backend, chain code, sensor pipeline or production operating evidence was recovered.
 
-The project is therefore presented as an optimization prototype and platform-design study, not as an operating government service or a commercial logistics deployment.
-
-## Why the project is relevant
-
-The transferable engineering work lies in turning operational constraints into a computable decision problem, combining heterogeneous data with explicit assumptions, selecting an optimization approach, and making its trade-offs understandable to non-specialist users. The central result is a decision trade-off, not an isolated percentage improvement.
+The project should therefore be presented as a competition optimization prototype and platform-design study. Historical calculations are simulations, and the heuristic output is not a global-optimality certificate.

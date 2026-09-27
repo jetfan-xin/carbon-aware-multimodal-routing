@@ -42,19 +42,21 @@ The following two images were embedded in slide 13 of the final presentation. Th
 
 ![Historical Geatpy problem definition](problem-definition.png)
 
-The fragment subclasses Geatpy's `Problem`, declares an integer-valued chromosome, configures a minimization objective and begins constructing route adjacency information. Helper functions and some referenced state are outside the screenshot.
+The fragment shows a `MyProblem(ea.Problem)` class, integer variables and a minimization problem. The recovered `historical/GA_code/ga.py` now supplies the previously folded and missing context.
 
-## Decoding and objective evaluation
+## Decoder and objective
 
 ![Historical route decoding and fitness fragment](decoding-and-fitness.png)
 
-The decoder maps a priority chromosome to a path and edge sequence. The visible fitness function iterates over the population, decodes each candidate, checks that its edges exist and accumulates edge costs. The decoder body is folded in the original screenshot.
+The screenshot's visible edge-sum objective and dimensions do not fully match the recovered November implementation, which uses a 69-gene, three-layer decoder and four cost components. It likely records an earlier revision. Screenshots are therefore historical version evidence, not a substitute for the recovered source.
 
 These fragments support the use of Python, NumPy and Geatpy for a route problem. They do not by themselves demonstrate the complete final carbon-cost model, adaptive operators or uncertainty treatment. They are evidence images, not executable source files.
 
+Separate contemporaneous evidence records the adaptive formulas and 20-generation catastrophe condition, and saved terminal/trace artifacts confirm 100-generation execution. The precise custom-controller source revision is not contained in the byte-exact seven-file snapshot; robust-scenario execution remains unconfirmed.
+
 ## Provenance and privacy boundary
 
-- Every full-page image above is an unaltered 1600×900 raster render; none is a reconstructed or AI-generated slide.
+- Every full-page image above is an unaltered 1600×900 raster render; none is recreated or AI-generated.
 - Source-document hashes, page/slide numbers and public-image hashes are recorded in [source-manifest.json](../source-manifest.json).
 - Team-introduction pages, participant photographs, biographies, contact details and full submission files are excluded.
 - Maps, interface mockups and the SODA mark remain part of the historical presentation context. No standalone ownership claim is made for third-party map tiles, framework code or competition branding.

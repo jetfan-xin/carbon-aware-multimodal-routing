@@ -43,6 +43,42 @@ def verify(root=ROOT):
         elif not target.is_file() or hashlib.sha256(target.read_bytes()).hexdigest() != entry["sha256"]:
             errors.append(entry["path"] + ": image hash mismatch")
 
+    for entry in manifest.get("published_source_files", []):
+        target = (root / entry["path"]).resolve()
+        if not target.is_relative_to(root.resolve()):
+            errors.append("source-manifest.json: source path escapes repository")
+        elif not target.is_file() or hashlib.sha256(target.read_bytes()).hexdigest() != entry["sha256"]:
+            errors.append(entry["path"] + ": source hash mismatch")
+
+    repository_manifest_path = root / "REPOSITORY_FILES.sha256"
+    if repository_manifest_path.is_file():
+        listed = {}
+        for line_number, line in enumerate(repository_manifest_path.read_text(encoding="utf-8").splitlines(), 1):
+            try:
+                digest, relative = line.split("  ", 1)
+            except ValueError:
+                errors.append(f"REPOSITORY_FILES.sha256:{line_number}: malformed entry")
+                continue
+            relative = relative.removeprefix("./")
+            target = (root / relative).resolve()
+            if not re.fullmatch(r"[0-9a-f]{64}", digest) or not target.is_relative_to(root.resolve()):
+                errors.append(f"REPOSITORY_FILES.sha256:{line_number}: invalid entry")
+            elif not target.is_file() or hashlib.sha256(target.read_bytes()).hexdigest() != digest:
+                errors.append(relative + ": repository manifest hash mismatch")
+            listed[relative] = digest
+        actual = {
+            path.relative_to(root).as_posix()
+            for path in root.rglob("*")
+            if path.is_file()
+            and path.name != "REPOSITORY_FILES.sha256"
+            and ".git" not in path.relative_to(root).parts
+            and "__pycache__" not in path.relative_to(root).parts
+        }
+        if set(listed) != actual:
+            errors.append("REPOSITORY_FILES.sha256: file set mismatch")
+    else:
+        errors.append("REPOSITORY_FILES.sha256: missing repository file manifest")
+
     patterns = [
         re.compile(r"\bsk-(?:proj-)?[A-Za-z0-9_-]{20,}"),
         re.compile(r"\b(?:hf_|ghp_)[A-Za-z0-9]{20,}"),
@@ -64,7 +100,7 @@ def verify(root=ROOT):
         if path.suffix == ".json":
             check_refs(json.loads(content), relative)
         if path.suffix == ".md":
-            if re.search(r"[\u4e00-\u9fff]", content):
+            if re.search(r"[\u4e00-\u9fff]", content) and not relative.endswith("_CN.md"):
                 errors.append(relative + ": explanatory text is not entirely English")
             for target in re.findall(r"!?\[[^\]]*\]\(([^)]+)\)", content):
                 if target.startswith(("https://", "http://", "#", "mailto:")):

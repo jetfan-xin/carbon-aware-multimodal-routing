@@ -1,10 +1,12 @@
 """Validated directed freight network, priority decoder and scenario costing.
 
-Modelling conventions are documented in docs/implementation.md.
+Modelling conventions are documented in docs/current-implementation.md.
 Only the Python standard library is required for this module.
 """
 
 from copy import deepcopy
+import heapq
+import itertools
 import math
 
 
@@ -41,8 +43,21 @@ class Network:
         if not self.modes or not set(self.modes) <= {"road", "rail", "water"}:
             raise ValueError("supported modes: road, rail, water")
         for mode, values in self.modes.items():
-            for field in ("speed_kmh", "rate_cny_per_tonne_km", "emissions_kg_per_tonne_km"):
+            for field in ("speed_kmh", "emissions_kg_per_tonne_km"):
                 number(values[field], f"{mode}.{field}", positive=field == "speed_kmh")
+            if "rate_bands_cny_per_tonne_km" in values:
+                rates = values["rate_bands_cny_per_tonne_km"]
+                bounds = c.get("rate_band_boundaries_km", [500, 1000])
+                if len(rates) != len(bounds) + 1:
+                    raise ValueError("rate bands require one more rate than boundaries")
+                if any(number(x, f"{mode}.rate band") < 0 for x in rates):
+                    raise ValueError("rate bands must be nonnegative")
+                if any(number(x, "rate boundary", positive=True) <= 0 for x in bounds):
+                    raise ValueError("rate boundaries must be positive")
+                if any(a >= b for a, b in zip(bounds, bounds[1:])):
+                    raise ValueError("rate boundaries must strictly increase")
+            else:
+                number(values["rate_cny_per_tonne_km"], f"{mode}.rate_cny_per_tonne_km")
         self.transfers = {}
         for transfer in c["transfers"]:
             pair = frozenset(transfer["modes"])
@@ -65,7 +80,19 @@ class Network:
                 raise ValueError("duplicate directed mode edge")
             seen.add(key)
             number(edge["distance_km"], "distance_km", positive=True)
+            if "capacity_tonnes" in edge and edge["capacity_tonnes"] is not None:
+                number(edge["capacity_tonnes"], "capacity_tonnes", positive=True)
+            if "available" in edge and not isinstance(edge["available"], bool):
+                raise ValueError("edge availability must be boolean")
             self.outgoing[a].append(i)
+        self.coordinates = c.get("coordinates", {})
+        if not isinstance(self.coordinates, dict):
+            raise ValueError("coordinates must be a node-to-[longitude, latitude] mapping")
+        for node, coordinate in self.coordinates.items():
+            if node not in self.nodes or not isinstance(coordinate, list) or len(coordinate) != 2:
+                raise ValueError("invalid node coordinate")
+            if any(not isinstance(x, (int, float)) or isinstance(x, bool) or not math.isfinite(x) for x in coordinate):
+                raise ValueError("coordinates must be finite numbers")
         self.window = c["time_window_hours"]
         if len(self.window) != 2:
             raise ValueError("time window requires two bounds")
@@ -105,7 +132,7 @@ class Network:
     def _choices(self, node, previous_mode, visited):
         for i in self.outgoing[node]:
             edge = self.edges[i]
-            if edge["to"] not in visited and (
+            if edge.get("available", True) and edge["to"] not in visited and (
                 previous_mode is None or previous_mode == edge["mode"]
                 or frozenset((previous_mode, edge["mode"])) in self.transfers
             ):
@@ -167,7 +194,7 @@ class Network:
         results = []
         for s in self.scenarios:
             tonnes = s["tonnes"]
-            transport = math.fsum(e["distance_km"] * self.modes[e["mode"]]["rate_cny_per_tonne_km"] for e in legs) * tonnes * s["rate_multiplier"]
+            transport = math.fsum(e["distance_km"] * self.mode_rate(e["mode"], e["distance_km"]) for e in legs) * tonnes * s["rate_multiplier"]
             transfer_cost = math.fsum(t["cost_cny_per_tonne"] for t in changes) * tonnes
             travel = math.fsum(e["distance_km"] / self.modes[e["mode"]]["speed_kmh"] for e in legs) / s["speed_multiplier"]
             transfer_time = math.fsum(t["hours_per_1000_tonnes"] for t in changes) * tonnes / 1000
@@ -195,13 +222,29 @@ class Network:
         cap = self.config["emission_cap_kg"]
         deadline_violation = max(r["lateness_hours"] for r in results) if self.config["hard_deadline"] else 0
         carbon_violation = max(0, max(r["emissions_kg"] for r in results) - cap) if cap is not None else 0
+        capacity_violation = max(
+            (max(0, s["tonnes"] - e["capacity_tonnes"]) / e["capacity_tonnes"]
+             for s in self.scenarios for e in legs if e.get("capacity_tonnes") is not None),
+            default=0,
+        )
         # Normalize unlike units; feasibility requires both violations to be zero.
-        violation = deadline_violation / max(1, self.window[1]) + carbon_violation / max(1, cap or 0)
+        violation = deadline_violation / max(1, self.window[1]) + carbon_violation / max(1, cap or 0) + capacity_violation
         return dict(edge_indices=list(route), route=[self.origin] + [e["to"] for e in legs],
                     modes=[e["mode"] for e in legs], scenarios=results,
                     expected_cost_cny=expected, worst_cost_cny=worst,
                     objective_cny=expected + self.config["risk_weight"] * (worst - expected),
                     constraint_violation=violation, feasible=violation == 0)
+
+    def mode_rate(self, mode, distance_km):
+        """Return the historical distance-banded rate or a configured flat rate."""
+        values = self.modes[mode]
+        if "rate_bands_cny_per_tonne_km" not in values:
+            return values["rate_cny_per_tonne_km"]
+        for boundary, rate in zip(self.config.get("rate_band_boundaries_km", [500, 1000]),
+                                  values["rate_bands_cny_per_tonne_km"]):
+            if distance_km < boundary:
+                return rate
+        return values["rate_bands_cny_per_tonne_km"][-1]
 
 
 def solve_exact(network, max_states=100000):
@@ -216,3 +259,57 @@ def solve_exact(network, max_states=100000):
             best = result
     return dict(solver="exact-enumeration", status="optimal" if best else "infeasible",
                 route_evaluations=evaluated, solution=best)
+
+
+def solve_state_dijkstra(network):
+    """Fast deterministic baseline on the (city, previous-mode) state graph.
+
+    The queue weight is an additive expected-cost approximation.  The returned
+    route is then evaluated with the complete scenario, time-window and carbon
+    model.  It is a baseline heuristic, not an optimality certificate.
+    """
+    first_carbon_rate = network.brackets[0][1]
+
+    def edge_weight(edge, previous_mode):
+        expected_transport = math.fsum(
+            s["probability"] * s["tonnes"] * s["rate_multiplier"]
+            for s in network.scenarios
+        ) * edge["distance_km"] * network.mode_rate(edge["mode"], edge["distance_km"])
+        expected_emissions = math.fsum(s["probability"] * s["tonnes"] for s in network.scenarios) * (
+            edge["distance_km"] * network.modes[edge["mode"]]["emissions_kg_per_tonne_km"]
+        )
+        transfer_cost = transfer_emissions = 0
+        if previous_mode is not None and previous_mode != edge["mode"]:
+            transfer = network.transfers.get(frozenset((previous_mode, edge["mode"])))
+            if transfer is None:
+                return math.inf
+            expected_tonnes = math.fsum(s["probability"] * s["tonnes"] for s in network.scenarios)
+            transfer_cost = expected_tonnes * transfer["cost_cny_per_tonne"]
+            transfer_emissions = expected_tonnes * transfer["emissions_kg_per_tonne"]
+        return expected_transport + transfer_cost + first_carbon_rate * (expected_emissions + transfer_emissions)
+
+    tie_breaker = itertools.count()
+    queue = [(0.0, next(tie_breaker), network.origin, None, (), frozenset((network.origin,)))]
+    best_state = {(network.origin, None): 0.0}
+    expanded = 0
+    while queue:
+        score, _, node, previous_mode, route, visited = heapq.heappop(queue)
+        state = (node, previous_mode)
+        if score > best_state.get(state, math.inf):
+            continue
+        expanded += 1
+        if node == network.destination:
+            result = network.evaluate(route)
+            return {"solver": "state-dijkstra-baseline", "status": "feasible-heuristic" if result["feasible"] else "infeasible-candidate",
+                    "expanded_states": expanded, "solution": result if result["feasible"] else None}
+        for i in network._choices(node, previous_mode, visited):
+            edge = network.edges[i]
+            if edge.get("capacity_tonnes") is not None and any(s["tonnes"] > edge["capacity_tonnes"] for s in network.scenarios):
+                continue
+            candidate_score = score + edge_weight(edge, previous_mode)
+            candidate_state = (edge["to"], edge["mode"])
+            if candidate_score < best_state.get(candidate_state, math.inf):
+                best_state[candidate_state] = candidate_score
+                heapq.heappush(queue, (candidate_score, next(tie_breaker), edge["to"], edge["mode"], route + (i,),
+                                       visited | {edge["to"]}))
+    return {"solver": "state-dijkstra-baseline", "status": "infeasible", "expanded_states": expanded, "solution": None}

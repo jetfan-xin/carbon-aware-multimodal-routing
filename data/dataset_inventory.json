@@ -1,5 +1,6 @@
 {
   "source_id": "distance-network",
+  "classification": "manually_collected_case_network",
   "sheet": "Sheet1",
   "status": "Read-only structural inventory of the main November workbook; raw distance records are not redistributed.",
   "distinct_cities_after_trimming_whitespace": 23,
@@ -7,13 +8,18 @@
   "populated_pair_rows": 253,
   "populated_rows_including_header": 254,
   "fields": ["origin", "destination", "road_distance_km", "rail_distance_km", "water_distance_km"],
-  "available_distance_entries": {"road": 253, "rail": 250, "water": 251},
+  "available_distance_entries": {"road": 253, "rail": 250, "water": 251, "total": 754},
+  "distance_km_summary": {
+    "road": {"min": 30, "q1": 242, "median": 464, "q3": 754, "max": 1695},
+    "rail": {"min": 31, "q1": 257.75, "median": 503, "q3": 785.75, "max": 1754},
+    "water": {"min": 18, "q1": 290.5, "median": 609, "q3": 1005, "max": 2399}
+  },
   "unavailable_marker": "#",
   "unavailable_entries": {"road": 0, "rail": 3, "water": 2},
   "notes": [
     "A populated pair row is not a single API call, shipment, or objective-function evaluation.",
     "Stored worksheet dimensions include unused or formatted cells and must not be treated as record counts.",
     "This is one case-study workbook, not an inventory of all data accessed during the competition.",
-    "Do not infer symmetric routing or final loader behaviour solely from the pair count."
+    "Recovered GA_code creates only the directed edge shown by each row; it does not add reverse edges."
   ]
 }

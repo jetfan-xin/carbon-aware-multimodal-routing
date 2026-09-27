@@ -1,0 +1,2 @@
+# Preserve recovered evidence byte-for-byte and suppress newline normalization.
+historical/GA_code/* binary

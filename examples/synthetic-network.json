@@ -1,5 +1,5 @@
 {
-  "description": "Synthetic test network. Distances are invented, not historical mapping data. The first documented rate in each mode is explicitly selected; missing rate-band boundaries are not inferred.",
+  "description": "Synthetic test network. Distances are invented, not historical mapping data. This fixture explicitly selects one rate per mode and does not use the historical 500/1000 km bands.",
   "nodes": ["Origin", "RiverHub", "RailHub", "Destination", "DeadEnd"],
   "origin": "Origin",
   "destination": "Destination",

@@ -1,0 +1,167 @@
+{
+  "audit_date": "2026-09-27",
+  "source_set_id": "recovered-ga-code-2022-11-23",
+  "scope": "Exact recovered GA_code files plus referenced external workbook identities; no third-party Geatpy source is included.",
+  "files": [
+    {
+      "path": "GA_code/calculate.py",
+      "bytes": 3722,
+      "sha256": "8f9e9a28c54b01cdec19f5168a41ed5702f776e61f9e5353871803acb3919887",
+      "encoding": "UTF-8 with CRLF line endings",
+      "type": "Python source",
+      "classification": "project-specific team code",
+      "referenced_by": ["GA_code/ga.py"],
+      "external_dependencies": ["numpy"],
+      "absolute_paths": true,
+      "missing_inputs": false,
+      "sensitive_information": false
+    },
+    {
+      "path": "GA_code/ga.py",
+      "bytes": 5353,
+      "sha256": "f85c7c19b429419342946c0d84af296b930049d2322b3e336c248f6c35507053",
+      "encoding": "UTF-8 with CRLF line endings",
+      "type": "Python source",
+      "classification": "project-specific team code using Geatpy",
+      "referenced_by": ["GA_code/main.py"],
+      "external_dependencies": ["numpy", "geatpy"],
+      "absolute_paths": true,
+      "missing_inputs": false,
+      "sensitive_information": false
+    },
+    {
+      "path": "GA_code/input.py",
+      "bytes": 4334,
+      "sha256": "2b27a3be5c44c5a42941f98d837f134ebcdffbfb18e757b54b8c06511305d5d2",
+      "encoding": "UTF-8 with CRLF line endings",
+      "type": "Python source",
+      "classification": "project-specific team code",
+      "referenced_by": ["GA_code/ga.py"],
+      "external_dependencies": ["pandas", "an XLSX engine such as openpyxl"],
+      "absolute_paths": true,
+      "missing_inputs": false,
+      "sensitive_information": false
+    },
+    {
+      "path": "GA_code/main.py",
+      "bytes": 1610,
+      "sha256": "5320c431933769d16e3f5953012bd0b5bf2948b402dd354739814c837acb8543",
+      "encoding": "UTF-8 with CRLF line endings",
+      "type": "Python source",
+      "classification": "project-specific team entry point using Geatpy",
+      "referenced_by": ["manual execution"],
+      "external_dependencies": ["geatpy"],
+      "absolute_paths": true,
+      "missing_inputs": false,
+      "sensitive_information": false
+    },
+    {
+      "path": "GA_code/map.py",
+      "bytes": 6528,
+      "sha256": "4091ec1eb3829c65b8febcebfdeec08585463a25a1778accbbe8eaa5f1a98430",
+      "encoding": "UTF-8 with CRLF line endings",
+      "type": "Python source",
+      "classification": "project-specific visualization script using Folium",
+      "referenced_by": ["manual execution only; not imported by the optimizer"],
+      "external_dependencies": ["folium", "pandas", "external Amap tiles when viewed"],
+      "absolute_paths": true,
+      "missing_inputs": false,
+      "sensitive_information": false
+    },
+    {
+      "path": "GA_code/utils.py",
+      "bytes": 2391,
+      "sha256": "a085c9180e2de9e2df0ab16b27eb1045b18401fa007ea35235a17efbee628eef",
+      "encoding": "UTF-8 with CRLF line endings",
+      "type": "Python source",
+      "classification": "project-specific team code",
+      "referenced_by": ["GA_code/calculate.py", "GA_code/input.py", "GA_code/ga.py"],
+      "external_dependencies": ["pandas"],
+      "absolute_paths": true,
+      "missing_inputs": false,
+      "sensitive_information": false
+    },
+    {
+      "path": "GA_code/readme.txt",
+      "bytes": 33,
+      "sha256": "dcfb6bf25a7294f56c671f5c31d5fc3e91cb0d0a61768e578e3182ea2b77556d",
+      "encoding": "UTF-8",
+      "type": "plain text",
+      "classification": "2026 recovery note, not 2022 executable code",
+      "referenced_by": [],
+      "external_dependencies": [],
+      "absolute_paths": false,
+      "missing_inputs": true,
+      "sensitive_information": false
+    }
+  ],
+  "referenced_workbooks": [
+    {
+      "source_id": "distance-network",
+      "filename": "长三角周边各转运点之间的距离.xlsx",
+      "bytes": 23716,
+      "sha256": "bf2d0291e741324ebb0f3ec17ca85662e8297df5961d06af5fe61eeff33a9bf4",
+      "sheet": "Sheet1",
+      "stored_range": "A1:F522",
+      "populated_rows": 254,
+      "columns_used": ["起点", "终点", "公路距离", "铁路距离", "水路距离"]
+    },
+    {
+      "source_id": "parameters-transport",
+      "filename": "不同运输方式的运输参数.xlsx",
+      "bytes": 9096,
+      "sha256": "8e28349c8517cda0c61455d84bc7cff671c97ab642378ed845c1b2155c26539a",
+      "sheet": "Sheet1",
+      "stored_range": "A1:F4"
+    },
+    {
+      "source_id": "parameters-transfer",
+      "filename": "不同运输方式转运相关数据.xlsx",
+      "bytes": 11506,
+      "sha256": "7f972c7860912dd34797fa7b379d1259e157827b8edba86757ceed23a0dc7bfc",
+      "sheet": "Sheet1",
+      "stored_range": "A1:D4"
+    },
+    {
+      "source_id": "parameters-time-cost",
+      "filename": "单位仓储和单位惩罚成本.xlsx",
+      "bytes": 11332,
+      "sha256": "219d56db2ce0e0d7ff99a2bd320a7a8b71d59f3e348e4c9bf19595871f923458",
+      "sheet": "Sheet1",
+      "stored_range": "A1:B2"
+    },
+    {
+      "source_id": "parameters-window",
+      "filename": "时间段.xlsx",
+      "bytes": 11256,
+      "sha256": "504691156634d0614491a4d03432515dd6fbe0469fd362d8dcdf6504055b1d30",
+      "sheet": "Sheet1",
+      "stored_range": "A1:B2"
+    },
+    {
+      "source_id": "parameters-carbon",
+      "filename": "碳政策.xlsx",
+      "bytes": 8820,
+      "sha256": "6dad7252d24c8673a2fe51ccf4fc741166f75d678a2b469c8395d50cc9f6ee27",
+      "sheet": "Sheet1",
+      "stored_range": "A1:C5"
+    },
+    {
+      "source_id": "parameters-demand",
+      "filename": "输入 情景-运货量-概率.xlsx",
+      "bytes": 8788,
+      "sha256": "8bf7e24b8a15f5d2ca085e0b4b1ea2cefedf76f3e26415d4ce69b4207185f7c7",
+      "sheet": "Sheet1",
+      "stored_range": "A1:C4"
+    },
+    {
+      "source_id": "transfer-coordinates",
+      "filename": "各转运点经纬度.xlsx",
+      "bytes": 10073,
+      "sha256": "c946a3be7ddc451be5508ab19e2578a6451d16e9bead0d08bdfc247e24d53a47",
+      "sheet": "Sheet1",
+      "stored_range": "A1:C26",
+      "used_by": "GA_code/map.py only"
+    }
+  ]
+}

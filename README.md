@@ -1,12 +1,12 @@
 # Carbon-Aware Multimodal Freight Routing
 
-Route-planning research for freight journeys that combine road, rail and inland water transport, balancing delivery cost, arrival time and carbon emissions.
+Evidence-preserving recovery and maintained extension of a 2022 Shanghai Open Data Innovative Application Competition project. The original case studies road, rail and inland-water routing from Chongqing to Shanghai through a 23-city corridor; the maintained implementation makes the workflow reproducible, testable and scalable without presenting synthetic orders as historical enterprise data.
 
-**2022 team project | Preliminary round → Semifinal → Final | Third Prize, Shanghai Open Data Innovative Application Competition**
+**2022 team project | Preliminary round → Semifinal → Final | Third Prize | Reproducible maintained implementation**
 
-I worked on greener route planning and the algorithm layer of a team-designed multimodal freight information platform. The project brought together transport-network data, operational assumptions and evolutionary optimization to examine when changing transport modes is worth the additional transfer time and cost.
+## What was achieved in 2022
 
-This repository presents the project in English, with traceable historical results, an offline results auditor, and a runnable route optimizer. The competition's acronym, SODA, identifies the event, not the software.
+Jingfan Xin designed and wrote the project-specific routing and quantitative-analysis code and designed the algorithm; one teammate shared the manual data-collection work. Geatpy, NumPy, Pandas and Folium are third-party dependencies and are not claimed as personal implementations.
 
 ## Three-stage competition progression
 
@@ -40,67 +40,120 @@ These are historical presentation artifacts. Prototype screens are not evidence 
 
 ## The engineering problem
 
-The cheapest transport leg is not necessarily part of the cheapest feasible journey. Inland water transport can reduce operating cost and emissions, but transfers and late delivery can outweigh those savings. The model therefore considered:
+The recovered implementation and contemporaneous artifacts support the following description:
 
-- Transport and mode-transfer costs.
-- Travel and transfer time, with delivery-window penalties.
-- Transport and transfer emissions, converted into a carbon cost.
-- Alternative demand scenarios and route choices across a 23-city study network.
+- 23 base cities expanded into 69 city-mode nodes for road, rail and water.
+- 253 populated city pairs and 754 available mode-distance values: 253 road, 250 rail and 251 water.
+- A 69-integer priority chromosome, greedy route decoding and one scalar objective combining transport, transfer, delivery-window and carbon costs.
+- A standard Geatpy SEGA baseline and a documented adaptive/catastrophe design: fitness-dependent crossover and mutation plus random population injection after 20 unchanged generations.
+- Saved 100-generation runs. Two terminal artifacts end at generation index 99 with 100,000 reported evaluations; the defense document embeds the matching trace plot and reports the 23-node experiment.
 
-The historical approach used Python/Geatpy, priority-based route encoding, and an adaptive genetic-algorithm design with diversity-restoring restarts. Data preparation was described using Pandas; saved map exports use Folium/Leaflet. See [method and implementation evidence](docs/method.md).
+The recovered `main.py` currently contains `NIND=100000, MAXGEN=1`. Those are editable values from one saved configuration, not evidence that the 2022 algorithm could not or did not run multiple generations. The byte-exact project snapshot does not itself contain the custom adaptive controller described in the defense material, so identifying that precise historical source revision remains an archival gap.
 
-## A concrete result
+## Data boundary
 
-The final presentation examined a **100-tonne shipment from Chongqing to Shanghai with a 62-hour delivery window**. Its two illustrated options show the actual trade-off:
+The project did not process hundreds of thousands of real shipment transactions. Its historical optimization input is a 23-city case network, parameter tables and three demand scenarios. Shanghai public data supplied useful road and aggregate freight context; the rail/water/transfer-point data needed for the Chongqing-Shanghai case were manually collected by the team.
 
-| Reported option | Route | Total cost (CNY) | Time (h) | Emissions (kg) |
-| --- | --- | ---: | ---: | ---: |
-| Combined-cost option | Chongqing → Jiujiang → Anqing → Shanghai; water, rail, rail | 10,272.69 | 61.27 | 3,080.90 |
-| Emission-constrained option | Chongqing → Anqing → Shanghai; water, rail | 11,357.60 | 63.50 | 2,462.90 |
+The maintained implementation therefore labels every data product as one of:
 
-Recalculating these reported totals gives **20.06% lower emissions at 10.56% higher cost**, with arrival **1.50 hours after the deadline** for the second option. These are archived simulation figures, not measured savings from a deployed logistics service. They do not establish global optimality. [Result definitions and caveats](docs/results.md)
+- historical/public or manually collected evidence;
+- a derived aggregate that does not redistribute row-level source data;
+- a model assumption;
+- reproducible synthetic benchmark data.
 
-## Explore the repository
+Objective-function evaluations are computational work, not source-data rows. See [`data/historical_aggregate_profile.json`](data/historical_aggregate_profile.json) and [`docs/data.md`](docs/data.md).
 
-- [Project brief](docs/project.md): context, contribution and the wider platform concept.
-- [Technical method](docs/method.md): objectives, route encoding and what the surviving code actually shows.
-- [Data sources](docs/data.md): observed inputs versus simulated assumptions, units and dataset inventory.
-- [Results and validation](docs/results.md): consistent comparisons and discrepancies in the historical material.
-- [Source recovery](docs/source-recovery.md): archive inspection, third-party code and the missing-source boundary.
-- [Historical code screenshots](evidence/README.md): original implementation fragments with English explanations.
-- [Optimizer guide](docs/implementation.md): Geatpy integration, input schema, modelling decisions and validation.
+## Repository structure
 
-## Run the optimizer
+- [`historical/GA_code`](historical/GA_code): byte-exact 2022 project snapshot; never modernized in place.
+- [`compatibility`](compatibility): guarded path adapter for authorized workbook copies.
+- [`routing`](routing): tested current model and solvers.
+- [`routing/native_ga.py`](routing/native_ga.py): dependency-free, equal-budget GA ablations.
+- [`routing/pipeline.py`](routing/pipeline.py): order consolidation, edge-state filtering, routing and SVG output.
+- [`routing/synthetic.py`](routing/synthetic.py): explicitly synthetic 23-city and larger benchmark generator.
+- [`docs/ORIGINAL_GA_CODE_ANALYSIS_CN.md`](docs/ORIGINAL_GA_CODE_ANALYSIS_CN.md): Chinese evidence analysis.
+- [`docs/ORIGINAL_VS_CURRENT_CN.md`](docs/ORIGINAL_VS_CURRENT_CN.md): historical/current comparison.
+- [`docs/CURRENT_IMPLEMENTATION_CN.md`](docs/CURRENT_IMPLEMENTATION_CN.md): current end-to-end implementation, benchmark and interview claim boundaries.
+- [`docs/GEATPY_RESULTS_ANALYSIS_CN.md`](docs/GEATPY_RESULTS_ANALYSIS_CN.md): real-Geatpy ablation analysis, convergence plots and route visualization.
 
-The implementation provides directed road/rail/water routing, transfer accounting, progressive carbon pricing, soft or hard deadlines, scenario costs, adaptive genetic search and elite-preserving restarts. It includes a small synthetic network and an exhaustive baseline for correctness checks.
+The earlier document-derived implementation first appeared in commit `329d84ea50ed9b19169d410f596266c333531f12`; the source-recovery baseline was `2f3551f4db70f79ca39471f2226676686c1caad8`.
+
+## Current maintained implementation
+
+The extension keeps the historical single-objective model available while adding:
+
+- historical 500/1,000 km rate bands, progressive carbon pricing, scenarios, capacity and edge availability;
+- input validation, cycle-safe decoding and deterministic seeds;
+- exact enumeration for small instances and a fast state-Dijkstra comparison baseline;
+- four equal-candidate-budget GA variants: fixed baseline, adaptive-only, catastrophe-only and combined;
+- greedy order consolidation, simulated road/rail/water closures and end-to-end batch planning;
+- self-contained SVG maps generated from the computed solution;
+- calibrated synthetic generation for 23-city/754-edge networks and up to user-selected order counts.
+
+The fitness-spread adaptive formula in the current solver is a later engineering choice. It is not presented as the unrecovered 2022 formula.
+
+## Run and verify
+
+Core tests require only Python 3.10+:
 
 ```bash
-# No dependencies: enumerate the synthetic network exactly.
-python3 -m routing examples/synthetic-network.json --solver exact
-
-# In the documented Linux x86_64 / Python 3.10 environment:
-python -m pip install --no-cache-dir -r requirements-geatpy.txt
-python -m routing examples/synthetic-network.json --solver geatpy --seed 42
+python3 -B -m unittest discover -s tests -v
+python3 -B tools/audit_results.py
+python3 -B tools/verify_repository.py
 ```
 
-The synthetic example's exact minimum is **5,586.912 CNY expected cost**, using three water legs. This is a test fixture, not a competition result. The Geatpy integration is tested separately from the dependency-free cost model in [GitHub Actions](https://github.com/jetfan-xin/carbon-aware-multimodal-routing/actions/workflows/tests.yml). See the [optimizer guide](docs/implementation.md) before supplying your own data.
-
-## Run the offline audit
-
-Python 3.10 or newer; no third-party packages, credentials or network access required.
+Run the mandatory real-Geatpy suite in its pinned Linux amd64 container (also supported through Docker Desktop on Apple Silicon):
 
 ```bash
-python3 tools/audit_results.py
-python3 tools/verify_repository.py
-python3 -m unittest discover -s tests -v
+sh tools/run_geatpy_tests.sh
 ```
 
-The auditor checks the archived cost components, emission components, delivery constraints and comparison arithmetic. It intentionally reports inconsistencies rather than silently rewriting the historical numbers.
+This installs the official Geatpy 2.7.0 wheel and its `libgomp1` system dependency inside the image, runs all 12 integration tests, and executes the Geatpy CLI fixture. See [`docs/GEATPY_VALIDATION.md`](docs/GEATPY_VALIDATION.md).
 
-The executable model's assumptions and validation limits are described in the [optimizer guide](docs/implementation.md); implementation provenance is recorded in [source recovery](docs/source-recovery.md). No blockchain backend, production deployment or live data-collection service is included.
+Generate the 30-seed real-Geatpy ablation, machine-readable results and SVG figures:
 
-## Recognition and provenance
+```bash
+sh tools/run_geatpy_experiment.sh
+```
 
-The team, Zhuiguang, received Third Prize in the 2022 competition. The certificate was inspected during this repository's preparation. The original entry proposed a blockchain-based multimodal transport information platform for the Yangtze River Delta; this repository uses a descriptive name for its routing component. The [official competition archive](https://soda.data.sh.gov.cn/reviews.html) is provided for reference, although its HTTPS certificate prevented a fresh API verification during this audit.
+Run the small exact example or the dependency-free GA:
 
-Read [rights and attribution](RIGHTS_AND_ATTRIBUTION.md) before reusing material. Source files on the original drive were read only. No credentials, participant records, browser profiles, downloaded papers or third-party source trees are distributed here.
+```bash
+python3 -B -m routing \
+  examples/synthetic-network.json --solver exact
+
+python3 -B -m routing \
+  examples/synthetic-network.json \
+  --solver native-ga --population 80 --generations 100 --seed 42
+```
+
+Generate transparent synthetic data and execute the full flow:
+
+```bash
+python3 -B tools/generate_synthetic_benchmark.py \
+  --nodes 23 --orders 1000 \
+  --network-output /tmp/network.json --orders-output /tmp/orders.json
+
+python3 -B tools/run_full_pipeline.py \
+  /tmp/network.json /tmp/orders.json --solver dijkstra
+```
+
+Run four GA ablations across multiple seeds:
+
+```bash
+python3 -B tools/run_scalability_benchmark.py \
+  --nodes 23 --orders 100000 --population 80 --generations 100 \
+  --seeds 0,1,2,3,4,5,6,7,8,9 --output /tmp/benchmark.json
+```
+
+These commands do not read or write the original SODA evidence directory.
+
+## Claims and limits
+
+- Historical outputs are simulated case-study results, not measured deployment savings.
+- GA outputs are heuristic unless checked against an exact small-instance baseline; they are not global-optimality certificates.
+- Synthetic order benchmarks demonstrate pipeline behavior and measured scale only; they are not real enterprise records.
+- The proposal's live tracking, blockchain and government-platform concepts were not recovered as deployed services.
+- Raw workbooks, personal records, downloaded reference projects and third-party framework source are excluded from this repository.
+
+See [`RIGHTS_AND_ATTRIBUTION.md`](RIGHTS_AND_ATTRIBUTION.md) before reuse.

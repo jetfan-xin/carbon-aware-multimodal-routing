@@ -1,0 +1,5 @@
+[
+  {"order_id": "SYN-DEMO-001", "origin": "Origin", "destination": "Destination", "tonnes": 40, "deadline_hours": 62, "source_type": "synthetic_calibrated"},
+  {"order_id": "SYN-DEMO-002", "origin": "Origin", "destination": "Destination", "tonnes": 85, "deadline_hours": 62, "source_type": "synthetic_calibrated"},
+  {"order_id": "SYN-DEMO-003", "origin": "Origin", "destination": "Destination", "tonnes": 150, "deadline_hours": 72, "source_type": "synthetic_calibrated"}
+]

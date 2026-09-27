@@ -1,11 +1,22 @@
-"""Geatpy 2.7 integration with adaptive search and elite-preserving restarts.
+"""Maintained Geatpy 2.7 integration with adaptive search and elite-preserving restarts.
 
 This code uses Geatpy's public Problem, Population and SEGA interfaces.
-Geatpy is a separately installed dependency, not vendored code.
+Geatpy is a separately installed dependency, not vendored code. These adaptive
+rules belong to the maintained implementation, not recovered historical behavior.
 """
 
 import geatpy as ea
 import numpy as np
+
+
+def encode_route_seed(network, edge_indices):
+    """Encode a known continuous route as a high-priority chromosome."""
+    chromosome = np.zeros(len(network.edges), dtype=int)
+    for offset, edge_index in enumerate(edge_indices):
+        chromosome[edge_index] = len(network.edges) - 1 - offset
+    if tuple(network.decode(chromosome)) != tuple(edge_indices):
+        raise ValueError("route cannot be represented by the priority decoder")
+    return chromosome
 
 
 class FreightProblem(ea.Problem):
@@ -32,10 +43,11 @@ class FreightProblem(ea.Problem):
 
 
 class SearchController:
-    """Population-level fitness-spread adaptation and elite-preserving restarts."""
-    def __init__(self, patience=20, adaptive=True):
+    """Spread adaptation and optional elite-preserving catastrophes."""
+    def __init__(self, patience=20, adaptive=True, catastrophe=True):
         self.patience = patience
         self.adaptive = adaptive
+        self.catastrophe = catastrophe
         self.best = (float("inf"), float("inf"))
         self.stagnant = 0
         self.restarts = 0
@@ -57,7 +69,7 @@ class SearchController:
             algorithm.recOper.XOVR = 0.6 + 0.35 * convergence
             algorithm.mutOper.Pm = min(0.5, (1 + 4 * convergence) / algorithm.problem.Dim)
         restarted = False
-        if self.adaptive and self.stagnant >= self.patience and algorithm.currentGen + 1 < algorithm.MAXGEN:
+        if self.catastrophe and self.stagnant >= self.patience and algorithm.currentGen + 1 < algorithm.MAXGEN:
             fresh = ea.Population(Encoding="RI", Field=population.Field, NIND=population.sizes - 1)
             fresh.initChrom()
             algorithm.call_aimFunc(fresh)
@@ -69,6 +81,7 @@ class SearchController:
             self.stagnant = 0
             restarted = True
         self.trace.append(dict(generation=int(algorithm.currentGen),
+                               candidate_evaluations=int(algorithm.evalsNum),
                                best_violation=self.best[0], best_objective_cny=self.best[1],
                                crossover_probability=float(algorithm.recOper.XOVR),
                                mutation_probability=float(algorithm.mutOper.Pm), restarted=restarted))
@@ -85,23 +98,37 @@ class FreightSEGA(ea.soea_SEGA_templet):
         self.controller(self, population)
 
 
-def solve_geatpy(network, population=80, generations=100, seed=42, patience=20, adaptive=True):
+def solve_geatpy(network, population=80, generations=100, seed=42, patience=20,
+                 adaptive=True, catastrophe=True, heuristic_seed=False):
     for name, value, minimum in (("population", population, 4), ("generations", generations, 1), ("patience", patience, 1), ("seed", seed, 0)):
         if isinstance(value, bool) or not isinstance(value, int) or value < minimum:
             raise ValueError(f"{name} must be an integer >= {minimum}")
     if seed >= 2**32:
         raise ValueError("seed must be below 2**32")
     problem = FreightProblem(network)
-    controller = SearchController(patience, adaptive)
+    controller = SearchController(patience, adaptive, catastrophe)
 
     algorithm = FreightSEGA(problem, ea.Population(Encoding="RI", NIND=population), controller,
                                     MAXGEN=generations, logTras=0, drawing=0,
                                     maxTrappedCount=generations + 1)
+    prophet = None
+    if heuristic_seed:
+        from .model import solve_state_dijkstra
+        heuristic = solve_state_dijkstra(network)
+        if heuristic["solution"] is not None:
+            prophet = np.asarray([encode_route_seed(network, heuristic["solution"]["edge_indices"])])
     result = ea.optimize(algorithm, seed=seed, verbose=False, drawing=0,
-                         outputMsg=False, drawLog=False, saveFlag=False)
+                         outputMsg=False, drawLog=False, saveFlag=False, prophet=prophet)
     solution = network.evaluate(network.decode(result["Vars"][0])) if result["success"] else None
-    return dict(solver="geatpy-sega-adaptive" if adaptive else "geatpy-sega-baseline",
+    variant = "hybrid" if heuristic_seed and adaptive and catastrophe else (
+        "combined" if adaptive and catastrophe else (
+            "adaptive-only" if adaptive else "catastrophe-only" if catastrophe else "baseline"
+        )
+    )
+    return dict(solver=f"geatpy-sega-{variant}",
                 status="feasible-heuristic" if solution else "no-feasible-route-found",
                 seed=seed, population=population, generations=generations,
-                restart_patience=patience, restarts=controller.restarts,
+                restart_patience=patience, adaptive=adaptive, catastrophe=catastrophe,
+                heuristic_seed=heuristic_seed,
+                adaptation_formula="fitness-spread-v1", restarts=controller.restarts,
                 route_evaluations=int(result["nfev"]), solution=solution, trace=controller.trace)
