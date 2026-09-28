@@ -71,6 +71,7 @@ def verify(root=ROOT):
             for path in root.rglob("*")
             if path.is_file()
             and path.name != "REPOSITORY_FILES.sha256"
+            and path.name != ".DS_Store"
             and ".git" not in path.relative_to(root).parts
             and "__pycache__" not in path.relative_to(root).parts
         }
@@ -86,7 +87,8 @@ def verify(root=ROOT):
         re.compile(r"/(?:Users|Volumes)/[^\s]+"),
     ]
     for path in sorted(root.rglob("*")):
-        if not path.is_file() or any(part in (".git", "__pycache__") for part in path.relative_to(root).parts):
+        if (not path.is_file() or path.name == ".DS_Store"
+                or any(part in (".git", "__pycache__") for part in path.relative_to(root).parts)):
             continue
         checked += 1
         if path.suffix not in (".md", ".json", ".py"):
