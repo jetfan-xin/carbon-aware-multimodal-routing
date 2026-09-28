@@ -26,7 +26,7 @@ The 20% target achieves 22.34% because orders are indivisible. The best formal 2
 
 Nine selected scenarios have at least one known feasible GA solution. In those scenarios, adaptive, catastrophe, combined and hybrid each found a feasible solution in 270/270 runs; fixed found 269/270. Greedy succeeded in 5/9 scenarios. In the three remaining stress scenarios, no tested method found a feasible solution. This is not an infeasibility proof.
 
-The 23-city synthetic best-known result is CNY 147.96/t and 45.30 kg/t. Those normalized values sit within the broad corridor route ranges, but the comparison is only directional because the synthetic test mixes OD lengths. It is not external validation.
+The formal 23-city synthetic best-known result is CNY 157.90/t and 48.67 kg/t. Those normalized values sit within the broad corridor route ranges, but the comparison is only directional because the synthetic test mixes OD lengths. It is not external validation.
 
 ![Abatement frontier](../benchmarks/policy-allocation/abatement-frontier.svg)
 

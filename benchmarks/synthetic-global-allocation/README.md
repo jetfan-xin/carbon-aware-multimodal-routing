@@ -6,7 +6,7 @@ The experiment assigns 48 synthetic orders across 23 OD pairs. Each gene selects
 
 This is a scale/algorithm experiment, not an operational-data claim. City names and aggregate mode/distance ranges are historical anchors; the rows, edges and capacities are synthetic calibrated inputs. Beam candidate generation and every full-portfolio method are heuristic. Only the first 5 orders are exhaustively enumerated.
 
-The reported allocation controller was selected on seeds 30--39, checked on held-out seeds 40--69, and then rerun here on seeds 0--29. The formal best-known result is hybrid-seeded seed 17 at CNY 304,051.85, 18.39% below the deadline-greedy baseline of CNY 372,578.33. This comparison is limited to this synthetic instance and does not certify global optimality.
+The reported allocation controller was selected on seeds 30--39, checked on held-out seeds 40--69, and then rerun here on seeds 0--29. The formal best-known result is hybrid-seeded seed 28 at CNY 324,492.36, 18.52% below the deadline-greedy baseline of CNY 398,224.22. This comparison is limited to this synthetic instance and does not certify global optimality.
 
 - `results.json`: full scope, settings, small exact oracle and best-known portfolio.
 - `runs.csv`, `method-summary.csv`, `traces.csv`: 30-seed method comparison by default.

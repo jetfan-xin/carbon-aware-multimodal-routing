@@ -77,6 +77,7 @@ Objective-function evaluations are computational work, not source-data rows. See
 - [`routing/portfolio.py`](routing/portfolio.py): portfolio-level progressive carbon accounting without resetting brackets per shipment.
 - [`routing/allocation.py`](routing/allocation.py): per-order route/departure candidates, shared-capacity evaluation, greedy baseline and small exact oracle.
 - [`routing/allocation_ga.py`](routing/allocation_ga.py): order-level fixed/adaptive/catastrophe GA variants with one candidate-choice gene per order.
+- [`tools/run_synthetic_objective_matrix.py`](tools/run_synthetic_objective_matrix.py): five-GA comparison across road-only, no-transfer and multimodal-enabled policies with graduated hard emissions caps.
 - [`docs/PROJECT_REPORT.md`](docs/PROJECT_REPORT.md): integrated problem definition, requirements, data, algorithms, results, conclusions and interview narrative.
 - [`docs/original-ga-code-analysis.md`](docs/original-ga-code-analysis.md): function-level evidence analysis of the recovered implementation.
 - [`docs/original-vs-current.md`](docs/original-vs-current.md): historical/current behavior and provenance comparison.
@@ -124,6 +125,7 @@ Reproduce allocation-controller selection, held-out validation and the formal fi
 python3 -B tools/tune_allocation_control.py
 python3 -B tools/validate_allocation_control.py
 python3 -B tools/run_synthetic_allocation_experiment.py
+python3 -B tools/run_synthetic_objective_matrix.py
 ```
 
 Run the mandatory real-Geatpy suite in its pinned Linux amd64 container (also supported through Docker Desktop on Apple Silicon):
@@ -172,7 +174,7 @@ python3 -B tools/run_allocation_experiment.py
 python3 -B tools/run_synthetic_allocation_experiment.py
 ```
 
-The first command uses the three-node/five-edge calibrated facility case with twelve explicitly modelled orders and timed shared capacity; it also exhaustively checks a four-order subset. The second uses 48 synthetic orders across 23 OD pairs on an explicitly synthetic 23-city graph and compares the greedy baseline with five GA variants over 30 seeds. See the [global-allocation report](docs/global-order-allocation.md), [facility allocation outputs](benchmarks/global-order-allocation/README.md) and [scale outputs](benchmarks/synthetic-global-allocation/README.md).
+The first command uses the three-node/five-edge calibrated facility case with twelve explicitly modelled orders and timed shared capacity; it also exhaustively checks a four-order subset. The second uses 48 synthetic orders across 23 OD pairs on an explicitly synthetic 23-city graph and compares the greedy baseline with five GA variants over 30 seeds. The objective-matrix command holds that portfolio fixed while comparing road-only, no-within-order-transfer and multimodal-enabled candidate sets under cost minimization and 20%, 40%, 55% and 60% hard reduction targets. See the [global-allocation report](docs/global-order-allocation.md), [facility allocation outputs](benchmarks/global-order-allocation/README.md), [scale outputs](benchmarks/synthetic-global-allocation/README.md) and [objective-matrix outputs](benchmarks/synthetic-global-allocation/objective-matrix/README.md).
 
 Run the hard-emissions-cap policy experiment:
 

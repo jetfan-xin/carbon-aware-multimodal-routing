@@ -1,0 +1,9 @@
+scenario,transport_scope,reduction_target,emission_cap_kg,source_scenario,feasible,method,seed,total_cost_cny,noncarbon_cost_cny,carbon_cost_cny,emissions_kg,tonne_weighted_transit_hours,road_only_tonnes,rail_only_tonnes,water_only_tonnes,multimodal_tonnes
+road-cost,road-only,0.0,,road-cost,True,fixed,0,618893.0887099998,604620.9930249999,14272.095685,217720.95685,18.652629866180042,2055.0,0.0,0.0,0.0
+single-mode-cost,single-mode-per-order,0.0,,single-mode-cost,True,hybrid-seeded,18,332353.0316400001,327151.7515750001,5201.280064999999,104025.60129999998,42.040614760746145,220.0,930.0,905.0,0.0
+multimodal-cost,multimodal-enabled,0.0,,multimodal-reduction-40,True,adaptive,3,322104.18306,317127.003775,4977.179285000001,99543.58570000001,43.2291301703163,160.0,910.0,825.0,160.0
+multimodal-reduction-20,multimodal-enabled,0.2,174176.76548,multimodal-reduction-40,True,adaptive,3,322104.18306,317127.003775,4977.179285000001,99543.58570000001,43.2291301703163,160.0,910.0,825.0,160.0
+multimodal-reduction-40,multimodal-enabled,0.4,130632.57410999999,multimodal-reduction-40,True,adaptive,3,322104.18306,317127.003775,4977.179285000001,99543.58570000001,43.2291301703163,160.0,910.0,825.0,160.0
+multimodal-reduction-55,multimodal-enabled,0.55,97974.43058249999,,False,,,,,,,,,,,
+multimodal-reduction-60,multimodal-enabled,0.6,87088.38274,,False,,,,,,,,,,,
+single-mode-reduction-55,single-mode-per-order,0.55,97974.43058249999,,False,,,,,,,,,,,

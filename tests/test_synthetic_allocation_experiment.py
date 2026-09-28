@@ -30,8 +30,8 @@ class SyntheticAllocationExperimentTests(unittest.TestCase):
         best = report["best_known_full_portfolio"]["solution"]["total_cost_cny"]
         self.assertEqual(report["best_known_full_portfolio"]["method"],
                          "hybrid-seeded")
-        self.assertEqual(report["best_known_full_portfolio"]["seed"], 17)
-        self.assertAlmostEqual(best, 304051.84844)
+        self.assertEqual(report["best_known_full_portfolio"]["seed"], 28)
+        self.assertAlmostEqual(best, 324492.35962)
         expected = (greedy["best_cost_cny"] - best) / greedy["best_cost_cny"] * 100
         self.assertAlmostEqual(report["best_known_saving_vs_greedy_percent"], expected)
         for name in ("objective-by-method.svg", "convergence.svg",
@@ -61,6 +61,13 @@ class SyntheticAllocationExperimentTests(unittest.TestCase):
                 self.assertTrue((output / name).is_file(), name)
 
     def test_tuning_and_held_out_validation_are_disjoint_and_consistent(self):
+        from tools.run_allocation_experiment import VARIANTS
+        from tools.run_synthetic_allocation_experiment import SYNTHETIC_VARIANTS
+
+        self.assertEqual(VARIANTS["hybrid-seeded"]["mutation_base"], 1.25)
+        self.assertEqual(VARIANTS["hybrid-seeded"]["mutation_cap"], 3.0)
+        self.assertEqual(SYNTHETIC_VARIANTS["hybrid-seeded"]["mutation_base"], 1.0)
+        self.assertEqual(SYNTHETIC_VARIANTS["hybrid-seeded"]["mutation_cap"], 2.5)
         tuning = json.loads((ROOT / "benchmarks/allocation-control-tuning/results.json")
                             .read_text(encoding="utf-8"))
         validation = json.loads(
@@ -69,7 +76,7 @@ class SyntheticAllocationExperimentTests(unittest.TestCase):
         self.assertEqual(tuning["seeds"], list(range(30, 40)))
         self.assertEqual(validation["seeds"], list(range(40, 70)))
         self.assertFalse(set(tuning["seeds"]) & set(validation["seeds"]))
-        self.assertEqual(tuning["selected_configuration"], "v2-r25-p30-m3")
+        self.assertEqual(tuning["selected_configuration"], "v2-hybrid-archive-r25")
         comparisons = {(row["new"], row["baseline"]): row
                        for row in validation["paired_comparisons"]}
         hybrid = comparisons[("selected-hybrid-v2", "legacy-hybrid")]
@@ -82,6 +89,8 @@ class SyntheticAllocationExperimentTests(unittest.TestCase):
         self.assertEqual(selected["controls"]["heuristic_seed_mode"], "archive")
         self.assertEqual(selected["controls"]["heuristic_seed_strategy"],
                          "opportunity")
+        self.assertEqual(selected["controls"]["mutation_base"], 1.0)
+        self.assertEqual(selected["controls"]["mutation_cap"], 2.5)
 
 
 if __name__ == "__main__":

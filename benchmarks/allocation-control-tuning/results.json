@@ -19,19 +19,19 @@
     "generations": 150
   },
   "selection_rule": "lowest median, then mean, then best feasible cost",
-  "selected_configuration": "v2-r25-p30-m3",
+  "selected_configuration": "v2-hybrid-archive-r25",
   "summaries": [
     {
       "configuration": "legacy-combined",
       "runs": 10,
       "feasible_runs": 10,
-      "best_cost_cny": 313321.449055,
-      "median_cost_cny": 325098.4496000001,
-      "mean_cost_cny": 324096.54946750007,
-      "stdev_cost_cny": 4985.576987760439,
-      "q1_cost_cny": 322301.22145250003,
-      "q3_cost_cny": 326446.300488125,
-      "mean_restarts": 0.8,
+      "best_cost_cny": 333608.2476800001,
+      "median_cost_cny": 346581.9425700001,
+      "mean_cost_cny": 345963.6948105001,
+      "stdev_cost_cny": 6789.148332549799,
+      "q1_cost_cny": 341884.7964218751,
+      "q3_cost_cny": 351302.6161850001,
+      "mean_restarts": 1.0,
       "mean_heuristic_seed_evaluations": 0.0,
       "controls": {
         "adaptive": true,
@@ -45,12 +45,12 @@
       "configuration": "v2-adaptive-m2",
       "runs": 10,
       "feasible_runs": 10,
-      "best_cost_cny": 306736.8298400001,
-      "median_cost_cny": 322000.98363250005,
-      "mean_cost_cny": 320902.45757025003,
-      "stdev_cost_cny": 7787.484426749593,
-      "q1_cost_cny": 314575.08283,
-      "q3_cost_cny": 326872.2483975,
+      "best_cost_cny": 325773.1257300001,
+      "median_cost_cny": 340947.51902750006,
+      "mean_cost_cny": 339202.80922875006,
+      "stdev_cost_cny": 11466.819825949427,
+      "q1_cost_cny": 327882.11806,
+      "q3_cost_cny": 343877.1779381249,
       "mean_restarts": 0.0,
       "mean_heuristic_seed_evaluations": 0.0,
       "controls": {
@@ -66,13 +66,13 @@
       "configuration": "v2-r25-p20-m2",
       "runs": 10,
       "feasible_runs": 10,
-      "best_cost_cny": 306736.8298400001,
-      "median_cost_cny": 322000.98363250005,
-      "mean_cost_cny": 319304.51360475004,
-      "stdev_cost_cny": 8559.785056253486,
-      "q1_cost_cny": 311296.33427625004,
-      "q3_cost_cny": 324728.40317625,
-      "mean_restarts": 0.8,
+      "best_cost_cny": 325773.1257300001,
+      "median_cost_cny": 340947.51902750006,
+      "mean_cost_cny": 339798.17766275007,
+      "stdev_cost_cny": 11168.3945639995,
+      "q1_cost_cny": 329130.26437250007,
+      "q3_cost_cny": 343877.1779381249,
+      "mean_restarts": 0.9,
       "mean_heuristic_seed_evaluations": 0.0,
       "controls": {
         "adaptive": true,
@@ -88,13 +88,13 @@
       "configuration": "v2-r50-p20-m2",
       "runs": 10,
       "feasible_runs": 10,
-      "best_cost_cny": 306736.8298400001,
-      "median_cost_cny": 322000.98363250005,
-      "mean_cost_cny": 319304.51360475004,
-      "stdev_cost_cny": 8559.785056253486,
-      "q1_cost_cny": 311296.33427625004,
-      "q3_cost_cny": 324728.40317625,
-      "mean_restarts": 0.8,
+      "best_cost_cny": 325773.1257300001,
+      "median_cost_cny": 340947.51902750006,
+      "mean_cost_cny": 339798.17766275007,
+      "stdev_cost_cny": 11168.3945639995,
+      "q1_cost_cny": 329130.26437250007,
+      "q3_cost_cny": 343877.1779381249,
+      "mean_restarts": 0.9,
       "mean_heuristic_seed_evaluations": 0.0,
       "controls": {
         "adaptive": true,
@@ -110,13 +110,13 @@
       "configuration": "v2-r25-p30-m2",
       "runs": 10,
       "feasible_runs": 10,
-      "best_cost_cny": 307334.7859150001,
-      "median_cost_cny": 312712.1294825,
-      "mean_cost_cny": 316407.3380950001,
-      "stdev_cost_cny": 9566.40875267954,
-      "q1_cost_cny": 307747.9531312501,
-      "q3_cost_cny": 323707.82256125007,
-      "mean_restarts": 0.7,
+      "best_cost_cny": 326398.64387000015,
+      "median_cost_cny": 348228.2766700001,
+      "mean_cost_cny": 346484.0571215001,
+      "stdev_cost_cny": 11677.229999993626,
+      "q1_cost_cny": 337887.0849106251,
+      "q3_cost_cny": 354537.3949537501,
+      "mean_restarts": 0.4,
       "mean_heuristic_seed_evaluations": 0.0,
       "controls": {
         "adaptive": true,
@@ -132,13 +132,13 @@
       "configuration": "v2-r50-p30-m2",
       "runs": 10,
       "feasible_runs": 10,
-      "best_cost_cny": 307334.7859150001,
-      "median_cost_cny": 312712.1294825,
-      "mean_cost_cny": 316407.3380950001,
-      "stdev_cost_cny": 9566.40875267954,
-      "q1_cost_cny": 307747.9531312501,
-      "q3_cost_cny": 323707.82256125007,
-      "mean_restarts": 0.7,
+      "best_cost_cny": 326398.64387000015,
+      "median_cost_cny": 348228.2766700001,
+      "mean_cost_cny": 346484.0571215001,
+      "stdev_cost_cny": 11677.229999993626,
+      "q1_cost_cny": 337887.0849106251,
+      "q3_cost_cny": 354537.3949537501,
+      "mean_restarts": 0.4,
       "mean_heuristic_seed_evaluations": 0.0,
       "controls": {
         "adaptive": true,
@@ -154,13 +154,13 @@
       "configuration": "v2-r25-p30-m25",
       "runs": 10,
       "feasible_runs": 10,
-      "best_cost_cny": 307443.34698499995,
-      "median_cost_cny": 315824.02172250004,
-      "mean_cost_cny": 317559.1384635001,
-      "stdev_cost_cny": 9300.499550970591,
-      "q1_cost_cny": 308774.40024875005,
-      "q3_cost_cny": 325149.8407687501,
-      "mean_restarts": 0.6,
+      "best_cost_cny": 326398.64387000015,
+      "median_cost_cny": 346330.89005250006,
+      "mean_cost_cny": 345999.4246040001,
+      "stdev_cost_cny": 12356.938610817835,
+      "q1_cost_cny": 334769.5214543751,
+      "q3_cost_cny": 355267.93282500014,
+      "mean_restarts": 0.4,
       "mean_heuristic_seed_evaluations": 0.0,
       "controls": {
         "adaptive": true,
@@ -176,13 +176,13 @@
       "configuration": "v2-r50-p30-m25",
       "runs": 10,
       "feasible_runs": 10,
-      "best_cost_cny": 307443.34698499995,
-      "median_cost_cny": 315824.02172250004,
-      "mean_cost_cny": 317559.1384635001,
-      "stdev_cost_cny": 9300.499550970591,
-      "q1_cost_cny": 308774.40024875005,
-      "q3_cost_cny": 325149.8407687501,
-      "mean_restarts": 0.6,
+      "best_cost_cny": 326398.64387000015,
+      "median_cost_cny": 346330.89005250006,
+      "mean_cost_cny": 345999.4246040001,
+      "stdev_cost_cny": 12356.938610817835,
+      "q1_cost_cny": 334769.5214543751,
+      "q3_cost_cny": 355267.93282500014,
+      "mean_restarts": 0.4,
       "mean_heuristic_seed_evaluations": 0.0,
       "controls": {
         "adaptive": true,
@@ -198,13 +198,13 @@
       "configuration": "v2-r25-p30-m3",
       "runs": 10,
       "feasible_runs": 10,
-      "best_cost_cny": 303957.87579,
-      "median_cost_cny": 309238.6335875001,
-      "mean_cost_cny": 314981.75833750004,
-      "stdev_cost_cny": 10045.543959140123,
-      "q1_cost_cny": 306909.2653525001,
-      "q3_cost_cny": 325489.86260750005,
-      "mean_restarts": 0.2,
+      "best_cost_cny": 326877.63521000004,
+      "median_cost_cny": 339694.33931500005,
+      "mean_cost_cny": 336700.98699100007,
+      "stdev_cost_cny": 7039.0812349522,
+      "q1_cost_cny": 328900.1960800001,
+      "q3_cost_cny": 342226.0881825001,
+      "mean_restarts": 0.5,
       "mean_heuristic_seed_evaluations": 0.0,
       "controls": {
         "adaptive": true,
@@ -220,13 +220,13 @@
       "configuration": "v2-r50-p30-m3",
       "runs": 10,
       "feasible_runs": 10,
-      "best_cost_cny": 303957.87579,
-      "median_cost_cny": 309238.6335875001,
-      "mean_cost_cny": 314981.75833750004,
-      "stdev_cost_cny": 10045.543959140123,
-      "q1_cost_cny": 306909.2653525001,
-      "q3_cost_cny": 325489.86260750005,
-      "mean_restarts": 0.2,
+      "best_cost_cny": 326877.63521000004,
+      "median_cost_cny": 339694.33931500005,
+      "mean_cost_cny": 336700.98699100007,
+      "stdev_cost_cny": 7039.0812349522,
+      "q1_cost_cny": 328900.1960800001,
+      "q3_cost_cny": 342226.0881825001,
+      "mean_restarts": 0.5,
       "mean_heuristic_seed_evaluations": 0.0,
       "controls": {
         "adaptive": true,
@@ -242,13 +242,13 @@
       "configuration": "v2-hybrid-archive-r25",
       "runs": 10,
       "feasible_runs": 10,
-      "best_cost_cny": 309951.76694500004,
-      "median_cost_cny": 311960.9148875001,
-      "mean_cost_cny": 314533.04568900005,
-      "stdev_cost_cny": 4141.01305031663,
-      "q1_cost_cny": 311237.9349812501,
-      "q3_cost_cny": 319495.43864500005,
-      "mean_restarts": 2.6,
+      "best_cost_cny": 325897.3289100001,
+      "median_cost_cny": 334149.98794250004,
+      "mean_cost_cny": 332830.8209225001,
+      "stdev_cost_cny": 4812.352220212006,
+      "q1_cost_cny": 328876.4115375001,
+      "q3_cost_cny": 337472.10421,
+      "mean_restarts": 2.9,
       "mean_heuristic_seed_evaluations": 288.0,
       "controls": {
         "adaptive": true,
@@ -267,13 +267,13 @@
       "configuration": "v2-hybrid-archive-r50",
       "runs": 10,
       "feasible_runs": 10,
-      "best_cost_cny": 305859.27446000004,
-      "median_cost_cny": 311055.613255,
-      "mean_cost_cny": 312964.06917400006,
-      "stdev_cost_cny": 5855.1651802945225,
-      "q1_cost_cny": 307346.5232500001,
-      "q3_cost_cny": 319783.79474625003,
-      "mean_restarts": 2.7,
+      "best_cost_cny": 326690.5617400001,
+      "median_cost_cny": 337472.10421,
+      "mean_cost_cny": 334942.432227,
+      "stdev_cost_cny": 3708.5294680064517,
+      "q1_cost_cny": 332682.6906825001,
+      "q3_cost_cny": 337472.10421,
+      "mean_restarts": 3.4,
       "mean_heuristic_seed_evaluations": 288.0,
       "controls": {
         "adaptive": true,
@@ -291,68 +291,68 @@
   ],
   "best_observed": {
     "run": {
-      "configuration": "v2-r25-p30-m3",
-      "seed": 39,
+      "configuration": "v2-adaptive-m2",
+      "seed": 35,
       "status": "feasible-heuristic",
       "feasible": true,
-      "total_cost_cny": 303957.87579,
-      "emissions_kg": 92430.2583,
+      "total_cost_cny": 325773.1257300001,
+      "emissions_kg": 100448.1461,
       "constraint_violation": 0.0,
-      "restarts": 1,
+      "restarts": 0,
       "ga_candidate_evaluations": 15000,
       "heuristic_seed_evaluations": 0,
-      "unique_assignment_evaluations": 11952
+      "unique_assignment_evaluations": 10902
     },
     "solution": {
       "chromosome": [
         0,
-        1,
-        2,
-        1,
-        0,
         0,
         4,
-        0,
-        0,
         5,
         0,
         0,
         0,
         4,
         0,
-        3,
-        1,
-        3,
-        0,
-        3,
-        2,
-        5,
-        3,
-        0,
-        0,
-        0,
-        0,
-        3,
-        0,
-        1,
-        0,
-        0,
-        3,
-        3,
-        0,
-        1,
-        5,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
+        4,
         0,
         2,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        2,
+        0,
+        3,
+        3,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0,
         4,
+        0,
+        0,
+        0,
+        2,
+        3,
+        2,
+        1,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0,
         4,
-        1
+        0,
+        4,
+        3,
+        3,
+        0
       ],
       "selected_candidates": [
         {
@@ -370,6 +370,8 @@
             "e0018-0019-rail",
             "e0019-0020-rail"
           ],
+          "distance_km": 1384.73,
+          "transport_work_tonne_km": 117702.05,
           "route": [
             "Chenglingji",
             "Zhenjiang",
@@ -421,18 +423,20 @@
           "surrogate_cost_cny": 17884.26248
         },
         {
-          "candidate_id": "ALLOC-SYN-0001|e0004-0005-rail>e0005-0006-water>e0006-0021-water|ondemand-0",
+          "candidate_id": "ALLOC-SYN-0001|e0004-0005-water>e0005-0006-water>e0006-0021-water|ondemand-0",
           "order_id": "ALLOC-SYN-0001",
           "edge_indices": [
-            41,
+            42,
             54,
             63
           ],
           "edge_ids": [
-            "e0004-0005-rail",
+            "e0004-0005-water",
             "e0005-0006-water",
             "e0006-0021-water"
           ],
+          "distance_km": 1502.27,
+          "transport_work_tonne_km": 60090.8,
           "route": [
             "Chenglingji",
             "Honghu",
@@ -440,14 +444,14 @@
             "Nantong"
           ],
           "modes": [
-            "rail",
+            "water",
             "water",
             "water"
           ],
           "departure_ids": [],
           "capacity_claims": [
             {
-              "departure_id": "HORIZON-e0004-0005-rail",
+              "departure_id": "HORIZON-e0004-0005-water",
               "tonnes": 40.0,
               "shipment_units": 1.0
             },
@@ -462,185 +466,111 @@
               "shipment_units": 1.0
             }
           ],
-          "arrival_hour": 50.1015,
+          "arrival_hour": 50.07566666666667,
           "scheduled_wait_hours": 0.0,
           "lateness_hours": 0.0,
           "intrinsic_violation": 0.0,
           "costs": {
-            "transport_cost_cny": 2265.4903999999997,
-            "transfer_cost_cny": 100.0,
-            "scheduled_wait_cost_cny": 0.0,
-            "lateness_cost_cny": 0.0
-          },
-          "noncarbon_cost_cny": 2365.4903999999997,
-          "emissions_kg": 830.8280000000001,
-          "surrogate_cost_cny": 2407.0317999999997
-        },
-        {
-          "candidate_id": "ALLOC-SYN-0002|e0001-0009-water>e0009-0010-water>e0010-0011-water>e0011-0020-water>e0020-0021-water|ondemand-0",
-          "order_id": "ALLOC-SYN-0002",
-          "edge_indices": [
-            25,
-            84,
-            90,
-            102,
-            138
-          ],
-          "edge_ids": [
-            "e0001-0009-water",
-            "e0009-0010-water",
-            "e0010-0011-water",
-            "e0011-0020-water",
-            "e0020-0021-water"
-          ],
-          "route": [
-            "Yichang",
-            "Wuxue",
-            "Jiujiang",
-            "Anqing",
-            "Zhangjiagang",
-            "Nantong"
-          ],
-          "modes": [
-            "water",
-            "water",
-            "water",
-            "water",
-            "water"
-          ],
-          "departure_ids": [],
-          "capacity_claims": [
-            {
-              "departure_id": "HORIZON-e0001-0009-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0009-0010-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0010-0011-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0011-0020-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0020-0021-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            }
-          ],
-          "arrival_hour": 89.41466666666666,
-          "scheduled_wait_hours": 0.0,
-          "lateness_hours": 0.0,
-          "intrinsic_violation": 0.0,
-          "costs": {
-            "transport_cost_cny": 1498.7435,
+            "transport_cost_cny": 1727.994,
             "transfer_cost_cny": 0.0,
             "scheduled_wait_cost_cny": 0.0,
             "lateness_cost_cny": 0.0
           },
-          "noncarbon_cost_cny": 1498.7435,
-          "emissions_kg": 470.9856,
-          "surrogate_cost_cny": 1522.29278
+          "noncarbon_cost_cny": 1727.994,
+          "emissions_kg": 721.0896000000001,
+          "surrogate_cost_cny": 1764.04848
         },
         {
-          "candidate_id": "ALLOC-SYN-0003|e0001-0002-water>e0002-0003-water>e0003-0004-water>e0004-0005-water>e0005-0006-water>e0006-0021-water>e0021-0022-water|ondemand-0",
-          "order_id": "ALLOC-SYN-0003",
+          "candidate_id": "ALLOC-SYN-0002|e0001-0002-road>e0002-0004-road>e0004-0005-road>e0005-0006-road>e0006-0021-road|ondemand-0",
+          "order_id": "ALLOC-SYN-0002",
           "edge_indices": [
-            19,
-            28,
-            36,
-            42,
-            54,
-            63,
-            144
+            17,
+            29,
+            40,
+            52,
+            61
           ],
           "edge_ids": [
-            "e0001-0002-water",
-            "e0002-0003-water",
-            "e0003-0004-water",
-            "e0004-0005-water",
-            "e0005-0006-water",
-            "e0006-0021-water",
-            "e0021-0022-water"
+            "e0001-0002-road",
+            "e0002-0004-road",
+            "e0004-0005-road",
+            "e0005-0006-road",
+            "e0006-0021-road"
           ],
+          "distance_km": 1672.1,
+          "transport_work_tonne_km": 33442.0,
           "route": [
             "Yichang",
             "Zhicheng",
-            "Shashi",
             "Chenglingji",
             "Honghu",
             "Hankou",
-            "Nantong",
-            "Shanghai"
+            "Nantong"
           ],
           "modes": [
-            "water",
-            "water",
-            "water",
-            "water",
-            "water",
-            "water",
-            "water"
+            "road",
+            "road",
+            "road",
+            "road",
+            "road"
           ],
           "departure_ids": [],
-          "capacity_claims": [
-            {
-              "departure_id": "HORIZON-e0001-0002-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0002-0003-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0003-0004-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0004-0005-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0005-0006-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0006-0021-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0021-0022-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            }
-          ],
-          "arrival_hour": 69.32900000000001,
+          "capacity_claims": [],
+          "arrival_hour": 44.901250000000005,
           "scheduled_wait_hours": 0.0,
           "lateness_hours": 0.0,
           "intrinsic_violation": 0.0,
           "costs": {
-            "transport_cost_cny": 1383.837,
+            "transport_cost_cny": 6837.7685,
             "transfer_cost_cny": 0.0,
             "scheduled_wait_cost_cny": 0.0,
             "lateness_cost_cny": 0.0
           },
-          "noncarbon_cost_cny": 1383.837,
-          "emissions_kg": 499.16880000000003,
-          "surrogate_cost_cny": 1408.79544
+          "noncarbon_cost_cny": 6837.7685,
+          "emissions_kg": 2374.3819999999996,
+          "surrogate_cost_cny": 6956.4876
+        },
+        {
+          "candidate_id": "ALLOC-SYN-0003|e0001-0002-road>e0002-0004-road>e0004-0022-road|ondemand-0",
+          "order_id": "ALLOC-SYN-0003",
+          "edge_indices": [
+            17,
+            29,
+            49
+          ],
+          "edge_ids": [
+            "e0001-0002-road",
+            "e0002-0004-road",
+            "e0004-0022-road"
+          ],
+          "distance_km": 1551.45,
+          "transport_work_tonne_km": 31029.0,
+          "route": [
+            "Yichang",
+            "Zhicheng",
+            "Chenglingji",
+            "Shanghai"
+          ],
+          "modes": [
+            "road",
+            "road",
+            "road"
+          ],
+          "departure_ids": [],
+          "capacity_claims": [],
+          "arrival_hour": 19.393124999999998,
+          "scheduled_wait_hours": 0.0,
+          "lateness_hours": 0.0,
+          "intrinsic_violation": 0.0,
+          "costs": {
+            "transport_cost_cny": 6054.3525,
+            "transfer_cost_cny": 0.0,
+            "scheduled_wait_cost_cny": 0.0,
+            "lateness_cost_cny": 0.0
+          },
+          "noncarbon_cost_cny": 6054.3525,
+          "emissions_kg": 2203.0589999999997,
+          "surrogate_cost_cny": 6164.50545
         },
         {
           "candidate_id": "ALLOC-SYN-0004|e0002-0004-rail>e0004-0022-rail|ondemand-0",
@@ -653,6 +583,8 @@
             "e0002-0004-rail",
             "e0004-0022-rail"
           ],
+          "distance_km": 1488.93,
+          "transport_work_tonne_km": 126559.05,
           "route": [
             "Zhicheng",
             "Chenglingji",
@@ -704,6 +636,8 @@
             "e0013-0014-water",
             "e0014-0020-water"
           ],
+          "distance_km": 1880.49,
+          "transport_work_tonne_km": 37609.8,
           "route": [
             "Shashi",
             "Chizhou",
@@ -755,25 +689,27 @@
           "surrogate_cost_cny": 1217.9488800000001
         },
         {
-          "candidate_id": "ALLOC-SYN-0006|e0002-0007-water>e0007-0014-water>e0014-0020-water>e0020-0021-water|ondemand-0",
+          "candidate_id": "ALLOC-SYN-0006|e0002-0004-water>e0004-0005-water>e0005-0006-water>e0006-0021-water|ondemand-0",
           "order_id": "ALLOC-SYN-0006",
           "edge_indices": [
-            33,
-            72,
-            117,
-            138
+            31,
+            42,
+            54,
+            63
           ],
           "edge_ids": [
-            "e0002-0007-water",
-            "e0007-0014-water",
-            "e0014-0020-water",
-            "e0020-0021-water"
+            "e0002-0004-water",
+            "e0004-0005-water",
+            "e0005-0006-water",
+            "e0006-0021-water"
           ],
+          "distance_km": 1757.8700000000001,
+          "transport_work_tonne_km": 35157.4,
           "route": [
             "Zhicheng",
-            "Yangluo",
-            "Wuhu",
-            "Zhangjiagang",
+            "Chenglingji",
+            "Honghu",
+            "Hankou",
             "Nantong"
           ],
           "modes": [
@@ -785,55 +721,57 @@
           "departure_ids": [],
           "capacity_claims": [
             {
-              "departure_id": "HORIZON-e0002-0007-water",
+              "departure_id": "HORIZON-e0002-0004-water",
               "tonnes": 20.0,
               "shipment_units": 1.0
             },
             {
-              "departure_id": "HORIZON-e0007-0014-water",
+              "departure_id": "HORIZON-e0004-0005-water",
               "tonnes": 20.0,
               "shipment_units": 1.0
             },
             {
-              "departure_id": "HORIZON-e0014-0020-water",
+              "departure_id": "HORIZON-e0005-0006-water",
               "tonnes": 20.0,
               "shipment_units": 1.0
             },
             {
-              "departure_id": "HORIZON-e0020-0021-water",
+              "departure_id": "HORIZON-e0006-0021-water",
               "tonnes": 20.0,
               "shipment_units": 1.0
             }
           ],
-          "arrival_hour": 79.81966666666666,
+          "arrival_hour": 70.59566666666667,
           "scheduled_wait_hours": 0.0,
           "lateness_hours": 0.0,
           "intrinsic_violation": 0.0,
           "costs": {
-            "transport_cost_cny": 1511.0329,
+            "transport_cost_cny": 1094.0369999999998,
             "transfer_cost_cny": 0.0,
             "scheduled_wait_cost_cny": 0.0,
             "lateness_cost_cny": 0.0
           },
-          "noncarbon_cost_cny": 1511.0329,
-          "emissions_kg": 488.30160000000006,
-          "surrogate_cost_cny": 1535.44798
+          "noncarbon_cost_cny": 1094.0369999999998,
+          "emissions_kg": 421.88880000000006,
+          "surrogate_cost_cny": 1115.1314399999999
         },
         {
-          "candidate_id": "ALLOC-SYN-0007|e0004-0017-water>e0017-0018-water>e0018-0019-water>e0019-0020-water|ondemand-0",
+          "candidate_id": "ALLOC-SYN-0007|e0004-0017-road>e0017-0018-road>e0018-0019-road>e0019-0020-road|ondemand-0",
           "order_id": "ALLOC-SYN-0007",
           "edge_indices": [
-            48,
-            126,
-            132,
-            135
+            46,
+            124,
+            130,
+            133
           ],
           "edge_ids": [
-            "e0004-0017-water",
-            "e0017-0018-water",
-            "e0018-0019-water",
-            "e0019-0020-water"
+            "e0004-0017-road",
+            "e0017-0018-road",
+            "e0018-0019-road",
+            "e0019-0020-road"
           ],
+          "distance_km": 1399.8700000000001,
+          "transport_work_tonne_km": 27997.4,
           "route": [
             "Chenglingji",
             "Zhenjiang",
@@ -842,47 +780,26 @@
             "Zhangjiagang"
           ],
           "modes": [
-            "water",
-            "water",
-            "water",
-            "water"
+            "road",
+            "road",
+            "road",
+            "road"
           ],
           "departure_ids": [],
-          "capacity_claims": [
-            {
-              "departure_id": "HORIZON-e0004-0017-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0017-0018-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0018-0019-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0019-0020-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            }
-          ],
-          "arrival_hour": 63.83433333333333,
+          "capacity_claims": [],
+          "arrival_hour": 17.498375000000003,
           "scheduled_wait_hours": 0.0,
           "lateness_hours": 0.0,
           "intrinsic_violation": 0.0,
           "costs": {
-            "transport_cost_cny": 1141.8654,
+            "transport_cost_cny": 5563.2652,
             "transfer_cost_cny": 0.0,
             "scheduled_wait_cost_cny": 0.0,
             "lateness_cost_cny": 0.0
           },
-          "noncarbon_cost_cny": 1141.8654,
-          "emissions_kg": 459.60720000000003,
-          "surrogate_cost_cny": 1164.84576
+          "noncarbon_cost_cny": 5563.2652,
+          "emissions_kg": 1987.8153999999997,
+          "surrogate_cost_cny": 5662.65597
         },
         {
           "candidate_id": "ALLOC-SYN-0008|e0000-0001-water>e0001-0009-water>e0009-0018-water>e0018-0019-water|ondemand-0",
@@ -899,6 +816,8 @@
             "e0009-0018-water",
             "e0018-0019-water"
           ],
+          "distance_km": 2144.59,
+          "transport_work_tonne_km": 182290.15000000002,
           "route": [
             "Chongqing",
             "Yichang",
@@ -962,6 +881,8 @@
             "e0004-0017-road",
             "e0017-0018-road"
           ],
+          "distance_km": 1295.8300000000002,
+          "transport_work_tonne_km": 25916.600000000002,
           "route": [
             "Shashi",
             "Chenglingji",
@@ -1008,6 +929,8 @@
             "e0017-0018-rail",
             "e0018-0019-rail"
           ],
+          "distance_km": 1591.6699999999998,
+          "transport_work_tonne_km": 63666.799999999996,
           "route": [
             "Chongqing",
             "Wuhu",
@@ -1073,25 +996,35 @@
           "surrogate_cost_cny": 10120.96148
         },
         {
-          "candidate_id": "ALLOC-SYN-0011|e0002-0004-water>e0004-0017-water>e0017-0018-water|ondemand-0",
+          "candidate_id": "ALLOC-SYN-0011|e0002-0003-water>e0003-0004-water>e0004-0016-water>e0016-0017-water>e0017-0018-water|ondemand-0",
           "order_id": "ALLOC-SYN-0011",
           "edge_indices": [
-            31,
-            48,
+            28,
+            36,
+            45,
+            123,
             126
           ],
           "edge_ids": [
-            "e0002-0004-water",
-            "e0004-0017-water",
+            "e0002-0003-water",
+            "e0003-0004-water",
+            "e0004-0016-water",
+            "e0016-0017-water",
             "e0017-0018-water"
           ],
+          "distance_km": 1876.6299999999999,
+          "transport_work_tonne_km": 159513.55,
           "route": [
             "Zhicheng",
+            "Shashi",
             "Chenglingji",
+            "Nanjing",
             "Zhenjiang",
             "Gaogang"
           ],
           "modes": [
+            "water",
+            "water",
             "water",
             "water",
             "water"
@@ -1099,12 +1032,22 @@
           "departure_ids": [],
           "capacity_claims": [
             {
-              "departure_id": "HORIZON-e0002-0004-water",
+              "departure_id": "HORIZON-e0002-0003-water",
               "tonnes": 85.0,
               "shipment_units": 1.0
             },
             {
-              "departure_id": "HORIZON-e0004-0017-water",
+              "departure_id": "HORIZON-e0003-0004-water",
+              "tonnes": 85.0,
+              "shipment_units": 1.0
+            },
+            {
+              "departure_id": "HORIZON-e0004-0016-water",
+              "tonnes": 85.0,
+              "shipment_units": 1.0
+            },
+            {
+              "departure_id": "HORIZON-e0016-0017-water",
               "tonnes": 85.0,
               "shipment_units": 1.0
             },
@@ -1114,113 +1057,126 @@
               "shipment_units": 1.0
             }
           ],
-          "arrival_hour": 74.71366666666667,
+          "arrival_hour": 74.55433333333333,
           "scheduled_wait_hours": 0.0,
           "lateness_hours": 0.0,
           "intrinsic_violation": 0.0,
           "costs": {
-            "transport_cost_cny": 4724.33145,
+            "transport_cost_cny": 5036.056199999999,
             "transfer_cost_cny": 0.0,
             "scheduled_wait_cost_cny": 0.0,
             "lateness_cost_cny": 0.0
           },
-          "noncarbon_cost_cny": 4724.33145,
-          "emissions_kg": 1919.0382000000002,
-          "surrogate_cost_cny": 4820.283359999999
+          "noncarbon_cost_cny": 5036.056199999999,
+          "emissions_kg": 1914.1625999999999,
+          "surrogate_cost_cny": 5131.764329999999
         },
         {
-          "candidate_id": "ALLOC-SYN-0012|e0000-0021-rail|ondemand-0",
+          "candidate_id": "ALLOC-SYN-0012|e0000-0014-rail>e0014-0020-rail>e0020-0021-rail|ondemand-0",
           "order_id": "ALLOC-SYN-0012",
           "edge_indices": [
-            15
+            13,
+            116,
+            137
           ],
           "edge_ids": [
-            "e0000-0021-rail"
+            "e0000-0014-rail",
+            "e0014-0020-rail",
+            "e0020-0021-rail"
           ],
+          "distance_km": 1683.58,
+          "transport_work_tonne_km": 143104.3,
           "route": [
             "Chongqing",
+            "Wuhu",
+            "Zhangjiagang",
             "Nantong"
           ],
           "modes": [
+            "rail",
+            "rail",
             "rail"
           ],
           "departure_ids": [],
           "capacity_claims": [
             {
-              "departure_id": "HORIZON-e0000-0021-rail",
+              "departure_id": "HORIZON-e0000-0014-rail",
+              "tonnes": 85.0,
+              "shipment_units": 1.0
+            },
+            {
+              "departure_id": "HORIZON-e0014-0020-rail",
+              "tonnes": 85.0,
+              "shipment_units": 1.0
+            },
+            {
+              "departure_id": "HORIZON-e0020-0021-rail",
               "tonnes": 85.0,
               "shipment_units": 1.0
             }
           ],
-          "arrival_hour": 27.663333333333334,
+          "arrival_hour": 28.059666666666665,
           "scheduled_wait_hours": 0.0,
           "lateness_hours": 0.0,
           "intrinsic_violation": 0.0,
           "costs": {
-            "transport_cost_cny": 19257.8295,
+            "transport_cost_cny": 21599.84555,
             "transfer_cost_cny": 0.0,
             "scheduled_wait_cost_cny": 0.0,
             "lateness_cost_cny": 0.0
           },
-          "noncarbon_cost_cny": 19257.8295,
-          "emissions_kg": 5925.486000000001,
-          "surrogate_cost_cny": 19554.1038
+          "noncarbon_cost_cny": 21599.84555,
+          "emissions_kg": 6010.3805999999995,
+          "surrogate_cost_cny": 21900.364579999998
         },
         {
-          "candidate_id": "ALLOC-SYN-0013|e0004-0016-water>e0016-0017-water>e0017-0018-rail|ondemand-0",
+          "candidate_id": "ALLOC-SYN-0013|e0004-0017-water>e0017-0018-water|ondemand-0",
           "order_id": "ALLOC-SYN-0013",
           "edge_indices": [
-            45,
-            123,
-            125
+            48,
+            126
           ],
           "edge_ids": [
-            "e0004-0016-water",
-            "e0016-0017-water",
-            "e0017-0018-rail"
+            "e0004-0017-water",
+            "e0017-0018-water"
           ],
+          "distance_km": 1625.81,
+          "transport_work_tonne_km": 32516.199999999997,
           "route": [
             "Chenglingji",
-            "Nanjing",
             "Zhenjiang",
             "Gaogang"
           ],
           "modes": [
             "water",
-            "water",
-            "rail"
+            "water"
           ],
           "departure_ids": [],
           "capacity_claims": [
             {
-              "departure_id": "HORIZON-e0004-0016-water",
+              "departure_id": "HORIZON-e0004-0017-water",
               "tonnes": 20.0,
               "shipment_units": 1.0
             },
             {
-              "departure_id": "HORIZON-e0016-0017-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0017-0018-rail",
+              "departure_id": "HORIZON-e0017-0018-water",
               "tonnes": 20.0,
               "shipment_units": 1.0
             }
           ],
-          "arrival_hour": 73.52033333333334,
+          "arrival_hour": 78.19366666666666,
           "scheduled_wait_hours": 0.0,
           "lateness_hours": 0.0,
           "intrinsic_violation": 0.0,
           "costs": {
-            "transport_cost_cny": 1143.598,
-            "transfer_cost_cny": 50.0,
+            "transport_cost_cny": 881.5674,
+            "transfer_cost_cny": 0.0,
             "scheduled_wait_cost_cny": 0.0,
             "lateness_cost_cny": 0.0
           },
-          "noncarbon_cost_cny": 1193.598,
-          "emissions_kg": 421.648,
-          "surrogate_cost_cny": 1214.6804
+          "noncarbon_cost_cny": 881.5674,
+          "emissions_kg": 390.19440000000003,
+          "surrogate_cost_cny": 901.07712
         },
         {
           "candidate_id": "ALLOC-SYN-0014|e0002-0004-rail>e0004-0022-rail|ondemand-0",
@@ -1233,6 +1189,8 @@
             "e0002-0004-rail",
             "e0004-0022-rail"
           ],
+          "distance_km": 1488.93,
+          "transport_work_tonne_km": 126559.05,
           "route": [
             "Zhicheng",
             "Chenglingji",
@@ -1270,82 +1228,73 @@
           "surrogate_cost_cny": 18401.921405
         },
         {
-          "candidate_id": "ALLOC-SYN-0015|e0000-0014-rail>e0014-0020-rail>e0020-0022-rail|ondemand-0",
+          "candidate_id": "ALLOC-SYN-0015|e0000-0021-rail>e0021-0022-rail|ondemand-0",
           "order_id": "ALLOC-SYN-0015",
           "edge_indices": [
-            13,
-            116,
-            140
+            15,
+            143
           ],
           "edge_ids": [
-            "e0000-0014-rail",
-            "e0014-0020-rail",
-            "e0020-0022-rail"
+            "e0000-0021-rail",
+            "e0021-0022-rail"
           ],
+          "distance_km": 1770.6399999999999,
+          "transport_work_tonne_km": 150504.4,
           "route": [
             "Chongqing",
-            "Wuhu",
-            "Zhangjiagang",
+            "Nantong",
             "Shanghai"
           ],
           "modes": [
-            "rail",
             "rail",
             "rail"
           ],
           "departure_ids": [],
           "capacity_claims": [
             {
-              "departure_id": "HORIZON-e0000-0014-rail",
+              "departure_id": "HORIZON-e0000-0021-rail",
               "tonnes": 85.0,
               "shipment_units": 1.0
             },
             {
-              "departure_id": "HORIZON-e0014-0020-rail",
-              "tonnes": 85.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0020-0022-rail",
+              "departure_id": "HORIZON-e0021-0022-rail",
               "tonnes": 85.0,
               "shipment_units": 1.0
             }
           ],
-          "arrival_hour": 41.367666666666665,
+          "arrival_hour": 41.510666666666665,
           "scheduled_wait_hours": 0.0,
           "lateness_hours": 0.0,
           "intrinsic_violation": 0.0,
           "costs": {
-            "transport_cost_cny": 22907.322350000002,
+            "transport_cost_cny": 21104.4239,
             "transfer_cost_cny": 0.0,
             "scheduled_wait_cost_cny": 0.0,
             "lateness_cost_cny": 0.0
           },
-          "noncarbon_cost_cny": 22907.322350000002,
-          "emissions_kg": 6290.5542,
-          "surrogate_cost_cny": 23221.85006
+          "noncarbon_cost_cny": 21104.4239,
+          "emissions_kg": 6321.184800000001,
+          "surrogate_cost_cny": 21420.48314
         },
         {
-          "candidate_id": "ALLOC-SYN-0016|e0003-0004-rail>e0004-0017-rail>e0017-0022-rail|ondemand-0",
+          "candidate_id": "ALLOC-SYN-0016|e0003-0004-rail>e0004-0022-rail|ondemand-0",
           "order_id": "ALLOC-SYN-0016",
           "edge_indices": [
             35,
-            47,
-            128
+            50
           ],
           "edge_ids": [
             "e0003-0004-rail",
-            "e0004-0017-rail",
-            "e0017-0022-rail"
+            "e0004-0022-rail"
           ],
+          "distance_km": 1423.25,
+          "transport_work_tonne_km": 56930.0,
           "route": [
             "Shashi",
             "Chenglingji",
-            "Zhenjiang",
             "Shanghai"
           ],
           "modes": [
-            "rail",
             "rail",
             "rail"
           ],
@@ -1357,52 +1306,49 @@
               "shipment_units": 1.0
             },
             {
-              "departure_id": "HORIZON-e0004-0017-rail",
-              "tonnes": 40.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0017-0022-rail",
+              "departure_id": "HORIZON-e0004-0022-rail",
               "tonnes": 40.0,
               "shipment_units": 1.0
             }
           ],
-          "arrival_hour": 26.367166666666666,
+          "arrival_hour": 23.72083333333333,
           "scheduled_wait_hours": 0.0,
           "lateness_hours": 0.0,
           "intrinsic_violation": 0.0,
           "costs": {
-            "transport_cost_cny": 9846.638200000001,
+            "transport_cost_cny": 8019.726400000001,
             "transfer_cost_cny": 0.0,
             "scheduled_wait_cost_cny": 0.0,
             "lateness_cost_cny": 0.0
           },
-          "noncarbon_cost_cny": 9846.638200000001,
-          "emissions_kg": 2657.8104000000003,
-          "surrogate_cost_cny": 9979.528720000002
+          "noncarbon_cost_cny": 8019.726400000001,
+          "emissions_kg": 2391.0600000000004,
+          "surrogate_cost_cny": 8139.279400000001
         },
         {
-          "candidate_id": "ALLOC-SYN-0017|e0004-0005-water>e0005-0012-water>e0012-0013-water>e0013-0014-water>e0014-0020-water|ondemand-0",
+          "candidate_id": "ALLOC-SYN-0017|e0004-0005-water>e0005-0006-water>e0006-0007-water>e0007-0014-water>e0014-0020-water|ondemand-0",
           "order_id": "ALLOC-SYN-0017",
           "edge_indices": [
             42,
-            57,
-            105,
-            108,
+            54,
+            60,
+            72,
             117
           ],
           "edge_ids": [
             "e0004-0005-water",
-            "e0005-0012-water",
-            "e0012-0013-water",
-            "e0013-0014-water",
+            "e0005-0006-water",
+            "e0006-0007-water",
+            "e0007-0014-water",
             "e0014-0020-water"
           ],
+          "distance_km": 1616.01,
+          "transport_work_tonne_km": 137360.85,
           "route": [
             "Chenglingji",
             "Honghu",
-            "Chizhou",
-            "Tongling",
+            "Hankou",
+            "Yangluo",
             "Wuhu",
             "Zhangjiagang"
           ],
@@ -1421,17 +1367,17 @@
               "shipment_units": 1.0
             },
             {
-              "departure_id": "HORIZON-e0005-0012-water",
+              "departure_id": "HORIZON-e0005-0006-water",
               "tonnes": 85.0,
               "shipment_units": 1.0
             },
             {
-              "departure_id": "HORIZON-e0012-0013-water",
+              "departure_id": "HORIZON-e0006-0007-water",
               "tonnes": 85.0,
               "shipment_units": 1.0
             },
             {
-              "departure_id": "HORIZON-e0013-0014-water",
+              "departure_id": "HORIZON-e0007-0014-water",
               "tonnes": 85.0,
               "shipment_units": 1.0
             },
@@ -1441,37 +1387,51 @@
               "shipment_units": 1.0
             }
           ],
-          "arrival_hour": 69.42566666666667,
+          "arrival_hour": 65.86699999999999,
           "scheduled_wait_hours": 0.0,
           "lateness_hours": 0.0,
           "intrinsic_violation": 0.0,
           "costs": {
-            "transport_cost_cny": 5607.782775000001,
+            "transport_cost_cny": 5307.23,
             "transfer_cost_cny": 0.0,
             "scheduled_wait_cost_cny": 0.0,
             "lateness_cost_cny": 0.0
           },
-          "noncarbon_cost_cny": 5607.782775000001,
-          "emissions_kg": 1757.2254000000003,
-          "surrogate_cost_cny": 5695.644045000001
+          "noncarbon_cost_cny": 5307.23,
+          "emissions_kg": 1648.3302,
+          "surrogate_cost_cny": 5389.64651
         },
         {
-          "candidate_id": "ALLOC-SYN-0018|e0002-0004-rail>e0004-0022-rail|ondemand-0",
+          "candidate_id": "ALLOC-SYN-0018|e0002-0004-rail>e0004-0005-rail>e0005-0006-rail>e0006-0021-rail>e0021-0022-rail|ondemand-0",
           "order_id": "ALLOC-SYN-0018",
           "edge_indices": [
             30,
-            50
+            41,
+            53,
+            62,
+            143
           ],
           "edge_ids": [
             "e0002-0004-rail",
-            "e0004-0022-rail"
+            "e0004-0005-rail",
+            "e0005-0006-rail",
+            "e0006-0021-rail",
+            "e0021-0022-rail"
           ],
+          "distance_km": 1698.31,
+          "transport_work_tonne_km": 67932.4,
           "route": [
             "Zhicheng",
             "Chenglingji",
+            "Honghu",
+            "Hankou",
+            "Nantong",
             "Shanghai"
           ],
           "modes": [
+            "rail",
+            "rail",
+            "rail",
             "rail",
             "rail"
           ],
@@ -1483,130 +1443,65 @@
               "shipment_units": 1.0
             },
             {
-              "departure_id": "HORIZON-e0004-0022-rail",
+              "departure_id": "HORIZON-e0004-0005-rail",
+              "tonnes": 40.0,
+              "shipment_units": 1.0
+            },
+            {
+              "departure_id": "HORIZON-e0005-0006-rail",
+              "tonnes": 40.0,
+              "shipment_units": 1.0
+            },
+            {
+              "departure_id": "HORIZON-e0006-0021-rail",
+              "tonnes": 40.0,
+              "shipment_units": 1.0
+            },
+            {
+              "departure_id": "HORIZON-e0021-0022-rail",
               "tonnes": 40.0,
               "shipment_units": 1.0
             }
           ],
-          "arrival_hour": 24.8155,
+          "arrival_hour": 28.30516666666667,
           "scheduled_wait_hours": 0.0,
           "lateness_hours": 0.0,
           "intrinsic_violation": 0.0,
           "costs": {
-            "transport_cost_cny": 8534.657600000002,
+            "transport_cost_cny": 10427.120200000001,
             "transfer_cost_cny": 0.0,
             "scheduled_wait_cost_cny": 0.0,
             "lateness_cost_cny": 0.0
           },
-          "noncarbon_cost_cny": 8534.657600000002,
-          "emissions_kg": 2501.4024000000004,
-          "surrogate_cost_cny": 8659.727720000003
+          "noncarbon_cost_cny": 10427.120200000001,
+          "emissions_kg": 2853.1608,
+          "surrogate_cost_cny": 10569.778240000001
         },
         {
-          "candidate_id": "ALLOC-SYN-0019|e0003-0012-rail>e0012-0013-rail>e0013-0014-rail>e0014-0020-rail>e0020-0021-rail|ondemand-0",
+          "candidate_id": "ALLOC-SYN-0019|e0003-0004-rail>e0004-0005-rail>e0005-0006-rail>e0006-0021-rail|ondemand-0",
           "order_id": "ALLOC-SYN-0019",
-          "edge_indices": [
-            38,
-            104,
-            107,
-            116,
-            137
-          ],
-          "edge_ids": [
-            "e0003-0012-rail",
-            "e0012-0013-rail",
-            "e0013-0014-rail",
-            "e0014-0020-rail",
-            "e0020-0021-rail"
-          ],
-          "route": [
-            "Shashi",
-            "Chizhou",
-            "Tongling",
-            "Wuhu",
-            "Zhangjiagang",
-            "Nantong"
-          ],
-          "modes": [
-            "rail",
-            "rail",
-            "rail",
-            "rail",
-            "rail"
-          ],
-          "departure_ids": [],
-          "capacity_claims": [
-            {
-              "departure_id": "HORIZON-e0003-0012-rail",
-              "tonnes": 40.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0012-0013-rail",
-              "tonnes": 40.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0013-0014-rail",
-              "tonnes": 40.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0014-0020-rail",
-              "tonnes": 40.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0020-0021-rail",
-              "tonnes": 40.0,
-              "shipment_units": 1.0
-            }
-          ],
-          "arrival_hour": 26.170499999999997,
-          "scheduled_wait_hours": 0.0,
-          "lateness_hours": 0.0,
-          "intrinsic_violation": 0.0,
-          "costs": {
-            "transport_cost_cny": 11035.771200000001,
-            "transfer_cost_cny": 0.0,
-            "scheduled_wait_cost_cny": 0.0,
-            "lateness_cost_cny": 0.0
-          },
-          "noncarbon_cost_cny": 11035.771200000001,
-          "emissions_kg": 2637.9864000000002,
-          "surrogate_cost_cny": 11167.670520000001
-        },
-        {
-          "candidate_id": "ALLOC-SYN-0020|e0003-0004-rail>e0004-0005-rail>e0005-0006-rail>e0006-0007-rail>e0007-0019-rail>e0019-0020-rail|ondemand-0",
-          "order_id": "ALLOC-SYN-0020",
           "edge_indices": [
             35,
             41,
             53,
-            59,
-            77,
-            134
+            62
           ],
           "edge_ids": [
             "e0003-0004-rail",
             "e0004-0005-rail",
             "e0005-0006-rail",
-            "e0006-0007-rail",
-            "e0007-0019-rail",
-            "e0019-0020-rail"
+            "e0006-0021-rail"
           ],
+          "distance_km": 1521.79,
+          "transport_work_tonne_km": 60871.6,
           "route": [
             "Shashi",
             "Chenglingji",
             "Honghu",
             "Hankou",
-            "Yangluo",
-            "Jiangyin",
-            "Zhangjiagang"
+            "Nantong"
           ],
           "modes": [
-            "rail",
-            "rail",
             "rail",
             "rail",
             "rail",
@@ -1616,48 +1511,105 @@
           "capacity_claims": [
             {
               "departure_id": "HORIZON-e0003-0004-rail",
-              "tonnes": 20.0,
+              "tonnes": 40.0,
               "shipment_units": 1.0
             },
             {
               "departure_id": "HORIZON-e0004-0005-rail",
-              "tonnes": 20.0,
+              "tonnes": 40.0,
               "shipment_units": 1.0
             },
             {
               "departure_id": "HORIZON-e0005-0006-rail",
-              "tonnes": 20.0,
+              "tonnes": 40.0,
               "shipment_units": 1.0
             },
             {
-              "departure_id": "HORIZON-e0006-0007-rail",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0007-0019-rail",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0019-0020-rail",
-              "tonnes": 20.0,
+              "departure_id": "HORIZON-e0006-0021-rail",
+              "tonnes": 40.0,
               "shipment_units": 1.0
             }
           ],
-          "arrival_hour": 26.27483333333333,
+          "arrival_hour": 25.363166666666665,
           "scheduled_wait_hours": 0.0,
           "lateness_hours": 0.0,
           "intrinsic_violation": 0.0,
           "costs": {
-            "transport_cost_cny": 4926.3662,
+            "transport_cost_cny": 9043.2034,
             "transfer_cost_cny": 0.0,
             "scheduled_wait_cost_cny": 0.0,
             "lateness_cost_cny": 0.0
           },
-          "noncarbon_cost_cny": 4926.3662,
-          "emissions_kg": 1324.2516,
-          "surrogate_cost_cny": 4992.578780000001
+          "noncarbon_cost_cny": 9043.2034,
+          "emissions_kg": 2556.6072,
+          "surrogate_cost_cny": 9171.03376
+        },
+        {
+          "candidate_id": "ALLOC-SYN-0020|e0003-0012-rail>e0012-0013-rail>e0013-0014-rail>e0014-0020-rail|ondemand-0",
+          "order_id": "ALLOC-SYN-0020",
+          "edge_indices": [
+            38,
+            104,
+            107,
+            116
+          ],
+          "edge_ids": [
+            "e0003-0012-rail",
+            "e0012-0013-rail",
+            "e0013-0014-rail",
+            "e0014-0020-rail"
+          ],
+          "distance_km": 1455.78,
+          "transport_work_tonne_km": 29115.6,
+          "route": [
+            "Shashi",
+            "Chizhou",
+            "Tongling",
+            "Wuhu",
+            "Zhangjiagang"
+          ],
+          "modes": [
+            "rail",
+            "rail",
+            "rail",
+            "rail"
+          ],
+          "departure_ids": [],
+          "capacity_claims": [
+            {
+              "departure_id": "HORIZON-e0003-0012-rail",
+              "tonnes": 20.0,
+              "shipment_units": 1.0
+            },
+            {
+              "departure_id": "HORIZON-e0012-0013-rail",
+              "tonnes": 20.0,
+              "shipment_units": 1.0
+            },
+            {
+              "departure_id": "HORIZON-e0013-0014-rail",
+              "tonnes": 20.0,
+              "shipment_units": 1.0
+            },
+            {
+              "departure_id": "HORIZON-e0014-0020-rail",
+              "tonnes": 20.0,
+              "shipment_units": 1.0
+            }
+          ],
+          "arrival_hour": 24.262999999999998,
+          "scheduled_wait_hours": 0.0,
+          "lateness_hours": 0.0,
+          "intrinsic_violation": 0.0,
+          "costs": {
+            "transport_cost_cny": 5069.2416,
+            "transfer_cost_cny": 0.0,
+            "scheduled_wait_cost_cny": 0.0,
+            "lateness_cost_cny": 0.0
+          },
+          "noncarbon_cost_cny": 5069.2416,
+          "emissions_kg": 1222.8552,
+          "surrogate_cost_cny": 5130.38436
         },
         {
           "candidate_id": "ALLOC-SYN-0021|e0002-0004-road>e0004-0017-road>e0017-0018-road>e0018-0019-road>e0019-0020-road|ondemand-0",
@@ -1676,6 +1628,8 @@
             "e0018-0019-road",
             "e0019-0020-road"
           ],
+          "distance_km": 1574.1200000000001,
+          "transport_work_tonne_km": 31482.4,
           "route": [
             "Zhicheng",
             "Chenglingji",
@@ -1718,6 +1672,8 @@
             "e0004-0017-water",
             "e0017-0018-rail"
           ],
+          "distance_km": 1588.72,
+          "transport_work_tonne_km": 31774.4,
           "route": [
             "Chenglingji",
             "Zhenjiang",
@@ -1765,6 +1721,8 @@
             "e0002-0007-water",
             "e0007-0019-water"
           ],
+          "distance_km": 1928.6,
+          "transport_work_tonne_km": 77144.0,
           "route": [
             "Zhicheng",
             "Yangluo",
@@ -1810,6 +1768,8 @@
           "edge_ids": [
             "e0000-0021-rail"
           ],
+          "distance_km": 1659.8,
+          "transport_work_tonne_km": 141083.0,
           "route": [
             "Chongqing",
             "Nantong"
@@ -1850,6 +1810,8 @@
             "e0000-0021-rail",
             "e0021-0022-rail"
           ],
+          "distance_km": 1770.6399999999999,
+          "transport_work_tonne_km": 70825.59999999999,
           "route": [
             "Chongqing",
             "Nantong",
@@ -1897,6 +1859,8 @@
             "e0000-0021-water",
             "e0021-0022-water"
           ],
+          "distance_km": 2004.5900000000001,
+          "transport_work_tonne_km": 80183.6,
           "route": [
             "Chongqing",
             "Nantong",
@@ -1934,172 +1898,166 @@
           "surrogate_cost_cny": 2196.5007600000004
         },
         {
-          "candidate_id": "ALLOC-SYN-0027|e0000-0009-water>e0009-0018-water|ondemand-0",
+          "candidate_id": "ALLOC-SYN-0027|e0000-0001-water>e0001-0009-water>e0009-0018-water|ondemand-0",
           "order_id": "ALLOC-SYN-0027",
           "edge_indices": [
-            8,
-            87
-          ],
-          "edge_ids": [
-            "e0000-0009-water",
-            "e0009-0018-water"
-          ],
-          "route": [
-            "Chongqing",
-            "Wuxue",
-            "Gaogang"
-          ],
-          "modes": [
-            "water",
-            "water"
-          ],
-          "departure_ids": [],
-          "capacity_claims": [
-            {
-              "departure_id": "HORIZON-e0000-0009-water",
-              "tonnes": 40.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0009-0018-water",
-              "tonnes": 40.0,
-              "shipment_units": 1.0
-            }
-          ],
-          "arrival_hour": 72.69633333333334,
-          "scheduled_wait_hours": 0.0,
-          "lateness_hours": 0.0,
-          "intrinsic_violation": 0.0,
-          "costs": {
-            "transport_cost_cny": 2631.4857999999995,
-            "transfer_cost_cny": 0.0,
-            "scheduled_wait_cost_cny": 0.0,
-            "lateness_cost_cny": 0.0
-          },
-          "noncarbon_cost_cny": 2631.4857999999995,
-          "emissions_kg": 1046.8272000000002,
-          "surrogate_cost_cny": 2683.8271599999994
-        },
-        {
-          "candidate_id": "ALLOC-SYN-0028|e0001-0009-water>e0009-0018-water|ondemand-0",
-          "order_id": "ALLOC-SYN-0028",
-          "edge_indices": [
+            2,
             25,
             87
           ],
           "edge_ids": [
+            "e0000-0001-water",
             "e0001-0009-water",
             "e0009-0018-water"
           ],
+          "distance_km": 2023.8500000000001,
+          "transport_work_tonne_km": 80954.0,
           "route": [
+            "Chongqing",
             "Yichang",
             "Wuxue",
             "Gaogang"
           ],
           "modes": [
             "water",
+            "water",
             "water"
           ],
           "departure_ids": [],
           "capacity_claims": [
             {
+              "departure_id": "HORIZON-e0000-0001-water",
+              "tonnes": 40.0,
+              "shipment_units": 1.0
+            },
+            {
               "departure_id": "HORIZON-e0001-0009-water",
-              "tonnes": 20.0,
+              "tonnes": 40.0,
               "shipment_units": 1.0
             },
             {
               "departure_id": "HORIZON-e0009-0018-water",
-              "tonnes": 20.0,
+              "tonnes": 40.0,
               "shipment_units": 1.0
             }
           ],
-          "arrival_hour": 87.24766666666667,
+          "arrival_hour": 67.46166666666667,
           "scheduled_wait_hours": 0.0,
           "lateness_hours": 0.0,
           "intrinsic_violation": 0.0,
           "costs": {
-            "transport_cost_cny": 1108.8170999999998,
+            "transport_cost_cny": 2445.1901999999995,
             "transfer_cost_cny": 0.0,
             "scheduled_wait_cost_cny": 0.0,
             "lateness_cost_cny": 0.0
           },
-          "noncarbon_cost_cny": 1108.8170999999998,
-          "emissions_kg": 455.38320000000004,
-          "surrogate_cost_cny": 1131.5862599999998
+          "noncarbon_cost_cny": 2445.1901999999995,
+          "emissions_kg": 971.4480000000001,
+          "surrogate_cost_cny": 2493.7625999999996
         },
         {
-          "candidate_id": "ALLOC-SYN-0029|e0002-0003-water>e0003-0012-water>e0012-0013-water>e0013-0014-water>e0014-0020-water|ondemand-0",
-          "order_id": "ALLOC-SYN-0029",
+          "candidate_id": "ALLOC-SYN-0028|e0001-0002-road>e0002-0004-road>e0004-0017-road>e0017-0018-road|ondemand-0",
+          "order_id": "ALLOC-SYN-0028",
           "edge_indices": [
-            28,
-            39,
-            105,
-            108,
-            117
+            17,
+            29,
+            46,
+            124
           ],
           "edge_ids": [
-            "e0002-0003-water",
-            "e0003-0012-water",
-            "e0012-0013-water",
-            "e0013-0014-water",
-            "e0014-0020-water"
+            "e0001-0002-road",
+            "e0002-0004-road",
+            "e0004-0017-road",
+            "e0017-0018-road"
           ],
+          "distance_km": 1460.8700000000001,
+          "transport_work_tonne_km": 29217.4,
+          "route": [
+            "Yichang",
+            "Zhicheng",
+            "Chenglingji",
+            "Zhenjiang",
+            "Gaogang"
+          ],
+          "modes": [
+            "road",
+            "road",
+            "road",
+            "road"
+          ],
+          "departure_ids": [],
+          "capacity_claims": [],
+          "arrival_hour": 42.260875,
+          "scheduled_wait_hours": 0.0,
+          "lateness_hours": 0.0,
+          "intrinsic_violation": 0.0,
+          "costs": {
+            "transport_cost_cny": 5884.1252,
+            "transfer_cost_cny": 0.0,
+            "scheduled_wait_cost_cny": 0.0,
+            "lateness_cost_cny": 0.0
+          },
+          "noncarbon_cost_cny": 5884.1252,
+          "emissions_kg": 2074.4354,
+          "surrogate_cost_cny": 5987.8469700000005
+        },
+        {
+          "candidate_id": "ALLOC-SYN-0029|e0002-0007-water>e0007-0019-water>e0019-0020-water|ondemand-0",
+          "order_id": "ALLOC-SYN-0029",
+          "edge_indices": [
+            33,
+            78,
+            135
+          ],
+          "edge_ids": [
+            "e0002-0007-water",
+            "e0007-0019-water",
+            "e0019-0020-water"
+          ],
+          "distance_km": 2097.08,
+          "transport_work_tonne_km": 41941.6,
           "route": [
             "Zhicheng",
-            "Shashi",
-            "Chizhou",
-            "Tongling",
-            "Wuhu",
+            "Yangluo",
+            "Jiangyin",
             "Zhangjiagang"
           ],
           "modes": [
             "water",
             "water",
-            "water",
-            "water",
             "water"
           ],
           "departure_ids": [],
           "capacity_claims": [
             {
-              "departure_id": "HORIZON-e0002-0003-water",
+              "departure_id": "HORIZON-e0002-0007-water",
               "tonnes": 20.0,
               "shipment_units": 1.0
             },
             {
-              "departure_id": "HORIZON-e0003-0012-water",
+              "departure_id": "HORIZON-e0007-0019-water",
               "tonnes": 20.0,
               "shipment_units": 1.0
             },
             {
-              "departure_id": "HORIZON-e0012-0013-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0013-0014-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0014-0020-water",
+              "departure_id": "HORIZON-e0019-0020-water",
               "tonnes": 20.0,
               "shipment_units": 1.0
             }
           ],
-          "arrival_hour": 80.517,
+          "arrival_hour": 81.90266666666666,
           "scheduled_wait_hours": 0.0,
           "lateness_hours": 0.0,
           "intrinsic_violation": 0.0,
           "costs": {
-            "transport_cost_cny": 1352.901,
+            "transport_cost_cny": 1283.3285999999998,
             "transfer_cost_cny": 0.0,
             "scheduled_wait_cost_cny": 0.0,
             "lateness_cost_cny": 0.0
           },
-          "noncarbon_cost_cny": 1352.901,
-          "emissions_kg": 493.3224000000001,
-          "surrogate_cost_cny": 1377.5671200000002
+          "noncarbon_cost_cny": 1283.3285999999998,
+          "emissions_kg": 503.29920000000004,
+          "surrogate_cost_cny": 1308.49356
         },
         {
           "candidate_id": "ALLOC-SYN-0030|e0004-0022-water|ondemand-0",
@@ -2110,6 +2068,8 @@
           "edge_ids": [
             "e0004-0022-water"
           ],
+          "distance_km": 1918.2,
+          "transport_work_tonne_km": 76728.0,
           "route": [
             "Chenglingji",
             "Shanghai"
@@ -2150,6 +2110,8 @@
             "e0002-0004-rail",
             "e0004-0022-rail"
           ],
+          "distance_km": 1488.93,
+          "transport_work_tonne_km": 59557.200000000004,
           "route": [
             "Zhicheng",
             "Chenglingji",
@@ -2199,6 +2161,8 @@
             "e0009-0018-rail",
             "e0018-0019-rail"
           ],
+          "distance_km": 1538.18,
+          "transport_work_tonne_km": 30763.600000000002,
           "route": [
             "Yichang",
             "Wuxue",
@@ -2257,6 +2221,8 @@
             "e0005-0006-rail",
             "e0006-0021-water"
           ],
+          "distance_km": 1628.46,
+          "transport_work_tonne_km": 65138.4,
           "route": [
             "Shashi",
             "Chenglingji",
@@ -2308,25 +2274,31 @@
           "surrogate_cost_cny": 2872.7470399999997
         },
         {
-          "candidate_id": "ALLOC-SYN-0034|e0001-0002-water>e0002-0004-water>e0004-0022-water|ondemand-0",
+          "candidate_id": "ALLOC-SYN-0034|e0001-0002-water>e0002-0003-water>e0003-0004-water>e0004-0022-water|ondemand-0",
           "order_id": "ALLOC-SYN-0034",
           "edge_indices": [
             19,
-            31,
+            28,
+            36,
             51
           ],
           "edge_ids": [
             "e0001-0002-water",
-            "e0002-0004-water",
+            "e0002-0003-water",
+            "e0003-0004-water",
             "e0004-0022-water"
           ],
+          "distance_km": 2362.84,
+          "transport_work_tonne_km": 94513.6,
           "route": [
             "Yichang",
             "Zhicheng",
+            "Shashi",
             "Chenglingji",
             "Shanghai"
           ],
           "modes": [
+            "water",
             "water",
             "water",
             "water"
@@ -2339,7 +2311,12 @@
               "shipment_units": 1.0
             },
             {
-              "departure_id": "HORIZON-e0002-0004-water",
+              "departure_id": "HORIZON-e0002-0003-water",
+              "tonnes": 40.0,
+              "shipment_units": 1.0
+            },
+            {
+              "departure_id": "HORIZON-e0003-0004-water",
               "tonnes": 40.0,
               "shipment_units": 1.0
             },
@@ -2349,19 +2326,19 @@
               "shipment_units": 1.0
             }
           ],
-          "arrival_hour": 88.105,
+          "arrival_hour": 90.76133333333334,
           "scheduled_wait_hours": 0.0,
           "lateness_hours": 0.0,
           "intrinsic_violation": 0.0,
           "costs": {
-            "transport_cost_cny": 2613.4739999999997,
+            "transport_cost_cny": 2756.9159999999997,
             "transfer_cost_cny": 0.0,
             "scheduled_wait_cost_cny": 0.0,
             "lateness_cost_cny": 0.0
           },
-          "noncarbon_cost_cny": 2613.4739999999997,
-          "emissions_kg": 1095.912,
-          "surrogate_cost_cny": 2668.2695999999996
+          "noncarbon_cost_cny": 2756.9159999999997,
+          "emissions_kg": 1134.1632,
+          "surrogate_cost_cny": 2813.62416
         },
         {
           "candidate_id": "ALLOC-SYN-0035|e0003-0004-rail>e0004-0005-rail>e0005-0006-rail>e0006-0007-rail>e0007-0019-rail|ondemand-0",
@@ -2380,6 +2357,8 @@
             "e0006-0007-rail",
             "e0007-0019-rail"
           ],
+          "distance_km": 1470.6599999999999,
+          "transport_work_tonne_km": 58826.399999999994,
           "route": [
             "Shashi",
             "Chenglingji",
@@ -2438,48 +2417,80 @@
           "surrogate_cost_cny": 9146.56064
         },
         {
-          "candidate_id": "ALLOC-SYN-0036|e0001-0002-road>e0002-0004-road>e0004-0017-road>e0017-0018-road|ondemand-0",
+          "candidate_id": "ALLOC-SYN-0036|e0001-0002-water>e0002-0004-water>e0004-0016-water>e0016-0017-water>e0017-0018-rail|ondemand-0",
           "order_id": "ALLOC-SYN-0036",
           "edge_indices": [
-            17,
-            29,
-            46,
-            124
+            19,
+            31,
+            45,
+            123,
+            125
           ],
           "edge_ids": [
-            "e0001-0002-road",
-            "e0002-0004-road",
-            "e0004-0017-road",
-            "e0017-0018-road"
+            "e0001-0002-water",
+            "e0002-0004-water",
+            "e0004-0016-water",
+            "e0016-0017-water",
+            "e0017-0018-rail"
           ],
+          "distance_km": 1869.1999999999998,
+          "transport_work_tonne_km": 37384.0,
           "route": [
             "Yichang",
             "Zhicheng",
             "Chenglingji",
+            "Nanjing",
             "Zhenjiang",
             "Gaogang"
           ],
           "modes": [
-            "road",
-            "road",
-            "road",
-            "road"
+            "water",
+            "water",
+            "water",
+            "water",
+            "rail"
           ],
           "departure_ids": [],
-          "capacity_claims": [],
-          "arrival_hour": 30.260875000000002,
+          "capacity_claims": [
+            {
+              "departure_id": "HORIZON-e0001-0002-water",
+              "tonnes": 20.0,
+              "shipment_units": 1.0
+            },
+            {
+              "departure_id": "HORIZON-e0002-0004-water",
+              "tonnes": 20.0,
+              "shipment_units": 1.0
+            },
+            {
+              "departure_id": "HORIZON-e0004-0016-water",
+              "tonnes": 20.0,
+              "shipment_units": 1.0
+            },
+            {
+              "departure_id": "HORIZON-e0016-0017-water",
+              "tonnes": 20.0,
+              "shipment_units": 1.0
+            },
+            {
+              "departure_id": "HORIZON-e0017-0018-rail",
+              "tonnes": 20.0,
+              "shipment_units": 1.0
+            }
+          ],
+          "arrival_hour": 73.68533333333333,
           "scheduled_wait_hours": 0.0,
           "lateness_hours": 0.0,
           "intrinsic_violation": 0.0,
           "costs": {
-            "transport_cost_cny": 5884.1252,
-            "transfer_cost_cny": 0.0,
+            "transport_cost_cny": 1472.0529999999999,
+            "transfer_cost_cny": 50.0,
             "scheduled_wait_cost_cny": 0.0,
             "lateness_cost_cny": 0.0
           },
-          "noncarbon_cost_cny": 5884.1252,
-          "emissions_kg": 2074.4354,
-          "surrogate_cost_cny": 5987.8469700000005
+          "noncarbon_cost_cny": 1522.0529999999999,
+          "emissions_kg": 509.236,
+          "surrogate_cost_cny": 1547.5148
         },
         {
           "candidate_id": "ALLOC-SYN-0037|e0002-0004-water>e0004-0017-water>e0017-0018-water|ondemand-0",
@@ -2494,6 +2505,8 @@
             "e0004-0017-water",
             "e0017-0018-water"
           ],
+          "distance_km": 1881.41,
+          "transport_work_tonne_km": 159919.85,
           "route": [
             "Zhicheng",
             "Chenglingji",
@@ -2546,6 +2559,8 @@
           "edge_ids": [
             "e0000-0021-water"
           ],
+          "distance_km": 1871.63,
+          "transport_work_tonne_km": 74865.20000000001,
           "route": [
             "Chongqing",
             "Nantong"
@@ -2586,6 +2601,8 @@
             "e0000-0014-rail",
             "e0014-0020-rail"
           ],
+          "distance_km": 1569.1299999999999,
+          "transport_work_tonne_km": 62765.2,
           "route": [
             "Chongqing",
             "Wuhu",
@@ -2633,6 +2650,8 @@
             "e0000-0014-rail",
             "e0014-0020-rail"
           ],
+          "distance_km": 1569.1299999999999,
+          "transport_work_tonne_km": 62765.2,
           "route": [
             "Chongqing",
             "Wuhu",
@@ -2688,6 +2707,8 @@
             "e0013-0017-water",
             "e0017-0018-water"
           ],
+          "distance_km": 1643.19,
+          "transport_work_tonne_km": 65727.6,
           "route": [
             "Yichang",
             "Wuxue",
@@ -2753,78 +2774,50 @@
           "surrogate_cost_cny": 2779.07196
         },
         {
-          "candidate_id": "ALLOC-SYN-0042|e0003-0004-water>e0004-0005-water>e0005-0006-water>e0006-0007-water>e0007-0019-water|ondemand-0",
+          "candidate_id": "ALLOC-SYN-0042|e0003-0004-road>e0004-0017-road>e0017-0018-road>e0018-0019-road|ondemand-0",
           "order_id": "ALLOC-SYN-0042",
           "edge_indices": [
-            36,
-            42,
-            54,
-            60,
-            78
+            34,
+            46,
+            124,
+            130
           ],
           "edge_ids": [
-            "e0003-0004-water",
-            "e0004-0005-water",
-            "e0005-0006-water",
-            "e0006-0007-water",
-            "e0007-0019-water"
+            "e0003-0004-road",
+            "e0004-0017-road",
+            "e0017-0018-road",
+            "e0018-0019-road"
           ],
+          "distance_km": 1398.38,
+          "transport_work_tonne_km": 27967.600000000002,
           "route": [
             "Shashi",
             "Chenglingji",
-            "Honghu",
-            "Hankou",
-            "Yangluo",
+            "Zhenjiang",
+            "Gaogang",
             "Jiangyin"
           ],
           "modes": [
-            "water",
-            "water",
-            "water",
-            "water",
-            "water"
+            "road",
+            "road",
+            "road",
+            "road"
           ],
           "departure_ids": [],
-          "capacity_claims": [
-            {
-              "departure_id": "HORIZON-e0003-0004-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0004-0005-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0005-0006-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0006-0007-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0007-0019-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            }
-          ],
-          "arrival_hour": 84.73166666666665,
+          "capacity_claims": [],
+          "arrival_hour": 41.479749999999996,
           "scheduled_wait_hours": 0.0,
           "lateness_hours": 0.0,
           "intrinsic_violation": 0.0,
           "costs": {
-            "transport_cost_cny": 1150.1607,
+            "transport_cost_cny": 5555.4278,
             "transfer_cost_cny": 0.0,
             "scheduled_wait_cost_cny": 0.0,
             "lateness_cost_cny": 0.0
           },
-          "noncarbon_cost_cny": 1150.1607,
-          "emissions_kg": 437.268,
-          "surrogate_cost_cny": 1172.0240999999999
+          "noncarbon_cost_cny": 5555.4278,
+          "emissions_kg": 1985.6996,
+          "surrogate_cost_cny": 5654.712780000001
         },
         {
           "candidate_id": "ALLOC-SYN-0043|e0000-0021-water>e0021-0022-water|ondemand-0",
@@ -2837,6 +2830,8 @@
             "e0000-0021-water",
             "e0021-0022-water"
           ],
+          "distance_km": 2004.5900000000001,
+          "transport_work_tonne_km": 40091.8,
           "route": [
             "Chongqing",
             "Nantong",
@@ -2874,20 +2869,22 @@
           "surrogate_cost_cny": 1098.2503800000002
         },
         {
-          "candidate_id": "ALLOC-SYN-0044|e0002-0004-water>e0004-0005-rail>e0005-0006-water>e0006-0021-water|ondemand-0",
+          "candidate_id": "ALLOC-SYN-0044|e0002-0004-road>e0004-0005-road>e0005-0006-road>e0006-0021-road|ondemand-0",
           "order_id": "ALLOC-SYN-0044",
           "edge_indices": [
-            31,
-            41,
-            54,
-            63
+            29,
+            40,
+            52,
+            61
           ],
           "edge_ids": [
-            "e0002-0004-water",
-            "e0004-0005-rail",
-            "e0005-0006-water",
-            "e0006-0021-water"
+            "e0002-0004-road",
+            "e0004-0005-road",
+            "e0005-0006-road",
+            "e0006-0021-road"
           ],
+          "distance_km": 1571.4299999999998,
+          "transport_work_tonne_km": 31428.6,
           "route": [
             "Zhicheng",
             "Chenglingji",
@@ -2896,47 +2893,26 @@
             "Nantong"
           ],
           "modes": [
-            "water",
-            "rail",
-            "water",
-            "water"
+            "road",
+            "road",
+            "road",
+            "road"
           ],
           "departure_ids": [],
-          "capacity_claims": [
-            {
-              "departure_id": "HORIZON-e0002-0004-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0004-0005-rail",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0005-0006-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            },
-            {
-              "departure_id": "HORIZON-e0006-0021-water",
-              "tonnes": 20.0,
-              "shipment_units": 1.0
-            }
-          ],
-          "arrival_hour": 82.6215,
+          "capacity_claims": [],
+          "arrival_hour": 43.642875000000004,
           "scheduled_wait_hours": 0.0,
           "lateness_hours": 0.0,
           "intrinsic_violation": 0.0,
           "costs": {
-            "transport_cost_cny": 1362.7851999999998,
-            "transfer_cost_cny": 100.0,
+            "transport_cost_cny": 6308.2443,
+            "transfer_cost_cny": 0.0,
             "scheduled_wait_cost_cny": 0.0,
             "lateness_cost_cny": 0.0
           },
-          "noncarbon_cost_cny": 1462.7851999999998,
-          "emissions_kg": 479.01800000000003,
-          "surrogate_cost_cny": 1486.7360999999999
+          "noncarbon_cost_cny": 6308.2443,
+          "emissions_kg": 2231.4305999999997,
+          "surrogate_cost_cny": 6419.8158300000005
         },
         {
           "candidate_id": "ALLOC-SYN-0045|e0001-0009-rail>e0009-0018-rail>e0018-0019-rail|ondemand-0",
@@ -2951,6 +2927,8 @@
             "e0009-0018-rail",
             "e0018-0019-rail"
           ],
+          "distance_km": 1538.18,
+          "transport_work_tonne_km": 30763.600000000002,
           "route": [
             "Yichang",
             "Wuxue",
@@ -2995,34 +2973,36 @@
           "surrogate_cost_cny": 5350.299959999999
         },
         {
-          "candidate_id": "ALLOC-SYN-0046|e0001-0002-water>e0002-0007-water>e0007-0019-water>e0019-0020-water>e0020-0021-water|ondemand-0",
+          "candidate_id": "ALLOC-SYN-0046|e0001-0002-water>e0002-0004-water>e0004-0005-rail>e0005-0006-water>e0006-0021-water|ondemand-0",
           "order_id": "ALLOC-SYN-0046",
           "edge_indices": [
             19,
-            33,
-            78,
-            135,
-            138
+            31,
+            41,
+            54,
+            63
           ],
           "edge_ids": [
             "e0001-0002-water",
-            "e0002-0007-water",
-            "e0007-0019-water",
-            "e0019-0020-water",
-            "e0020-0021-water"
+            "e0002-0004-water",
+            "e0004-0005-rail",
+            "e0005-0006-water",
+            "e0006-0021-water"
           ],
+          "distance_km": 1854.4,
+          "transport_work_tonne_km": 74176.0,
           "route": [
             "Yichang",
             "Zhicheng",
-            "Yangluo",
-            "Jiangyin",
-            "Zhangjiagang",
+            "Chenglingji",
+            "Honghu",
+            "Hankou",
             "Nantong"
           ],
           "modes": [
             "water",
             "water",
-            "water",
+            "rail",
             "water",
             "water"
           ],
@@ -3034,57 +3014,59 @@
               "shipment_units": 1.0
             },
             {
-              "departure_id": "HORIZON-e0002-0007-water",
+              "departure_id": "HORIZON-e0002-0004-water",
               "tonnes": 40.0,
               "shipment_units": 1.0
             },
             {
-              "departure_id": "HORIZON-e0007-0019-water",
+              "departure_id": "HORIZON-e0004-0005-rail",
               "tonnes": 40.0,
               "shipment_units": 1.0
             },
             {
-              "departure_id": "HORIZON-e0019-0020-water",
+              "departure_id": "HORIZON-e0005-0006-water",
               "tonnes": 40.0,
               "shipment_units": 1.0
             },
             {
-              "departure_id": "HORIZON-e0020-0021-water",
+              "departure_id": "HORIZON-e0006-0021-water",
               "tonnes": 40.0,
               "shipment_units": 1.0
             }
           ],
-          "arrival_hour": 78.60300000000001,
+          "arrival_hour": 64.26650000000001,
           "scheduled_wait_hours": 0.0,
           "lateness_hours": 0.0,
           "intrinsic_violation": 0.0,
           "costs": {
-            "transport_cost_cny": 3036.4752,
-            "transfer_cost_cny": 0.0,
+            "transport_cost_cny": 2922.4004,
+            "transfer_cost_cny": 200.0,
             "scheduled_wait_cost_cny": 0.0,
             "lateness_cost_cny": 0.0
           },
-          "noncarbon_cost_cny": 3036.4752,
-          "emissions_kg": 1131.8832,
-          "surrogate_cost_cny": 3093.06936
+          "noncarbon_cost_cny": 3122.4004,
+          "emissions_kg": 1010.5240000000001,
+          "surrogate_cost_cny": 3172.9266
         },
         {
-          "candidate_id": "ALLOC-SYN-0047|e0001-0002-water>e0002-0007-water>e0007-0019-water|ondemand-0",
+          "candidate_id": "ALLOC-SYN-0047|e0001-0009-water>e0009-0018-water>e0018-0019-water|ondemand-0",
           "order_id": "ALLOC-SYN-0047",
           "edge_indices": [
-            19,
-            33,
-            78
+            25,
+            87,
+            132
           ],
           "edge_ids": [
-            "e0001-0002-water",
-            "e0002-0007-water",
-            "e0007-0019-water"
+            "e0001-0009-water",
+            "e0009-0018-water",
+            "e0018-0019-water"
           ],
+          "distance_km": 2018.17,
+          "transport_work_tonne_km": 171544.45,
           "route": [
             "Yichang",
-            "Zhicheng",
-            "Yangluo",
+            "Wuxue",
+            "Gaogang",
             "Jiangyin"
           ],
           "modes": [
@@ -3095,46 +3077,51 @@
           "departure_ids": [],
           "capacity_claims": [
             {
-              "departure_id": "HORIZON-e0001-0002-water",
+              "departure_id": "HORIZON-e0001-0009-water",
               "tonnes": 85.0,
               "shipment_units": 1.0
             },
             {
-              "departure_id": "HORIZON-e0002-0007-water",
+              "departure_id": "HORIZON-e0009-0018-water",
               "tonnes": 85.0,
               "shipment_units": 1.0
             },
             {
-              "departure_id": "HORIZON-e0007-0019-water",
+              "departure_id": "HORIZON-e0018-0019-water",
               "tonnes": 85.0,
               "shipment_units": 1.0
             }
           ],
-          "arrival_hour": 67.93166666666667,
+          "arrival_hour": 67.27233333333334,
           "scheduled_wait_hours": 0.0,
           "lateness_hours": 0.0,
           "intrinsic_violation": 0.0,
           "costs": {
-            "transport_cost_cny": 5227.974299999999,
+            "transport_cost_cny": 5174.303175,
             "transfer_cost_cny": 0.0,
             "scheduled_wait_cost_cny": 0.0,
             "lateness_cost_cny": 0.0
           },
-          "noncarbon_cost_cny": 5227.974299999999,
-          "emissions_kg": 2078.7090000000003,
-          "surrogate_cost_cny": 5331.909749999999
+          "noncarbon_cost_cny": 5174.303175,
+          "emissions_kg": 2058.5334000000003,
+          "surrogate_cost_cny": 5277.229845
         }
       ],
       "assigned_orders": 48,
       "unassigned_orders": 0,
-      "transport_cost_cny": 298836.362875,
+      "transport_cost_cny": 320250.7184250001,
       "transfer_cost_cny": 500.0,
       "scheduled_wait_cost_cny": 0.0,
       "lateness_cost_cny": 0.0,
-      "noncarbon_cost_cny": 299336.362875,
-      "carbon_cost_cny": 4621.512915,
-      "total_cost_cny": 303957.87579,
-      "emissions_kg": 92430.2583,
+      "noncarbon_cost_cny": 320750.7184250001,
+      "carbon_cost_cny": 5022.407305000001,
+      "total_cost_cny": 325773.1257300001,
+      "emissions_kg": 100448.1461,
+      "transport_work_tonne_km": 3515401.300000001,
+      "emissions_kg_per_tonne_km": 0.028573735266013575,
+      "emission_cap_kg": null,
+      "emissions_excess_kg": 0.0,
+      "emission_violation": 0.0,
       "capacity_usage": [
         {
           "departure_id": "HORIZON-e0000-0001-rail",
@@ -3147,9 +3134,9 @@
         },
         {
           "departure_id": "HORIZON-e0000-0001-water",
-          "used_tonnes": 85.0,
+          "used_tonnes": 125.0,
           "capacity_tonnes": 250.0,
-          "used_shipment_units": 1.0,
+          "used_shipment_units": 2.0,
           "capacity_units": 4.0,
           "excess_tonnes": 0.0,
           "excess_units": 0.0
@@ -3183,9 +3170,9 @@
         },
         {
           "departure_id": "HORIZON-e0000-0009-water",
-          "used_tonnes": 40.0,
+          "used_tonnes": 0.0,
           "capacity_tonnes": 250.0,
-          "used_shipment_units": 1.0,
+          "used_shipment_units": 0.0,
           "capacity_units": 4.0,
           "excess_tonnes": 0.0,
           "excess_units": 0.0
@@ -3246,9 +3233,9 @@
         },
         {
           "departure_id": "HORIZON-e0001-0002-water",
-          "used_tonnes": 185.0,
+          "used_tonnes": 100.0,
           "capacity_tonnes": 250.0,
-          "used_shipment_units": 4.0,
+          "used_shipment_units": 3.0,
           "capacity_units": 4.0,
           "excess_tonnes": 0.0,
           "excess_units": 0.0
@@ -3282,7 +3269,7 @@
         },
         {
           "departure_id": "HORIZON-e0001-0009-water",
-          "used_tonnes": 165.0,
+          "used_tonnes": 250.0,
           "capacity_tonnes": 250.0,
           "used_shipment_units": 4.0,
           "capacity_units": 4.0,
@@ -3300,7 +3287,7 @@
         },
         {
           "departure_id": "HORIZON-e0002-0003-water",
-          "used_tonnes": 40.0,
+          "used_tonnes": 125.0,
           "capacity_tonnes": 250.0,
           "used_shipment_units": 2.0,
           "capacity_units": 4.0,
@@ -3318,7 +3305,7 @@
         },
         {
           "departure_id": "HORIZON-e0002-0004-water",
-          "used_tonnes": 230.0,
+          "used_tonnes": 165.0,
           "capacity_tonnes": 250.0,
           "used_shipment_units": 4.0,
           "capacity_units": 4.0,
@@ -3327,16 +3314,16 @@
         },
         {
           "departure_id": "HORIZON-e0002-0007-water",
-          "used_tonnes": 185.0,
+          "used_tonnes": 60.0,
           "capacity_tonnes": 250.0,
-          "used_shipment_units": 4.0,
+          "used_shipment_units": 2.0,
           "capacity_units": 4.0,
           "excess_tonnes": 0.0,
           "excess_units": 0.0
         },
         {
           "departure_id": "HORIZON-e0003-0004-rail",
-          "used_tonnes": 100.0,
+          "used_tonnes": 120.0,
           "capacity_tonnes": 250.0,
           "used_shipment_units": 3.0,
           "capacity_units": 4.0,
@@ -3345,7 +3332,7 @@
         },
         {
           "departure_id": "HORIZON-e0003-0004-water",
-          "used_tonnes": 80.0,
+          "used_tonnes": 165.0,
           "capacity_tonnes": 250.0,
           "used_shipment_units": 3.0,
           "capacity_units": 4.0,
@@ -3354,7 +3341,7 @@
         },
         {
           "departure_id": "HORIZON-e0003-0012-rail",
-          "used_tonnes": 40.0,
+          "used_tonnes": 20.0,
           "capacity_tonnes": 250.0,
           "used_shipment_units": 1.0,
           "capacity_units": 4.0,
@@ -3363,16 +3350,16 @@
         },
         {
           "departure_id": "HORIZON-e0003-0012-water",
-          "used_tonnes": 40.0,
+          "used_tonnes": 20.0,
           "capacity_tonnes": 250.0,
-          "used_shipment_units": 2.0,
+          "used_shipment_units": 1.0,
           "capacity_units": 4.0,
           "excess_tonnes": 0.0,
           "excess_units": 0.0
         },
         {
           "departure_id": "HORIZON-e0004-0005-rail",
-          "used_tonnes": 120.0,
+          "used_tonnes": 160.0,
           "capacity_tonnes": 250.0,
           "used_shipment_units": 4.0,
           "capacity_units": 4.0,
@@ -3381,7 +3368,7 @@
         },
         {
           "departure_id": "HORIZON-e0004-0005-water",
-          "used_tonnes": 165.0,
+          "used_tonnes": 185.0,
           "capacity_tonnes": 250.0,
           "used_shipment_units": 4.0,
           "capacity_units": 4.0,
@@ -3399,16 +3386,7 @@
         },
         {
           "departure_id": "HORIZON-e0004-0016-water",
-          "used_tonnes": 20.0,
-          "capacity_tonnes": 250.0,
-          "used_shipment_units": 1.0,
-          "capacity_units": 4.0,
-          "excess_tonnes": 0.0,
-          "excess_units": 0.0
-        },
-        {
-          "departure_id": "HORIZON-e0004-0017-rail",
-          "used_tonnes": 125.0,
+          "used_tonnes": 105.0,
           "capacity_tonnes": 250.0,
           "used_shipment_units": 2.0,
           "capacity_units": 4.0,
@@ -3416,10 +3394,19 @@
           "excess_units": 0.0
         },
         {
-          "departure_id": "HORIZON-e0004-0017-water",
-          "used_tonnes": 210.0,
+          "departure_id": "HORIZON-e0004-0017-rail",
+          "used_tonnes": 85.0,
           "capacity_tonnes": 250.0,
-          "used_shipment_units": 4.0,
+          "used_shipment_units": 1.0,
+          "capacity_units": 4.0,
+          "excess_tonnes": 0.0,
+          "excess_units": 0.0
+        },
+        {
+          "departure_id": "HORIZON-e0004-0017-water",
+          "used_tonnes": 125.0,
+          "capacity_tonnes": 250.0,
+          "used_shipment_units": 3.0,
           "capacity_units": 4.0,
           "excess_tonnes": 0.0,
           "excess_units": 0.0
@@ -3444,16 +3431,16 @@
         },
         {
           "departure_id": "HORIZON-e0005-0006-rail",
-          "used_tonnes": 100.0,
+          "used_tonnes": 160.0,
           "capacity_tonnes": 250.0,
-          "used_shipment_units": 3.0,
+          "used_shipment_units": 4.0,
           "capacity_units": 4.0,
           "excess_tonnes": 0.0,
           "excess_units": 0.0
         },
         {
           "departure_id": "HORIZON-e0005-0006-water",
-          "used_tonnes": 100.0,
+          "used_tonnes": 185.0,
           "capacity_tonnes": 250.0,
           "used_shipment_units": 4.0,
           "capacity_units": 4.0,
@@ -3471,33 +3458,6 @@
         },
         {
           "departure_id": "HORIZON-e0005-0012-water",
-          "used_tonnes": 85.0,
-          "capacity_tonnes": 250.0,
-          "used_shipment_units": 1.0,
-          "capacity_units": 4.0,
-          "excess_tonnes": 0.0,
-          "excess_units": 0.0
-        },
-        {
-          "departure_id": "HORIZON-e0006-0007-rail",
-          "used_tonnes": 60.0,
-          "capacity_tonnes": 250.0,
-          "used_shipment_units": 2.0,
-          "capacity_units": 4.0,
-          "excess_tonnes": 0.0,
-          "excess_units": 0.0
-        },
-        {
-          "departure_id": "HORIZON-e0006-0007-water",
-          "used_tonnes": 20.0,
-          "capacity_tonnes": 250.0,
-          "used_shipment_units": 1.0,
-          "capacity_units": 4.0,
-          "excess_tonnes": 0.0,
-          "excess_units": 0.0
-        },
-        {
-          "departure_id": "HORIZON-e0006-0021-rail",
           "used_tonnes": 0.0,
           "capacity_tonnes": 250.0,
           "used_shipment_units": 0.0,
@@ -3506,8 +3466,35 @@
           "excess_units": 0.0
         },
         {
+          "departure_id": "HORIZON-e0006-0007-rail",
+          "used_tonnes": 40.0,
+          "capacity_tonnes": 250.0,
+          "used_shipment_units": 1.0,
+          "capacity_units": 4.0,
+          "excess_tonnes": 0.0,
+          "excess_units": 0.0
+        },
+        {
+          "departure_id": "HORIZON-e0006-0007-water",
+          "used_tonnes": 85.0,
+          "capacity_tonnes": 250.0,
+          "used_shipment_units": 1.0,
+          "capacity_units": 4.0,
+          "excess_tonnes": 0.0,
+          "excess_units": 0.0
+        },
+        {
+          "departure_id": "HORIZON-e0006-0021-rail",
+          "used_tonnes": 80.0,
+          "capacity_tonnes": 250.0,
+          "used_shipment_units": 2.0,
+          "capacity_units": 4.0,
+          "excess_tonnes": 0.0,
+          "excess_units": 0.0
+        },
+        {
           "departure_id": "HORIZON-e0006-0021-water",
-          "used_tonnes": 120.0,
+          "used_tonnes": 140.0,
           "capacity_tonnes": 250.0,
           "used_shipment_units": 4.0,
           "capacity_units": 4.0,
@@ -3561,7 +3548,7 @@
         },
         {
           "departure_id": "HORIZON-e0007-0014-water",
-          "used_tonnes": 20.0,
+          "used_tonnes": 85.0,
           "capacity_tonnes": 250.0,
           "used_shipment_units": 1.0,
           "capacity_units": 4.0,
@@ -3588,18 +3575,18 @@
         },
         {
           "departure_id": "HORIZON-e0007-0019-rail",
-          "used_tonnes": 60.0,
+          "used_tonnes": 40.0,
           "capacity_tonnes": 250.0,
-          "used_shipment_units": 2.0,
+          "used_shipment_units": 1.0,
           "capacity_units": 4.0,
           "excess_tonnes": 0.0,
           "excess_units": 0.0
         },
         {
           "departure_id": "HORIZON-e0007-0019-water",
-          "used_tonnes": 185.0,
+          "used_tonnes": 60.0,
           "capacity_tonnes": 250.0,
-          "used_shipment_units": 4.0,
+          "used_shipment_units": 2.0,
           "capacity_units": 4.0,
           "excess_tonnes": 0.0,
           "excess_units": 0.0
@@ -3633,9 +3620,9 @@
         },
         {
           "departure_id": "HORIZON-e0009-0010-water",
-          "used_tonnes": 60.0,
+          "used_tonnes": 40.0,
           "capacity_tonnes": 250.0,
-          "used_shipment_units": 2.0,
+          "used_shipment_units": 1.0,
           "capacity_units": 4.0,
           "excess_tonnes": 0.0,
           "excess_units": 0.0
@@ -3651,7 +3638,7 @@
         },
         {
           "departure_id": "HORIZON-e0009-0018-water",
-          "used_tonnes": 145.0,
+          "used_tonnes": 210.0,
           "capacity_tonnes": 250.0,
           "used_shipment_units": 3.0,
           "capacity_units": 4.0,
@@ -3669,9 +3656,9 @@
         },
         {
           "departure_id": "HORIZON-e0010-0011-water",
-          "used_tonnes": 60.0,
+          "used_tonnes": 40.0,
           "capacity_tonnes": 250.0,
-          "used_shipment_units": 2.0,
+          "used_shipment_units": 1.0,
           "capacity_units": 4.0,
           "excess_tonnes": 0.0,
           "excess_units": 0.0
@@ -3741,6 +3728,15 @@
         },
         {
           "departure_id": "HORIZON-e0011-0020-water",
+          "used_tonnes": 0.0,
+          "capacity_tonnes": 250.0,
+          "used_shipment_units": 0.0,
+          "capacity_units": 4.0,
+          "excess_tonnes": 0.0,
+          "excess_units": 0.0
+        },
+        {
+          "departure_id": "HORIZON-e0012-0013-rail",
           "used_tonnes": 20.0,
           "capacity_tonnes": 250.0,
           "used_shipment_units": 1.0,
@@ -3749,8 +3745,8 @@
           "excess_units": 0.0
         },
         {
-          "departure_id": "HORIZON-e0012-0013-rail",
-          "used_tonnes": 40.0,
+          "departure_id": "HORIZON-e0012-0013-water",
+          "used_tonnes": 20.0,
           "capacity_tonnes": 250.0,
           "used_shipment_units": 1.0,
           "capacity_units": 4.0,
@@ -3758,17 +3754,8 @@
           "excess_units": 0.0
         },
         {
-          "departure_id": "HORIZON-e0012-0013-water",
-          "used_tonnes": 125.0,
-          "capacity_tonnes": 250.0,
-          "used_shipment_units": 3.0,
-          "capacity_units": 4.0,
-          "excess_tonnes": 0.0,
-          "excess_units": 0.0
-        },
-        {
           "departure_id": "HORIZON-e0013-0014-rail",
-          "used_tonnes": 40.0,
+          "used_tonnes": 20.0,
           "capacity_tonnes": 250.0,
           "used_shipment_units": 1.0,
           "capacity_units": 4.0,
@@ -3777,9 +3764,9 @@
         },
         {
           "departure_id": "HORIZON-e0013-0014-water",
-          "used_tonnes": 125.0,
+          "used_tonnes": 20.0,
           "capacity_tonnes": 250.0,
-          "used_shipment_units": 3.0,
+          "used_shipment_units": 1.0,
           "capacity_units": 4.0,
           "excess_tonnes": 0.0,
           "excess_units": 0.0
@@ -3822,7 +3809,7 @@
         },
         {
           "departure_id": "HORIZON-e0014-0020-rail",
-          "used_tonnes": 205.0,
+          "used_tonnes": 185.0,
           "capacity_tonnes": 250.0,
           "used_shipment_units": 4.0,
           "capacity_units": 4.0,
@@ -3831,9 +3818,9 @@
         },
         {
           "departure_id": "HORIZON-e0014-0020-water",
-          "used_tonnes": 145.0,
+          "used_tonnes": 105.0,
           "capacity_tonnes": 250.0,
-          "used_shipment_units": 4.0,
+          "used_shipment_units": 2.0,
           "capacity_units": 4.0,
           "excess_tonnes": 0.0,
           "excess_units": 0.0
@@ -3867,9 +3854,9 @@
         },
         {
           "departure_id": "HORIZON-e0016-0017-water",
-          "used_tonnes": 20.0,
+          "used_tonnes": 105.0,
           "capacity_tonnes": 250.0,
-          "used_shipment_units": 1.0,
+          "used_shipment_units": 2.0,
           "capacity_units": 4.0,
           "excess_tonnes": 0.0,
           "excess_units": 0.0
@@ -3894,9 +3881,9 @@
         },
         {
           "departure_id": "HORIZON-e0017-0022-rail",
-          "used_tonnes": 40.0,
+          "used_tonnes": 0.0,
           "capacity_tonnes": 250.0,
-          "used_shipment_units": 1.0,
+          "used_shipment_units": 0.0,
           "capacity_units": 4.0,
           "excess_tonnes": 0.0,
           "excess_units": 0.0
@@ -3921,7 +3908,7 @@
         },
         {
           "departure_id": "HORIZON-e0018-0019-water",
-          "used_tonnes": 105.0,
+          "used_tonnes": 170.0,
           "capacity_tonnes": 250.0,
           "used_shipment_units": 2.0,
           "capacity_units": 4.0,
@@ -3930,25 +3917,25 @@
         },
         {
           "departure_id": "HORIZON-e0019-0020-rail",
-          "used_tonnes": 105.0,
+          "used_tonnes": 85.0,
           "capacity_tonnes": 250.0,
-          "used_shipment_units": 2.0,
+          "used_shipment_units": 1.0,
           "capacity_units": 4.0,
           "excess_tonnes": 0.0,
           "excess_units": 0.0
         },
         {
           "departure_id": "HORIZON-e0019-0020-water",
-          "used_tonnes": 60.0,
+          "used_tonnes": 20.0,
           "capacity_tonnes": 250.0,
-          "used_shipment_units": 2.0,
+          "used_shipment_units": 1.0,
           "capacity_units": 4.0,
           "excess_tonnes": 0.0,
           "excess_units": 0.0
         },
         {
           "departure_id": "HORIZON-e0020-0021-rail",
-          "used_tonnes": 40.0,
+          "used_tonnes": 85.0,
           "capacity_tonnes": 250.0,
           "used_shipment_units": 1.0,
           "capacity_units": 4.0,
@@ -3957,18 +3944,18 @@
         },
         {
           "departure_id": "HORIZON-e0020-0021-water",
-          "used_tonnes": 80.0,
+          "used_tonnes": 0.0,
           "capacity_tonnes": 250.0,
-          "used_shipment_units": 3.0,
+          "used_shipment_units": 0.0,
           "capacity_units": 4.0,
           "excess_tonnes": 0.0,
           "excess_units": 0.0
         },
         {
           "departure_id": "HORIZON-e0020-0022-rail",
-          "used_tonnes": 85.0,
+          "used_tonnes": 0.0,
           "capacity_tonnes": 250.0,
-          "used_shipment_units": 1.0,
+          "used_shipment_units": 0.0,
           "capacity_units": 4.0,
           "excess_tonnes": 0.0,
           "excess_units": 0.0
@@ -3984,18 +3971,18 @@
         },
         {
           "departure_id": "HORIZON-e0021-0022-rail",
-          "used_tonnes": 40.0,
+          "used_tonnes": 165.0,
           "capacity_tonnes": 250.0,
-          "used_shipment_units": 1.0,
+          "used_shipment_units": 3.0,
           "capacity_units": 4.0,
           "excess_tonnes": 0.0,
           "excess_units": 0.0
         },
         {
           "departure_id": "HORIZON-e0021-0022-water",
-          "used_tonnes": 80.0,
+          "used_tonnes": 60.0,
           "capacity_tonnes": 250.0,
-          "used_shipment_units": 3.0,
+          "used_shipment_units": 2.0,
           "capacity_units": 4.0,
           "excess_tonnes": 0.0,
           "excess_units": 0.0

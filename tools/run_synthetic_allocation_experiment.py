@@ -21,6 +21,9 @@ from tools.run_allocation_experiment import (COLORS, VARIANTS, method_summary, s
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "benchmarks" / "synthetic-global-allocation"
+SYNTHETIC_VARIANTS = {name: dict(controls) for name, controls in VARIANTS.items()}
+SYNTHETIC_VARIANTS["hybrid-seeded"].update(
+    mutation_base=1.0, mutation_cap=2.5)
 
 
 def generate_portfolio(nodes, count, seed):
@@ -82,7 +85,7 @@ def write_mode_chart(path, solution, orders):
 
 
 def write_convergence_chart(path, traces):
-    methods = list(VARIANTS)
+    methods = list(SYNTHETIC_VARIANTS)
     generations = sorted({row["generation"] for row in traces})
     series = {}
     for method in methods:
@@ -170,7 +173,7 @@ def run(args):
         "solution": greedy["solution"],
     }]
     traces = []
-    for method, controls in VARIANTS.items():
+    for method, controls in SYNTHETIC_VARIANTS.items():
         for seed in args.seeds:
             result = solve_allocation_ga(
                 generated["orders"], generated["candidate_pools"], generated["departures"], brackets,
@@ -237,7 +240,7 @@ def run(args):
         "candidate_generation": generated["generation_stats"],
         "algorithm_budget": {"seeds": args.seeds, "population": args.population,
                              "generations": args.generations, "patience": args.patience,
-                             "variant_controls": VARIANTS},
+                             "variant_controls": SYNTHETIC_VARIANTS},
         "exact_oracle": {"scope": f"first {len(oracle_orders)} orders only",
                          "status": exact["status"], "candidate_evaluations": exact["candidate_evaluations"],
                          "solution": exact["solution"]},

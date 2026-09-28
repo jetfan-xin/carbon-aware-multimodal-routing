@@ -41,8 +41,8 @@ CONFIGS = {
     },
     "selected-hybrid-v2": {
         "adaptive": True, "catastrophe": True, "patience": 30,
-        "adaptive_control": "diversity-v2", "mutation_base": 1.25,
-        "mutation_cap": 3.0, "restart_fraction": .25,
+        "adaptive_control": "diversity-v2", "mutation_base": 1.0,
+        "mutation_cap": 2.5, "restart_fraction": .25,
         "heuristic_seed": True, "heuristic_seed_mode": "archive",
         "heuristic_seed_strategy": "opportunity",
     },

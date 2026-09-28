@@ -161,7 +161,7 @@ Every GA uses:
 - candidate-aware integer mutation;
 - parent--offspring merge with elite retention.
 
-The adaptive controller measures locus diversity and stagnation. Expected mutations range from 1.25 to 2.75 genes per child under the selected coefficients, with a hard cap of 3.0. Crossover ranges from 0.72 to 0.85. Catastrophe-enabled methods target a 25% partial restart after 30 stagnant generations. The hybrid additionally maintains an opportunity-loss greedy incumbent.
+The adaptive controller measures locus diversity and stagnation. The selected hybrid uses an expected 1.0--2.5 mutated genes per child under a 2.5 cap; the selected non-seeded combined control uses a 1.25 base and 3.0 cap. Crossover ranges from 0.72 to 0.85. Catastrophe-enabled methods target a 25% partial restart after 30 stagnant generations. The hybrid additionally maintains an opportunity-loss greedy incumbent.
 
 ### 5.4 Baselines and exact checks
 
@@ -190,7 +190,19 @@ Twelve model orders share eight timed departures on the three-node/five-edge fac
 
 This experiment asks whether population search improves a coupled synthetic allocation. It does not assess current carrier operations.
 
-### 6.3 Experiment C: corridor policy and external plausibility
+### 6.3 Experiment C: 23-city objective and transport-policy matrix
+
+The same 48 orders, graph, candidate budget and GA budget are held fixed while the policy changes:
+
+- road-only cost minimization;
+- single-mode-per-order cost minimization, where different orders may use different modes but no order changes mode;
+- multimodal-enabled cost minimization, retaining both direct and transfer candidates;
+- multimodal-enabled hard reductions of 20%, 40%, 55% and 60%;
+- a single-mode-per-order 55% boundary case.
+
+Every reduction is measured against the best-known road-only cost solution for the same portfolio. Every scenario compares the same five GA variants over 30 seeds. Greedy is an auxiliary reference, not one of the five formal methods.
+
+### 6.4 Experiment D: corridor policy and external plausibility
 
 The policy grid uses one facility-calibrated corridor and deterministic model orders:
 
@@ -221,11 +233,23 @@ The current factors make rail-road the lowest-emission option and water the lowe
 
 ### 7.2 Synthetic algorithm result
 
-The 23-city deadline-greedy baseline costs CNY 372,578.33. The best-known hybrid seed/run costs CNY 304,051.85, 18.39% below greedy. Hybrid also has the lowest mean cost and standard deviation across 30 seeds. Method distributions overlap, so it is not correct to claim hybrid wins every seed.
+The 23-city deadline-greedy baseline costs CNY 398,224.22. The best formal hybrid seed/run costs CNY 324,492.36, 18.52% below greedy. Hybrid has the lowest mean cost and standard deviation across 30 seeds; adaptive and combined share a slightly lower median. Method distributions overlap, so it is not correct to claim hybrid wins every seed.
 
-The controller was selected on seeds 30--39, validated on seeds 40--69, and finally reported on seeds 0--29. This prevents direct parameter selection on the formal seed set.
+The controller was selected on seeds 30--39, validated on seeds 40--69, and finally reported on seeds 0--29. The selected hybrid beats the legacy hybrid in 23/30 held-out pairs, with a mean paired change of -CNY 4,257.77 and an approximate 95% interval of [-6,305.60, -2,209.93]. This prevents direct parameter selection on the formal seed set and supports only this fixed synthetic instance.
 
-### 7.3 Central policy frontier
+### 7.3 Objective and transport-policy matrix
+
+The road-only reference costs CNY 618,893.09, emits 217,720.96 kg and has an 18.65-h tonne-weighted transit time. The best-known no-transfer portfolio costs CNY 332,353.03 and emits 104,025.60 kg. The dominance-consistent multimodal archive costs CNY 322,104.18 and emits 99,543.59 kg: 47.95% lower cost and 54.28% lower emissions than the synthetic road-only reference, with a longer 43.23-h weighted transit time.
+
+Relative to no-transfer routing, the multimodal archive is 3.08% cheaper and 4.31% lower-emitting, with 2.83% longer weighted transit. It assigns 160 t to routes that change mode, alongside 160 t road-only, 910 t rail-only and 825 t water-only. This is a model allocation; route-category tonnes do not measure observed carrier traffic.
+
+The 20% and 40% caps are non-binding because cost-minimizing rail/water choices already exceed those reductions relative to road. All five GA methods are 30/30 feasible in those scenarios. No method finds a feasible result at 55% or 60%, or in the no-transfer 55% case, under the tested candidate and search budgets. That is a search/candidate boundary, not mathematical proof of infeasibility.
+
+![23-city cost-emissions frontier](../benchmarks/synthetic-global-allocation/objective-matrix/cost-emissions-frontier.svg)
+
+![Five-GA objective matrix](../benchmarks/synthetic-global-allocation/objective-matrix/five-ga-scenario-matrix.svg)
+
+### 7.4 Central corridor policy frontier
 
 The frozen central balanced reference contains 48 orders and 720 t. Screening results are:
 
@@ -244,7 +268,7 @@ The best formal 20% result costs CNY 196,549.45 and emits 11,790.46 kg versus th
 
 ![Mode shift under the hard cap](../benchmarks/policy-allocation/mode-shift.svg)
 
-### 7.4 Feasibility and algorithm interpretation
+### 7.5 Corridor feasibility and algorithm interpretation
 
 Nine of twelve selected formal scenarios have a known feasible GA result. Conditional on those nine scenarios:
 
@@ -254,13 +278,13 @@ Nine of twelve selected formal scenarios have a known feasible GA result. Condit
 
 No method found a feasible solution for high-demand 20%, tight-deadline 20%, or high-carbon-price-baseline plus another 20% reduction. This is a capacity/search boundary, not a mathematical infeasibility certificate.
 
-In the central policy case, all advanced methods often reach the same best cost. Experiment C therefore demonstrates constraint handling and mode trade-offs more than GA superiority. Experiment B remains the relevant algorithm-search comparison.
+In the central policy case, all advanced methods often reach the same best cost. Experiment D therefore demonstrates constraint handling and mode trade-offs more than GA superiority. Experiment B remains the relevant algorithm-search comparison.
 
 ![Conditional feasibility](../benchmarks/policy-allocation/method-feasibility.svg)
 
-### 7.5 External plausibility, not validation
+### 7.6 External plausibility, not validation
 
-The synthetic 23-city best-known allocation averages CNY 147.96/t and 45.30 kg/t. Those values lie inside the wide route-level corridor ranges, but the synthetic portfolio mixes many shorter OD pairs. This comparison checks order of magnitude and direction only; it does not validate the 23-city cost as a Chongqing--Shanghai quote.
+The formal synthetic 23-city best-known allocation averages CNY 157.90/t and 48.67 kg/t. Those values lie inside the wide route-level corridor ranges, but the synthetic portfolio mixes many shorter OD pairs. This comparison checks order of magnitude and direction only; it does not validate the 23-city cost as a Chongqing--Shanghai quote.
 
 ![Calibration context](../benchmarks/policy-allocation/calibration-context.svg)
 
@@ -290,6 +314,7 @@ This narrative preserves ownership and technical depth without implying that thi
 python3 -B -m unittest discover -s tests -p 'test_*.py'
 python3 -B tools/run_facility_case_analysis.py
 python3 -B tools/run_synthetic_allocation_experiment.py
+python3 -B tools/run_synthetic_objective_matrix.py
 python3 -B tools/run_policy_allocation_experiment.py
 sh tools/run_geatpy_tests.sh
 python3 -B tools/audit_results.py
