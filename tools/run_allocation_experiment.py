@@ -55,7 +55,7 @@ def svg(title, body, *, width=1080, height=650, metadata=None):
     description = html.escape(json.dumps(metadata or {}, ensure_ascii=False))
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" '
             f'viewBox="0 0 {width} {height}"><title>{html.escape(title)}</title>'
-            f'<desc>{description}</desc><rect width="100%" height="100%" fill="white"/>'
+            f'<desc>{description}</desc><rect x="0" y="0" width="{width}" height="{height}" fill="white"/>'
             f'<text x="45" y="40" font-family="sans-serif" font-size="21" font-weight="bold">'
             f'{html.escape(title)}</text>{body}</svg>\n')
 

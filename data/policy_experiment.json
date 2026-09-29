@@ -96,5 +96,110 @@
       ["central", "balanced", 0, 0.2],
       ["central", "balanced", 6000, 0.2]
     ]
+  },
+  "synthetic_23city_extension": {
+    "experiment_id": "synthetic-23city-policy-calibrated-matrix-v1",
+    "purpose": "Reuse the corridor policy experiment's demand, release, payload, deadline, carbon-price and policy-target scenarios on the synthetic 23-city topology, then compare transport scope and five GA controls.",
+    "emissions_target_reference": "sum of per-order emissions after independently selecting each order's minimum-cost deadline-feasible candidate among retained pure-road, pure-rail and pure-water routes; every order uses one trunk mode and the reference excludes cross-order shared-capacity coupling",
+    "evidence_boundary": "The topology retains only archived 23-city aggregate distance and mode-availability characteristics. Policy parameters are scenario anchors. Applying corridor capacity values to synthetic rail and water edges is a modelling calibration, not evidence of carrier capacity on those edges.",
+    "network": {
+      "nodes": 23,
+      "density": 0.35,
+      "seed": 42,
+      "portfolio_seed": 202209,
+      "candidate_routes": 80,
+      "beam_width": 300,
+      "top_k": 6
+    },
+    "operational_time_model": {
+      "evidence_class": "policy_calibrated_synthetic_assumption",
+      "scope_limit": "These values make operational delay explicit for algorithm testing. They are not a current carrier timetable, terminal SLA or observed delay distribution.",
+      "mode_service": {
+        "road": {
+          "scheduled_headway_hours": null,
+          "assumed_dispatch_wait_hours": 1,
+          "handling_hours_per_leg": 2,
+          "port_dwell_hours_per_leg": 0,
+          "lock_delay_hours_per_1000_km": 0,
+          "reliability_buffer_hours_per_leg": 2
+        },
+        "rail": {
+          "scheduled_headway_hours": null,
+          "assumed_dispatch_wait_hours": 6,
+          "handling_hours_per_leg": 6,
+          "port_dwell_hours_per_leg": 2,
+          "lock_delay_hours_per_1000_km": 0,
+          "reliability_buffer_hours_per_leg": 6
+        },
+        "water": {
+          "scheduled_headway_hours": 24,
+          "phase_step_hours": 6,
+          "assumed_dispatch_wait_hours": 0,
+          "handling_hours_per_leg": 8,
+          "port_dwell_hours_per_leg": 6,
+          "lock_delay_hours_per_1000_km": 4,
+          "reliability_buffer_hours_per_leg": 8
+        }
+      },
+      "fixed_transfer_hours": {
+        "rail-road": 6,
+        "road-water": 10,
+        "rail-water": 12
+      },
+      "deadline_model": {
+        "lead_time_values_hours": [48, 60, 72],
+        "od_span_thresholds": [0.25, 0.55],
+        "cargo_mix": {
+          "time-sensitive": 0.25,
+          "general-container": 0.5,
+          "bulk-nonperishable": 0.25
+        },
+        "base_lead_time_hours": {
+          "time-sensitive": {"short": 48, "medium": 48, "long": 60},
+          "general-container": {"short": 48, "medium": 60, "long": 72},
+          "bulk-nonperishable": {"short": 60, "medium": 72, "long": 72}
+        },
+        "profile_step": {"tight": -1, "balanced": 0, "relaxed": 1}
+      },
+      "scheduled_capacity": {
+        "water": {
+          "capacity_tonnes_per_departure": 20,
+          "capacity_units_per_departure": 2
+        }
+      }
+    },
+    "capacity_mapping": {
+      "rail": {
+        "capacity_tonnes": 650,
+        "capacity_units": 44,
+        "source_field": "capacity_resources[POLICY-RAIL-HORIZON]"
+      },
+      "water": {
+        "capacity_tonnes": 360,
+        "capacity_units": 24,
+        "source_field": "capacity_resources[POLICY-WATER-EXPRESS-HORIZON/POLICY-WATER-REGULAR-HORIZON]"
+      }
+    },
+    "transport_scopes": [
+      "road-only",
+      "single-mode-per-order",
+      "multimodal-enabled"
+    ],
+    "formal_core": {
+      "demand": "central",
+      "time_profile": "balanced",
+      "carbon_price_cny_per_tco2e": 97.49,
+      "reduction_targets": [0, 0.095, 0.2, 0.3],
+      "seeds": 30,
+      "population": 40,
+      "generations": 60,
+      "patience": 20
+    },
+    "ga_hyperparameter_selection": {
+      "tuning_seeds": [100, 101, 102, 103, 104, 105, 106, 107],
+      "validation_seeds": [110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129],
+      "formal_report_seeds": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29],
+      "record": "benchmarks/synthetic-23city-policy-tuning/results.json"
+    }
   }
 }

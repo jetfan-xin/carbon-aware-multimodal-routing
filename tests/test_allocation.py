@@ -3,6 +3,7 @@
 import unittest
 
 from routing.allocation import (evaluate_assignment, generate_candidate_pools,
+                                solve_emission_repair_allocation,
                                 solve_exact_allocation, solve_greedy_allocation,
                                 solve_opportunity_greedy_allocation)
 from routing.allocation_ga import solve_allocation_ga
@@ -101,6 +102,24 @@ class CandidateGenerationTests(unittest.TestCase):
         self.assertEqual(rail["departure_ids"], [])
         self.assertEqual(rail["capacity_claims"][0]["departure_id"], "RAIL-HORIZON")
 
+    def test_operational_time_components_are_separately_accounted(self):
+        config = tiny_config()
+        config["edges"][0].update(
+            handling_hours=2, port_dwell_hours=3, lock_delay_hours=4,
+            reliability_buffer_hours=5)
+        orders = [{**tiny_orders()[0], "deadline_hours": 30}]
+        departures = [{**tiny_departures()[0], "departure_hour": 1}]
+        generated = generate_candidate_pools(config, orders, departures, top_k=4)
+        rail = next(row for row in generated["candidate_pools"]["A"]
+                    if row["modes"] == ["rail"])
+        self.assertEqual(rail["travel_hours"], 5)
+        self.assertEqual(rail["handling_hours"], 2)
+        self.assertEqual(rail["port_dwell_hours"], 3)
+        self.assertEqual(rail["lock_delay_hours"], 4)
+        self.assertEqual(rail["reliability_buffer_hours"], 5)
+        self.assertEqual(rail["scheduled_wait_hours"], 1)
+        self.assertEqual(rail["transit_hours"], 20)
+
     def test_candidate_retention_preserves_low_emission_and_fastest_options(self):
         generated = generate_candidate_pools(
             tiny_config(), tiny_orders(), tiny_departures(), top_k=2)
@@ -168,6 +187,19 @@ class AllocationSolverTests(unittest.TestCase):
         self.assertLessEqual(archive["solution"]["total_cost_cny"],
                              unseeded["solution"]["total_cost_cny"])
 
+    def test_archive_stops_when_objective_lower_bound_is_reached(self):
+        exact = solve_exact_allocation(*self.args)["solution"]
+        result = solve_allocation_ga(
+            *self.args, population=8, generations=20, seed=5, patience=2,
+            adaptive=True, catastrophe=True, heuristic_seed=True,
+            heuristic_seed_mode="archive",
+            objective_lower_bound_cny=exact["total_cost_cny"])
+        self.assertEqual(result["termination_reason"],
+                         "objective-lower-bound-reached")
+        self.assertEqual(result["generations_completed"], 1)
+        self.assertEqual(result["candidate_evaluations"], 8)
+        self.assertEqual(result["restarts"], 0)
+
     def test_progressive_carbon_is_applied_once(self):
         exact = solve_exact_allocation(*self.args)["solution"]
         self.assertGreater(exact["carbon_cost_cny"], 0)
@@ -217,6 +249,32 @@ class AllocationSolverTests(unittest.TestCase):
         self.assertTrue(result["constraint_seeded"])
         self.assertIsNotNone(result["solution"])
         self.assertLessEqual(result["solution"]["emissions_kg"], cap)
+
+    def test_emission_repair_archive_meets_reachable_cap(self):
+        result = solve_emission_repair_allocation(
+            *self.args, emission_cap_kg=66)
+        self.assertEqual(result["status"], "feasible-heuristic")
+        self.assertLessEqual(result["solution"]["emissions_kg"], 66)
+
+    def test_ga_accepts_emission_repair_archive_strategy(self):
+        result = solve_allocation_ga(
+            *self.args, population=8, generations=3, seed=4,
+            adaptive=True, catastrophe=True, heuristic_seed=True,
+            heuristic_seed_strategy="emission-repair", emission_cap_kg=66)
+        self.assertEqual(result["heuristic_seed_strategy"], "emission-repair")
+        self.assertIsNotNone(result["solution"])
+
+    def test_ga_accepts_precomputed_heuristic_chromosome(self):
+        archive = solve_emission_repair_allocation(*self.args, emission_cap_kg=66)
+        result = solve_allocation_ga(
+            *self.args, population=8, generations=3, seed=4,
+            adaptive=True, catastrophe=True, heuristic_seed=True,
+            heuristic_seed_mode="population", heuristic_seed_strategy="emission-repair",
+            heuristic_seed_chromosome=archive["solution"]["chromosome"],
+            emission_cap_kg=66)
+        self.assertEqual(result["heuristic_seed_source"], "provided")
+        self.assertEqual(result["heuristic_seed_evaluations"], 0)
+        self.assertIsNotNone(result["solution"])
 
 
 if __name__ == "__main__":

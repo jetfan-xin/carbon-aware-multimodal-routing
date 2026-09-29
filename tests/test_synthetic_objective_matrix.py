@@ -43,10 +43,10 @@ class SyntheticObjectiveMatrixTests(unittest.TestCase):
             for name in ("runs.csv", "method-scenario-summary.csv",
                          "scenario-best.csv", "best-assignments.csv",
                          "representative-traces.csv", "cost-emissions-frontier.svg",
-                         "five-ga-scenario-matrix.svg"):
+                         "five-ga-scenario-matrix.svg", "cost-time-by-method.svg"):
                 self.assertTrue((output / name).is_file(), name)
             for name in ("cost-emissions-frontier.svg",
-                         "five-ga-scenario-matrix.svg"):
+                         "five-ga-scenario-matrix.svg", "cost-time-by-method.svg"):
                 self.assertTrue(ET.parse(output / name).getroot().tag.endswith("svg"))
 
     def test_checked_in_matrix_is_full_budget_and_self_consistent(self):

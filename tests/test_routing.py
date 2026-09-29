@@ -38,6 +38,19 @@ class CostTests(unittest.TestCase):
         self.assertAlmostEqual(r["emissions_kg"], 1991.3)
         self.assertAlmostEqual(r["total_cost_cny"], 8929.565)
 
+    def test_fixed_transfer_and_operational_delays_count_toward_arrival(self):
+        self.c["transfers"][2]["fixed_hours"] = 3
+        self.c["edges"][0].update(
+            handling_hours=1, port_dwell_hours=2, lock_delay_hours=3,
+            reliability_buffer_hours=4)
+        r = Network(self.c).evaluate((0, 1))["scenarios"][0]
+        self.assertEqual(r["transfer_hours"], 8)
+        self.assertEqual(r["handling_hours"], 1)
+        self.assertEqual(r["port_dwell_hours"], 2)
+        self.assertEqual(r["lock_delay_hours"], 3)
+        self.assertEqual(r["reliability_buffer_hours"], 4)
+        self.assertEqual(r["arrival_hours"], 43)
+
     def test_no_transfer_for_same_mode(self):
         r = Network(self.c).evaluate((3, 4))["scenarios"][0]
         self.assertEqual(r["transfer_cost_cny"], 0)

@@ -1,0 +1,405 @@
+{
+  "experiment_id": "policy-calibrated-algorithm-discrimination-v1",
+  "data_classification": "policy_calibrated_synthetic",
+  "target_reference": "per-order minimum-cost single-trunk-mode emissions within the same candidate width",
+  "target_reference_scope": "single-mode-per-order",
+  "network": {
+    "nodes": 23,
+    "edges": 328,
+    "density": 0.36,
+    "network_seed": 42
+  },
+  "portfolio": {
+    "orders": 48,
+    "tonnes": 685,
+    "demand": "central",
+    "time_profile": "balanced",
+    "carbon_price_cny_per_tco2e": 97.49
+  },
+  "conflict_calibration": {
+    "road": "low-cost/high-emissions",
+    "rail_water": "higher-cost/lower-emissions",
+    "departure_hours": [
+      0,
+      24,
+      48,
+      72,
+      96
+    ],
+    "capacity_tonnes": 20,
+    "capacity_units": 2,
+    "candidate_widths": [
+      6,
+      10,
+      14
+    ]
+  },
+  "algorithm_budget": {
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "population": 40,
+    "generations": 60,
+    "patience": 12,
+    "controls": {
+      "fixed": {
+        "adaptive": false,
+        "catastrophe": false,
+        "heuristic_seed": false
+      },
+      "adaptive": {
+        "adaptive": true,
+        "catastrophe": false,
+        "heuristic_seed": false,
+        "adaptive_control": "diversity-v2",
+        "mutation_base": 0.5,
+        "mutation_cap": 1.5
+      },
+      "catastrophe": {
+        "adaptive": false,
+        "catastrophe": true,
+        "heuristic_seed": false,
+        "restart_fraction": 0.15
+      },
+      "combined": {
+        "adaptive": true,
+        "catastrophe": true,
+        "heuristic_seed": false,
+        "adaptive_control": "diversity-v2",
+        "mutation_base": 0.5,
+        "mutation_cap": 1.5,
+        "restart_fraction": 0.15
+      },
+      "heuristic+ga": {
+        "adaptive": true,
+        "catastrophe": true,
+        "heuristic_seed": true,
+        "heuristic_seed_mode": "population",
+        "heuristic_seed_strategy": "emission-repair",
+        "adaptive_control": "diversity-v2",
+        "mutation_base": 0.5,
+        "mutation_cap": 1.5,
+        "restart_fraction": 0.15
+      }
+    }
+  },
+  "central_scenarios": [
+    {
+      "candidate_width": 10,
+      "reduction_target": 0.0,
+      "emission_cap_kg": null,
+      "baseline_cost_cny": 78221.0330268715,
+      "baseline_emissions_kg": 64706.97534999999,
+      "candidate_objective_lower_bound_cny": 78221.03302687149,
+      "best_method": "archive-only",
+      "best_cost_cny": 78221.03302687149,
+      "best_emissions_kg": 64706.97535,
+      "best_transit_hours": 16.630763686131388,
+      "max_departure_utilization": 0,
+      "departures_at_least_90pct": 0,
+      "used_clean_departures": 0
+    },
+    {
+      "candidate_width": 10,
+      "reduction_target": 0.095,
+      "emission_cap_kg": 58559.81269175,
+      "baseline_cost_cny": 78221.0330268715,
+      "baseline_emissions_kg": 64706.97534999999,
+      "candidate_objective_lower_bound_cny": 78221.03302687149,
+      "best_method": "heuristic+ga",
+      "best_cost_cny": 91086.8621937235,
+      "best_emissions_kg": 58434.59014999999,
+      "best_transit_hours": 22.183243004866185,
+      "max_departure_utilization": 1.0,
+      "departures_at_least_90pct": 5,
+      "used_clean_departures": 7
+    },
+    {
+      "candidate_width": 10,
+      "reduction_target": 0.2,
+      "emission_cap_kg": 51765.580279999995,
+      "baseline_cost_cny": 78221.0330268715,
+      "baseline_emissions_kg": 64706.97534999999,
+      "candidate_objective_lower_bound_cny": 78221.03302687149,
+      "best_method": "heuristic+ga",
+      "best_cost_cny": 106296.67392949102,
+      "best_emissions_kg": 51747.07589999999,
+      "best_transit_hours": 27.54310948905111,
+      "max_departure_utilization": 1.0,
+      "departures_at_least_90pct": 12,
+      "used_clean_departures": 19
+    },
+    {
+      "candidate_width": 10,
+      "reduction_target": 0.3,
+      "emission_cap_kg": 45294.882744999995,
+      "baseline_cost_cny": 78221.0330268715,
+      "baseline_emissions_kg": 64706.97534999999,
+      "candidate_objective_lower_bound_cny": 78221.03302687149,
+      "best_method": "heuristic+ga",
+      "best_cost_cny": 122260.268909505,
+      "best_emissions_kg": 45285.4245,
+      "best_transit_hours": 34.30174695863747,
+      "max_departure_utilization": 1.0,
+      "departures_at_least_90pct": 18,
+      "used_clean_departures": 33
+    }
+  ],
+  "micro_oracle": {
+    "orders": 6,
+    "candidate_limit_per_order": 4,
+    "results": [
+      {
+        "reduction_target": 0.0,
+        "method": "archive-only",
+        "exact_cost_cny": 7770.407975875999,
+        "exact_evaluations": 4096,
+        "runs": 1,
+        "feasible_runs": 1,
+        "best_gap_percent": 0.0,
+        "median_gap_percent": 0.0
+      },
+      {
+        "reduction_target": 0.0,
+        "method": "fixed",
+        "exact_cost_cny": 7770.407975875999,
+        "exact_evaluations": 4096,
+        "runs": 5,
+        "feasible_runs": 5,
+        "best_gap_percent": 0.0,
+        "median_gap_percent": 0.0
+      },
+      {
+        "reduction_target": 0.0,
+        "method": "adaptive",
+        "exact_cost_cny": 7770.407975875999,
+        "exact_evaluations": 4096,
+        "runs": 5,
+        "feasible_runs": 5,
+        "best_gap_percent": 0.0,
+        "median_gap_percent": 0.0
+      },
+      {
+        "reduction_target": 0.0,
+        "method": "catastrophe",
+        "exact_cost_cny": 7770.407975875999,
+        "exact_evaluations": 4096,
+        "runs": 5,
+        "feasible_runs": 5,
+        "best_gap_percent": 0.0,
+        "median_gap_percent": 0.0
+      },
+      {
+        "reduction_target": 0.0,
+        "method": "combined",
+        "exact_cost_cny": 7770.407975875999,
+        "exact_evaluations": 4096,
+        "runs": 5,
+        "feasible_runs": 5,
+        "best_gap_percent": 0.0,
+        "median_gap_percent": 0.0
+      },
+      {
+        "reduction_target": 0.0,
+        "method": "heuristic+ga",
+        "exact_cost_cny": 7770.407975875999,
+        "exact_evaluations": 4096,
+        "runs": 5,
+        "feasible_runs": 5,
+        "best_gap_percent": 0.0,
+        "median_gap_percent": 0.0
+      },
+      {
+        "reduction_target": 0.095,
+        "method": "archive-only",
+        "exact_cost_cny": 9697.733108034998,
+        "exact_evaluations": 4096,
+        "runs": 1,
+        "feasible_runs": 1,
+        "best_gap_percent": 11.969942238132102,
+        "median_gap_percent": 11.969942238132102
+      },
+      {
+        "reduction_target": 0.095,
+        "method": "fixed",
+        "exact_cost_cny": 9697.733108034998,
+        "exact_evaluations": 4096,
+        "runs": 5,
+        "feasible_runs": 5,
+        "best_gap_percent": 0.0,
+        "median_gap_percent": 0.0
+      },
+      {
+        "reduction_target": 0.095,
+        "method": "adaptive",
+        "exact_cost_cny": 9697.733108034998,
+        "exact_evaluations": 4096,
+        "runs": 5,
+        "feasible_runs": 5,
+        "best_gap_percent": 0.0,
+        "median_gap_percent": 0.0
+      },
+      {
+        "reduction_target": 0.095,
+        "method": "catastrophe",
+        "exact_cost_cny": 9697.733108034998,
+        "exact_evaluations": 4096,
+        "runs": 5,
+        "feasible_runs": 5,
+        "best_gap_percent": 0.0,
+        "median_gap_percent": 0.0
+      },
+      {
+        "reduction_target": 0.095,
+        "method": "combined",
+        "exact_cost_cny": 9697.733108034998,
+        "exact_evaluations": 4096,
+        "runs": 5,
+        "feasible_runs": 5,
+        "best_gap_percent": 0.0,
+        "median_gap_percent": 0.09519034470391041
+      },
+      {
+        "reduction_target": 0.095,
+        "method": "heuristic+ga",
+        "exact_cost_cny": 9697.733108034998,
+        "exact_evaluations": 4096,
+        "runs": 5,
+        "feasible_runs": 5,
+        "best_gap_percent": 0.0,
+        "median_gap_percent": 0.0
+      },
+      {
+        "reduction_target": 0.2,
+        "method": "archive-only",
+        "exact_cost_cny": 10760.206558014997,
+        "exact_evaluations": 4096,
+        "runs": 1,
+        "feasible_runs": 1,
+        "best_gap_percent": 0.9139192721793199,
+        "median_gap_percent": 0.9139192721793199
+      },
+      {
+        "reduction_target": 0.2,
+        "method": "fixed",
+        "exact_cost_cny": 10760.206558014997,
+        "exact_evaluations": 4096,
+        "runs": 5,
+        "feasible_runs": 5,
+        "best_gap_percent": 0.0,
+        "median_gap_percent": 0.0
+      },
+      {
+        "reduction_target": 0.2,
+        "method": "adaptive",
+        "exact_cost_cny": 10760.206558014997,
+        "exact_evaluations": 4096,
+        "runs": 5,
+        "feasible_runs": 5,
+        "best_gap_percent": 0.0,
+        "median_gap_percent": 0.0
+      },
+      {
+        "reduction_target": 0.2,
+        "method": "catastrophe",
+        "exact_cost_cny": 10760.206558014997,
+        "exact_evaluations": 4096,
+        "runs": 5,
+        "feasible_runs": 5,
+        "best_gap_percent": 0.0,
+        "median_gap_percent": 0.0
+      },
+      {
+        "reduction_target": 0.2,
+        "method": "combined",
+        "exact_cost_cny": 10760.206558014997,
+        "exact_evaluations": 4096,
+        "runs": 5,
+        "feasible_runs": 5,
+        "best_gap_percent": 0.0,
+        "median_gap_percent": 0.0
+      },
+      {
+        "reduction_target": 0.2,
+        "method": "heuristic+ga",
+        "exact_cost_cny": 10760.206558014997,
+        "exact_evaluations": 4096,
+        "runs": 5,
+        "feasible_runs": 5,
+        "best_gap_percent": 0.0,
+        "median_gap_percent": 0.0
+      },
+      {
+        "reduction_target": 0.3,
+        "method": "archive-only",
+        "exact_cost_cny": 12625.965789053,
+        "exact_evaluations": 4096,
+        "runs": 1,
+        "feasible_runs": 1,
+        "best_gap_percent": 3.5650987587125593,
+        "median_gap_percent": 3.5650987587125593
+      },
+      {
+        "reduction_target": 0.3,
+        "method": "fixed",
+        "exact_cost_cny": 12625.965789053,
+        "exact_evaluations": 4096,
+        "runs": 5,
+        "feasible_runs": 5,
+        "best_gap_percent": 0.0,
+        "median_gap_percent": 0.0
+      },
+      {
+        "reduction_target": 0.3,
+        "method": "adaptive",
+        "exact_cost_cny": 12625.965789053,
+        "exact_evaluations": 4096,
+        "runs": 5,
+        "feasible_runs": 5,
+        "best_gap_percent": 0.0,
+        "median_gap_percent": 0.0
+      },
+      {
+        "reduction_target": 0.3,
+        "method": "catastrophe",
+        "exact_cost_cny": 12625.965789053,
+        "exact_evaluations": 4096,
+        "runs": 5,
+        "feasible_runs": 5,
+        "best_gap_percent": 0.0,
+        "median_gap_percent": 0.0
+      },
+      {
+        "reduction_target": 0.3,
+        "method": "combined",
+        "exact_cost_cny": 12625.965789053,
+        "exact_evaluations": 4096,
+        "runs": 5,
+        "feasible_runs": 5,
+        "best_gap_percent": 0.0,
+        "median_gap_percent": 0.07311365901219169
+      },
+      {
+        "reduction_target": 0.3,
+        "method": "heuristic+ga",
+        "exact_cost_cny": 12625.965789053,
+        "exact_evaluations": 4096,
+        "runs": 5,
+        "feasible_runs": 5,
+        "best_gap_percent": 0.0,
+        "median_gap_percent": 0.0
+      }
+    ]
+  },
+  "claims": [
+    "All network, order, timetable and capacity rows are synthetic scenario data.",
+    "The 9.5%, 20% and 30% caps are relative to independent per-order minimum-cost choices over pure-road, pure-rail and pure-water routes.",
+    "Archive-only is the deterministic emission-repair heuristic; heuristic+ga injects that chromosome into the population.",
+    "Exact optimality gaps apply only to the reduced enumeration instance, not the 48-order portfolio.",
+    "Candidate route generation remains beam-bounded; candidate-width comparison is not a physical-network global-optimum proof."
+  ]
+}

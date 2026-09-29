@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 from concurrent.futures import ProcessPoolExecutor
 import json
+import math
 import os
 from pathlib import Path
 import statistics
@@ -65,7 +66,14 @@ def solution_metrics(solution, orders):
     """Return comparable time and route-category metrics for one portfolio."""
     categories = {"road_only_tonnes": 0.0, "rail_only_tonnes": 0.0,
                   "water_only_tonnes": 0.0, "multimodal_tonnes": 0.0}
+    component_fields = (
+        "travel_hours", "handling_hours", "port_dwell_hours",
+        "lock_delay_hours", "reliability_buffer_hours",
+        "scheduled_wait_hours", "transfer_hours",
+    )
+    weighted_hours = {field: 0.0 for field in component_fields}
     transit_weighted = 0.0
+    water_departure_ids = set()
     total_tonnes = sum(row["tonnes"] for row in orders)
     for order, candidate in zip(orders, solution["selected_candidates"]):
         unique = set(candidate["modes"])
@@ -76,8 +84,31 @@ def solution_metrics(solution, orders):
         categories[category] += order["tonnes"]
         transit_weighted += ((candidate["arrival_hour"] - order["release_hour"])
                              * order["tonnes"])
+        for field in component_fields:
+            weighted_hours[field] += candidate.get(field, 0) * order["tonnes"]
+        if "water" in unique:
+            water_departure_ids.update(candidate["departure_ids"])
+    capacity_by_id = {row["departure_id"]: row
+                      for row in solution.get("capacity_usage", ())}
+    water_ratios = []
+    for departure_id in water_departure_ids:
+        row = capacity_by_id.get(departure_id)
+        if row is None:
+            continue
+        ratios = []
+        if row["capacity_tonnes"]:
+            ratios.append(row["used_tonnes"] / row["capacity_tonnes"])
+        if row["capacity_units"]:
+            ratios.append(row["used_shipment_units"] / row["capacity_units"])
+        water_ratios.append(max(ratios, default=0))
     return {
         "tonne_weighted_transit_hours": transit_weighted / total_tonnes,
+        **{f"tonne_weighted_{field}": value / total_tonnes
+           for field, value in weighted_hours.items()},
+        "used_water_departures": len(water_ratios),
+        "water_departures_at_capacity": sum(value >= 1-1e-12
+                                             for value in water_ratios),
+        "max_water_departure_utilization": max(water_ratios, default=0),
         **categories,
     }
 
@@ -327,6 +358,106 @@ def write_method_matrix(path, summaries, scenarios):
         metadata={"data": "method-scenario-summary.csv", "methods": METHODS}), encoding="utf-8")
 
 
+def _comparison_marker(method, x, y):
+    color = COLORS[method]
+    if method == "fixed":
+        return f'<circle cx="{x:.1f}" cy="{y:.1f}" r="5.5" fill="{color}"/>'
+    if method == "adaptive":
+        return (f'<rect x="{x-5:.1f}" y="{y-5:.1f}" width="10" height="10" '
+                f'fill="{color}"/>')
+    if method == "catastrophe":
+        return (f'<polygon points="{x:.1f},{y-6:.1f} {x+6:.1f},{y:.1f} '
+                f'{x:.1f},{y+6:.1f} {x-6:.1f},{y:.1f}" fill="{color}"/>')
+    if method == "combined":
+        return (f'<polygon points="{x:.1f},{y-6:.1f} {x+6:.1f},{y+5:.1f} '
+                f'{x-6:.1f},{y+5:.1f}" fill="{color}"/>')
+    return (f'<polygon points="{x-6:.1f},{y:.1f} {x-3:.1f},{y-5.2:.1f} '
+            f'{x+3:.1f},{y-5.2:.1f} {x+6:.1f},{y:.1f} '
+            f'{x+3:.1f},{y+5.2:.1f} {x-3:.1f},{y+5.2:.1f}" fill="{color}"/>')
+
+
+def write_cost_time_comparison(path, summaries, scenarios):
+    """Show cost and transit-time medians without a 40-row result table."""
+    included = (
+        ("single-mode-cost", "No transfer", "no cap"),
+        ("multimodal-cost", "Multimodal", "no cap"),
+        ("multimodal-reduction-20", "Multimodal", "reduction >=20%"),
+        ("multimodal-reduction-40", "Multimodal", "reduction >=40%"),
+    )
+    selected = {
+        scenario: [row for row in summaries
+                   if row["scenario"] == scenario and row["median_cost_cny"] is not None]
+        for scenario, _, _ in included
+    }
+    cost_values = [row["median_cost_cny"] / 1000
+                   for rows in selected.values() for row in rows]
+    time_values = [row["median_transit_hours"]
+                   for rows in selected.values() for row in rows]
+    cost_min = math.floor((min(cost_values) - 2) / 5) * 5
+    cost_max = math.ceil((max(cost_values) + 2) / 5) * 5
+    time_min = math.floor((min(time_values) - .2) * 2) / 2
+    time_max = math.ceil((max(time_values) + .2) * 2) / 2
+    width, height = 1380, 720
+    cost_left, cost_right = 250, 750
+    time_left, time_right = 900, 1325
+
+    def scaled(value, low, high, left, right):
+        return left + (value - low) / max(1e-12, high - low) * (right - left)
+
+    body = []
+    legend_x = 260
+    for index, method in enumerate(METHODS):
+        x = legend_x + index * 205
+        body.append(_comparison_marker(method, x, 73))
+        body.append(f'<text x="{x+12}" y="77" font-family="sans-serif" font-size="11">{method}</text>')
+    body.extend([
+        '<text x="500" y="118" text-anchor="middle" font-family="sans-serif" font-size="13">Median cost (thousand CNY)</text>',
+        '<text x="1112" y="118" text-anchor="middle" font-family="sans-serif" font-size="13">Median tonne-weighted transit time (hours)</text>',
+        '<text x="20" y="166" font-family="sans-serif" font-size="12" font-weight="bold">Road-only reference</text>',
+        '<text x="250" y="166" font-family="sans-serif" font-size="12">all five methods overlap: CNY 618.9k | 18.65 h</text>',
+    ])
+    for fraction in range(5):
+        cost = cost_min + fraction * (cost_max-cost_min) / 4
+        x = scaled(cost, cost_min, cost_max, cost_left, cost_right)
+        body.append(f'<line x1="{x:.1f}" y1="132" x2="{x:.1f}" y2="590" stroke="#dddddd"/>')
+        body.append(f'<text x="{x:.1f}" y="144" text-anchor="middle" font-family="sans-serif" font-size="10">{cost:.0f}</text>')
+        duration = time_min + fraction * (time_max-time_min) / 4
+        tx = scaled(duration, time_min, time_max, time_left, time_right)
+        body.append(f'<line x1="{tx:.1f}" y1="132" x2="{tx:.1f}" y2="590" stroke="#dddddd"/>')
+        body.append(f'<text x="{tx:.1f}" y="144" text-anchor="middle" font-family="sans-serif" font-size="10">{duration:.1f}</text>')
+    offsets = {method: -16 + index * 8 for index, method in enumerate(METHODS)}
+    for row_index, (scenario, label, qualifier) in enumerate(included):
+        y = 240 + row_index * 112
+        rows = selected[scenario]
+        body.append(f'<text x="20" y="{y-4}" font-family="sans-serif" font-size="12" font-weight="bold">{label}</text>')
+        body.append(f'<text x="20" y="{y+14}" font-family="sans-serif" font-size="11">{qualifier}</text>')
+        body.append(f'<line x1="{cost_left}" y1="{y}" x2="{cost_right}" y2="{y}" stroke="#bbbbbb"/>')
+        body.append(f'<line x1="{time_left}" y1="{y}" x2="{time_right}" y2="{y}" stroke="#bbbbbb"/>')
+        best = min(rows, key=lambda row: row["median_cost_cny"])
+        for row in rows:
+            marker_y = y + offsets[row["method"]]
+            cost = row["median_cost_cny"] / 1000
+            duration = row["median_transit_hours"]
+            x = scaled(cost, cost_min, cost_max, cost_left, cost_right)
+            tx = scaled(duration, time_min, time_max, time_left, time_right)
+            body.append(_comparison_marker(row["method"], x, marker_y))
+            body.append(_comparison_marker(row["method"], tx, marker_y))
+            if row is best:
+                body.append(f'<text x="{x+9:.1f}" y="{marker_y+4:.1f}" font-family="sans-serif" font-size="10">{cost:.1f}k</text>')
+                body.append(f'<text x="{tx+9:.1f}" y="{marker_y+4:.1f}" font-family="sans-serif" font-size="10">{duration:.2f} h</text>')
+    body.extend([
+        '<line x1="20" y1="633" x2="1325" y2="633" stroke="#bbbbbb"/>',
+        '<text x="20" y="660" font-family="sans-serif" font-size="12" font-weight="bold">No feasible allocation found</text>',
+        '<text x="250" y="660" font-family="sans-serif" font-size="12">multimodal reduction >=55% or >=60%; no-transfer reduction >=55% (0/30 for every method)</text>',
+        '<text x="250" y="692" font-family="sans-serif" font-size="10">Scenario-local medians across 30 seeds. A missing feasible result is not a mathematical infeasibility proof.</text>',
+    ])
+    path.write_text(svg(
+        "Five-GA cost and transit-time comparison", "".join(body), width=width,
+        height=height, metadata={"data": "method-scenario-summary.csv",
+                                 "aggregation": "scenario-local median across 30 seeds",
+                                 "methods": METHODS}), encoding="utf-8")
+
+
 def run(args):
     config = generate_network(23, args.density, args.network_seed)
     orders = generate_portfolio(config["nodes"], args.orders, args.order_seed)
@@ -416,6 +547,7 @@ def run(args):
     write_frontier(args.output / "cost-emissions-frontier.svg", best,
                    road_reference_emissions)
     write_method_matrix(args.output / "five-ga-scenario-matrix.svg", summaries, scenarios)
+    write_cost_time_comparison(args.output / "cost-time-by-method.svg", summaries, scenarios)
 
     report = {
         "experiment_id": "synthetic-23city-objective-transport-matrix-v1",
@@ -485,6 +617,7 @@ The archive pools discovered feasible solutions across scenarios with the same t
 - `representative-traces.csv`: generation traces for the unconstrained and 55% multimodal cases.
 - `cost-emissions-frontier.svg`: best-known cost/emissions trade-off.
 - `five-ga-scenario-matrix.svg`: median cost gap and feasible-run count for all five GA variants.
+- `cost-time-by-method.svg`: aligned median cost and tonne-weighted transit-time comparison.
 
 The results are synthetic-calibrated heuristic outputs. A missing feasible result is a search finding, not an infeasibility proof, and no percentage is an observed deployment saving.
 """, encoding="utf-8")

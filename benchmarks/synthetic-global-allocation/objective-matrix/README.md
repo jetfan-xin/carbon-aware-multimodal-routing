@@ -17,5 +17,6 @@ The archive pools discovered feasible solutions across scenarios with the same t
 - `representative-traces.csv`: generation traces for the unconstrained and 55% multimodal cases.
 - `cost-emissions-frontier.svg`: best-known cost/emissions trade-off.
 - `five-ga-scenario-matrix.svg`: median cost gap and feasible-run count for all five GA variants.
+- `cost-time-by-method.svg`: aligned median cost and tonne-weighted transit-time comparison.
 
 The results are synthetic-calibrated heuristic outputs. A missing feasible result is a search finding, not an infeasibility proof, and no percentage is an observed deployment saving.

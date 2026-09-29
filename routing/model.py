@@ -73,6 +73,8 @@ class Network:
                 raise ValueError("invalid or duplicate symmetric transfer pair")
             for field in ("hours_per_1000_tonnes", "cost_cny_per_tonne", "emissions_kg_per_tonne"):
                 number(transfer[field], field)
+            if "fixed_hours" in transfer:
+                number(transfer["fixed_hours"], "fixed_hours")
             self.transfers[key] = transfer
         self.edges = c["edges"]
         if not self.edges:
@@ -95,7 +97,11 @@ class Network:
                 number(edge["quoted_cost_cny_per_unit"], "quoted_cost_cny_per_unit")
                 if edge.get("quoted_cost_unit") != "shipment":
                     raise ValueError("quoted lane costs currently require quoted_cost_unit=shipment")
-            for field in ("service_hours", "handling_hours", "scheduled_wait_hours"):
+            for field in (
+                "service_hours", "handling_hours", "scheduled_wait_hours",
+                "port_dwell_hours", "lock_delay_hours",
+                "reliability_buffer_hours",
+            ):
                 if field in edge:
                     number(edge[field], field)
             if "capacity_tonnes" in edge and edge["capacity_tonnes"] is not None:
@@ -235,9 +241,17 @@ class Network:
                 for e in legs
             ) / s["speed_multiplier"] * s.get("service_time_multiplier", 1)
             handling = math.fsum(e.get("handling_hours", 0) for e in legs)
+            port_dwell = math.fsum(e.get("port_dwell_hours", 0) for e in legs)
+            lock_delay = math.fsum(e.get("lock_delay_hours", 0) for e in legs)
+            reliability_buffer = math.fsum(
+                e.get("reliability_buffer_hours", 0) for e in legs)
             scheduled_wait = math.fsum(e.get("scheduled_wait_hours", 0) for e in legs)
-            transfer_time = math.fsum(t["hours_per_1000_tonnes"] for t in changes) * tonnes / 1000
-            arrival = travel + handling + scheduled_wait + transfer_time
+            transfer_time = math.fsum(
+                t.get("fixed_hours", 0)
+                + t["hours_per_1000_tonnes"] * tonnes / 1000
+                for t in changes)
+            arrival = (travel + handling + port_dwell + lock_delay
+                       + reliability_buffer + scheduled_wait + transfer_time)
             waiting = max(0, self.window[0] - arrival)
             late = max(0, arrival - self.window[1])
             time_cost = tonnes * (waiting * self.config["storage_cny_per_tonne_hour"] + late * self.config["late_penalty_cny_per_tonne_hour"])
@@ -250,6 +264,9 @@ class Network:
                           time_cost_cny=time_cost, carbon_cost_cny=carbon,
                           total_cost_cny=transport + transfer_cost + time_cost + carbon,
                           travel_hours=travel, handling_hours=handling,
+                          port_dwell_hours=port_dwell,
+                          lock_delay_hours=lock_delay,
+                          reliability_buffer_hours=reliability_buffer,
                           scheduled_wait_hours=scheduled_wait,
                           transfer_hours=transfer_time, arrival_hours=arrival,
                           waiting_hours=waiting, lateness_hours=late,

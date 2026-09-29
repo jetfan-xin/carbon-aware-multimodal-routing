@@ -155,8 +155,18 @@ def _order_network(base_config, order):
 def _route_timing_labels(network, route, order, departures_by_edge,
                          max_schedule_combinations):
     """Enumerate feasible departure combinations for one physical route."""
-    states = [{"ready": order["release_hour"], "scheduled_wait": 0.0,
-               "departure_ids": [], "capacity_claims": []}]
+    states = [{
+        "ready": order["release_hour"],
+        "travel_hours": 0.0,
+        "handling_hours": 0.0,
+        "port_dwell_hours": 0.0,
+        "lock_delay_hours": 0.0,
+        "reliability_buffer_hours": 0.0,
+        "scheduled_wait": 0.0,
+        "transfer_hours": 0.0,
+        "departure_ids": [],
+        "capacity_claims": [],
+    }]
     previous_mode = None
     for edge_index in route:
         edge = network.edges[edge_index]
@@ -166,10 +176,17 @@ def _route_timing_labels(network, route, order, departures_by_edge,
             transfer = network.transfer_at(edge["from"], previous_mode, edge["mode"])
             if transfer is None:
                 return []
-            transfer_hours = transfer["hours_per_1000_tonnes"] * order["tonnes"] / 1000
-        duration = edge.get(
+            transfer_hours = (transfer.get("fixed_hours", 0)
+                              + transfer["hours_per_1000_tonnes"]
+                              * order["tonnes"] / 1000)
+        travel_hours = edge.get(
             "service_hours", edge["distance_km"] / network.modes[edge["mode"]]["speed_kmh"])
-        duration += edge.get("handling_hours", 0)
+        handling_hours = edge.get("handling_hours", 0)
+        port_dwell_hours = edge.get("port_dwell_hours", 0)
+        lock_delay_hours = edge.get("lock_delay_hours", 0)
+        reliability_buffer_hours = edge.get("reliability_buffer_hours", 0)
+        duration = (travel_hours + handling_hours + port_dwell_hours
+                    + lock_delay_hours + reliability_buffer_hours)
         resources = departures_by_edge.get(edge["id"], ())
         scheduled = [row for row in resources if not row["capacity_only"]]
         capacity_only = [row for row in resources if row["capacity_only"]]
@@ -187,7 +204,14 @@ def _route_timing_labels(network, route, order, departures_by_edge,
                     wait = departure["departure_hour"] - connection_ready
                     next_states.append({
                         "ready": departure["departure_hour"] + duration,
+                        "travel_hours": state["travel_hours"] + travel_hours,
+                        "handling_hours": state["handling_hours"] + handling_hours,
+                        "port_dwell_hours": state["port_dwell_hours"] + port_dwell_hours,
+                        "lock_delay_hours": state["lock_delay_hours"] + lock_delay_hours,
+                        "reliability_buffer_hours": (
+                            state["reliability_buffer_hours"] + reliability_buffer_hours),
                         "scheduled_wait": state["scheduled_wait"] + wait,
+                        "transfer_hours": state["transfer_hours"] + transfer_hours,
                         "departure_ids": state["departure_ids"] + [departure["departure_id"]],
                         "capacity_claims": state["capacity_claims"] + horizon_claims + [{
                             "departure_id": departure["departure_id"],
@@ -199,7 +223,14 @@ def _route_timing_labels(network, route, order, departures_by_edge,
                 assumed_wait = edge.get("scheduled_wait_hours", 0)
                 next_states.append({
                     "ready": connection_ready + assumed_wait + duration,
+                    "travel_hours": state["travel_hours"] + travel_hours,
+                    "handling_hours": state["handling_hours"] + handling_hours,
+                    "port_dwell_hours": state["port_dwell_hours"] + port_dwell_hours,
+                    "lock_delay_hours": state["lock_delay_hours"] + lock_delay_hours,
+                    "reliability_buffer_hours": (
+                        state["reliability_buffer_hours"] + reliability_buffer_hours),
                     "scheduled_wait": state["scheduled_wait"] + assumed_wait,
+                    "transfer_hours": state["transfer_hours"] + transfer_hours,
                     "departure_ids": list(state["departure_ids"]),
                     "capacity_claims": state["capacity_claims"] + horizon_claims,
                 })
@@ -403,7 +434,14 @@ def generate_candidate_pools(base_config, orders, departures=(), *, top_k=5,
                     "departure_ids": timing["departure_ids"],
                     "capacity_claims": timing["capacity_claims"],
                     "arrival_hour": timing["ready"],
+                    "transit_hours": timing["ready"] - order["release_hour"],
+                    "travel_hours": timing["travel_hours"],
+                    "handling_hours": timing["handling_hours"],
+                    "port_dwell_hours": timing["port_dwell_hours"],
+                    "lock_delay_hours": timing["lock_delay_hours"],
+                    "reliability_buffer_hours": timing["reliability_buffer_hours"],
                     "scheduled_wait_hours": timing["scheduled_wait"],
+                    "transfer_hours": timing["transfer_hours"],
                     "lateness_hours": lateness,
                     "intrinsic_violation": base["constraint_violation"],
                     "costs": costs,
@@ -557,6 +595,60 @@ def solve_opportunity_greedy_allocation(orders, candidate_pools, departures, bra
     return _solve_ordered_greedy(
         orders, candidate_pools, departures, brackets, sequence,
         "greedy-opportunity-cost", emission_cap_kg=emission_cap_kg)
+
+
+def solve_emission_repair_allocation(orders, candidate_pools, departures, brackets, *,
+                                     emission_cap_kg=None):
+    """Deterministically repair a cost-first archive toward an emissions cap.
+
+    Starting from the uncapped opportunity-cost allocation, repeatedly choose
+    the feasible one-gene substitution with the smallest marginal cost per kg
+    of emissions removed.  This is an auditable archive heuristic, not an
+    exact solver: a capacity swap requiring simultaneous gene changes can
+    defeat it even when a feasible portfolio exists.
+    """
+    initial = solve_opportunity_greedy_allocation(
+        orders, candidate_pools, departures, brackets, emission_cap_kg=None)
+    chromosome = list(initial["solution"]["chromosome"])
+    evaluations = initial["candidate_evaluations"]
+    current = evaluate_assignment(
+        orders, candidate_pools, departures, chromosome, brackets,
+        emission_cap_kg=None)
+    if emission_cap_kg is not None:
+        while current["emissions_kg"] > emission_cap_kg + 1e-9:
+            best = None
+            for index, order in enumerate(orders):
+                current_gene = chromosome[index]
+                for gene in range(len(candidate_pools.get(order["order_id"], ()))):
+                    if gene == current_gene:
+                        continue
+                    trial = list(chromosome)
+                    trial[index] = gene
+                    candidate = evaluate_assignment(
+                        orders, candidate_pools, departures, trial, brackets,
+                        emission_cap_kg=None)
+                    evaluations += 1
+                    saving = current["emissions_kg"] - candidate["emissions_kg"]
+                    if not candidate["feasible"] or saving <= 1e-9:
+                        continue
+                    marginal_cost = candidate["total_cost_cny"] - current["total_cost_cny"]
+                    rank = (marginal_cost / saving, candidate["total_cost_cny"],
+                            candidate["emissions_kg"], index, gene)
+                    if best is None or rank < best[0]:
+                        best = (rank, trial, candidate)
+            if best is None:
+                break
+            chromosome, current = best[1], best[2]
+    result = evaluate_assignment(
+        orders, candidate_pools, departures, chromosome, brackets,
+        emission_cap_kg=emission_cap_kg)
+    evaluations += 1
+    return {
+        "solver": "greedy-emission-repair",
+        "status": "feasible-heuristic" if result["feasible"] else "infeasible-allocation",
+        "solution": result,
+        "candidate_evaluations": evaluations,
+    }
 
 
 def _solve_ordered_greedy(orders, candidate_pools, departures, brackets,

@@ -1,95 +1,162 @@
 # Carbon-Aware Multimodal Freight Routing
 
-## A reproducible optimization and scenario-analysis report
+## Interview technical report
 
-Report date: 28 September 2026
+Report date: 29 September 2026
 
-## Abstract
+## Executive summary
 
-This project studies how freight orders can be assigned to road, rail and inland-waterway services when cost, delivery time, shared capacity and carbon emissions matter simultaneously. The original competition prototype represented 23 corridor cities in three transport layers and used a Python/Geatpy genetic algorithm to search for one Chongqing--Shanghai route. The maintained system extends that idea to global order allocation: each gene selects one route candidate for one order, while all orders jointly consume capacity and contribute to a portfolio-level carbon charge or hard emissions cap.
+This project solves a portfolio freight-allocation problem: for every order, choose a road, rail, water or multimodal route while satisfying its delivery deadline, shared service capacity and an optional portfolio carbon cap. The objective minimizes operating cost plus a portfolio-level carbon charge.
 
-The main synthetic experiment contains 48 orders, 2,055 tonnes, 23 origin--destination pairs, 145 directed mode edges and 96 shared capacity resources. Five genetic-algorithm variants were evaluated over 30 random seeds under a common budget. The best formal run cost CNY 324,492.36, 18.52% below the deadline-greedy baseline. A separate policy matrix compared road-only, no-transfer and multimodal-enabled allocation under progressively tighter emissions limits. The best-known multimodal portfolio was 47.95% cheaper and 54.28% lower-emitting than the synthetic road-only counterfactual, but required longer transit time. These are controlled model results, not measured operating savings.
+The work began with a 23-city single-route genetic algorithm and was extended into an order-allocation system. The current pipeline generates route-and-departure candidates, calculates operational time from actual connection readiness, assigns one candidate to each order, and optimizes all orders jointly because they compete for the same departures.
 
-The most important analytical lesson is that objective design, constraints and reference cases matter more than a single headline percentage. The project therefore reports feasibility, distributions across seeds, sensitivity to emissions targets, exact checks on small subsets and explicit data limitations.
+The central policy experiment contains 48 orders, 730 tonnes, 23 cities and 328 directed mode edges. It compares road-only, single-mode and multimodal candidate sets under 0%, 9.5%, 20% and 30% emissions-reduction targets. Five GA variants are evaluated over 30 seeds with identical population and generation budgets.
+
+The main result is a quantified cost--carbon--time curve. In the multimodal scope, the best median method costs CNY 88,091 with no cap and CNY 136,752 at the 30% target; tonne-weighted transit time rises from 23.02 to 41.13 hours. Water departures become progressively more important and capacity-constrained. The experiment also shows that no GA variant dominates every target: heuristic seeding is strongest without a tight cap, fixed control wins at 20%, and adaptive control has the lowest median at 30%.
 
 ## 1. Decision problem
 
-### 1.1 Operational question
+The operational decision is made for a portfolio rather than for one shipment. Each order has:
 
-For each order, the planner must choose a feasible route and transport-mode sequence. Orders may share rail or water capacity, face different release times and deadlines, and contribute jointly to a progressive carbon-cost schedule. A locally cheap route can therefore be globally poor if it consumes scarce capacity needed by another order.
+- an origin and destination;
+- a release time and delivery deadline;
+- a payload and shipment-unit count;
+- a bounded set of route-and-departure candidates.
 
-For order `i`, gene `x_i` selects one candidate from its bounded candidate set. The portfolio objective is:
+Let `x_i` select one candidate for order `i`. The portfolio objective is:
 
 ```text
-min  sum_i noncarbon_cost(i, x_i)
+min  sum_i operating_cost(i, x_i)
      + CarbonCost(sum_i emissions(i, x_i))
 ```
 
-The non-carbon term contains transport, transfer, scheduled waiting and lateness costs. The progressive carbon function is applied once to aggregate portfolio emissions rather than reset for every shipment.
-
-The principal constraints are:
+The main constraints are:
 
 ```text
 arrival(i, x_i) <= deadline(i)
-sum_i tonnes(i) * use(i, x_i, resource) <= resource tonne capacity
-sum_i units(i)  * use(i, x_i, resource) <= resource unit capacity
-sum_i emissions(i, x_i) <= portfolio emissions cap      [optional]
+
+sum_i tonnes(i) * use(i, x_i, departure) <= departure tonne capacity
+
+sum_i units(i) * use(i, x_i, departure) <= departure unit capacity
+
+sum_i emissions(i, x_i) <= portfolio emissions cap
 ```
 
-Solutions are ranked lexicographically by normalized constraint violation, total cost and emissions. This feasibility-first rule prevents a cheap but invalid portfolio from being reported as the answer.
+The resulting problem combines multiple-choice assignment, shared multidimensional capacity and a portfolio emissions constraint. A route that is cheapest for one order can be globally poor when it consumes a scarce departure needed by another order.
 
-### 1.2 Decision outputs
+Solutions are ranked lexicographically by:
 
-The model produces:
+1. total normalized constraint violation;
+2. total cost;
+3. total emissions.
 
-- one route and mode sequence per order;
-- portfolio cost and its transport, transfer, waiting, lateness and carbon components;
-- emissions, transport work and emissions intensity;
-- arrival time and deadline status;
-- shared-capacity use and excess;
-- the number and tonnage of road-only, rail-only, water-only and multimodal assignments;
-- method-level feasibility, convergence and cost distributions across seeds.
+This feasibility-first ordering is used consistently by greedy allocation, exact enumeration and every GA variant.
 
-## 2. Data and evidence boundary
+## 2. From network data to allocation candidates
 
-Three data layers are kept separate.
+The optimization pipeline has four stages.
 
-| Layer | Purpose | Evidence boundary |
-| --- | --- | --- |
-| Historical competition inputs | Preserve the original 23-city concept, transport parameters and reported outputs | Public Shanghai data did not provide a complete interprovincial operating network; the team collected corridor-specific distances and parameters for one Chongqing--Shanghai example |
-| Facility-calibrated corridor | Test realistic route economics for Guoyuan, Luchaogang and Yangshan | Combines public/operator disclosures, team-collected distances and explicitly labelled assumptions; it is not a carrier contract or booking dataset |
-| Synthetic 23-city portfolio | Stress-test global allocation and algorithm behaviour | City names and aggregate ranges are historical anchors, but the 48 orders, 145 edges and 96 planning capacities are deterministic synthetic model inputs |
+```text
+23-city mode graph
+        ↓
+bounded route generation
+        ↓
+route + departure timing labels
+        ↓
+portfolio allocation by greedy, exact or GA search
+```
 
-The project does not contain a large enterprise order table. Synthetic orders are useful for controlled experiments but must not be described as collected transactions. Likewise, route prices and emissions factors are model inputs with different evidence strengths, not a unified audited market dataset.
+### 2.1 Network representation
 
-The author contribution was the routing and quantitative-analysis workflow: graph representation, priority encoding, objective construction, genetic-search integration, result analysis and visualization. Corridor data collection was shared with a teammate, and the wider information-sharing platform was a team deliverable. Geatpy supplied the third-party evolutionary template and standard operators; it is not personal implementation.
+Every edge contains a mode, distance, speed, transport rate and emissions factor. Mode changes are allowed only when a transfer record exists. A transfer adds cost, emissions and time.
 
-## 3. Solution approach
+Small networks enumerate city-simple routes. The 23-city network uses mode-diverse beam search. For each order, the candidate-retention stage protects:
 
-### 3.1 Competition-stage route model
+- the lowest-cost candidate;
+- the fastest candidate;
+- the lowest-emissions candidate;
+- a capacity-independent candidate;
+- representatives of different mode sequences.
 
-The competition model expanded 23 cities into 69 city--mode nodes. A 69-integer chromosome assigned priorities to those nodes. Starting from Chongqing, the decoder selected the highest-priority reachable successor until it reached Shanghai or failed. The objective combined transport, transfer, time-window and carbon costs.
+The policy experiment searches at most 80 physical routes per order and retains six route-and-departure candidates for allocation.
 
-The executable fitness used one fixed 100-tonne demand. Although scenario values were loaded, they did not enter the evaluated objective. The original executable should therefore be described as a fixed-demand heuristic route model, not as a stochastic or robust optimizer. The custom route representation and objective were project-specific; selection, crossover, mutation and the evolutionary loop were executed by Geatpy.
+### 2.2 Operational time model
 
-The defence material records a baseline and an improved design with fitness-dependent crossover and mutation plus random-population injection after 20 unchanged generations. However, the byte-exact historical snapshot does not contain that custom controller. The current adaptive formula and partial-restart implementation are tested extensions and are not backdated as the missing historical source revision.
+Arrival time is calculated as:
 
-### 3.2 Candidate generation and global allocation
+```text
+arrival = release
+        + scheduled waiting
+        + travel
+        + loading and unloading
+        + terminal or port dwell
+        + lock delay
+        + reliability buffer
+        + mode-transfer time
+```
 
-The maintained allocator separates route generation from portfolio optimization. Small graphs enumerate city-simple routes. The 23-city graph uses bounded, mode-diverse beam search. Candidate retention protects the cheapest, fastest, lowest-emission, capacity-independent and mode-diverse alternatives. This avoids discarding a route that becomes important only under a hard emissions cap, although bounded generation still cannot prove that every physical path was considered.
+Water services depart every 24 hours. Each lane receives a deterministic six-hour phase offset, so an order uses the first departure after it is ready. Missing a connection therefore adds a full headway instead of an average waiting penalty.
 
-The allocation chromosome has one integer gene per order. All five GA variants use:
+| Mode | Dispatch model | Handling per leg | Dwell per leg | Lock delay | Reliability buffer |
+| --- | --- | ---: | ---: | ---: | ---: |
+| Road | 1-hour dispatch wait | 2 h | 0 h | 0 | 2 h |
+| Rail | 6-hour dispatch wait | 6 h | 2 h | 0 | 6 h |
+| Water | 24-hour fixed service | 8 h | 6 h | 4 h/1,000 km | 8 h |
+
+Fixed transfer time is 6 hours for road--rail, 10 hours for road--water and 12 hours for rail--water. The volume-dependent transfer term is added to these fixed values.
+
+Water capacity is 20 tonnes and two shipment units per departure. A 20-tonne order fills a sailing by itself; two 10-tonne orders also fill it. This creates direct competition among otherwise attractive low-emissions candidates.
+
+### 2.3 OD- and cargo-specific deadlines
+
+Orders use 48-, 60- or 72-hour lead times. The assigned class depends on OD span and cargo type:
+
+| Cargo class | Short OD | Medium OD | Long OD |
+| --- | ---: | ---: | ---: |
+| Time-sensitive | 48 h | 48 h | 60 h |
+| General container | 48 h | 60 h | 72 h |
+| Bulk non-perishable | 60 h | 72 h | 72 h |
+
+The tight and relaxed profiles shift this base assignment by one service-class step. For the formal central/balanced portfolio, the result is 25 orders at 48 hours, 16 at 60 hours and seven at 72 hours.
+
+## 3. Carbon target and comparison baseline
+
+The emissions target is measured from a traditional single-trunk reference. Each order independently chooses its minimum-cost deadline-feasible pure-road, pure-rail or pure-water candidate:
+
+```text
+reference emissions
+  = sum_i emissions(
+        argmin cost among feasible pure-road, pure-rail and pure-water candidates
+    )
+
+emissions cap(target)
+  = reference emissions * (1 - target)
+```
+
+The central/balanced reference selects 39 road orders and nine water orders. Its cost is CNY 89,738.77 and its emissions are 20,059.06 kg CO2e. The three positive caps are therefore:
+
+| Target | Emissions cap |
+| ---: | ---: |
+| 9.5% | 18,153.45 kg |
+| 20% | 16,047.25 kg |
+| 30% | 14,041.34 kg |
+
+This denominator makes the target answer a precise question: how much must emissions fall relative to the cheapest feasible traditional trunk-mode choice for the same orders?
+
+## 4. Optimization algorithms
+
+The chromosome contains one integer gene per order. A gene indexes one retained route-and-departure candidate. Every GA uses:
 
 - capacity-aware randomized initialization;
 - ternary tournament selection;
 - contiguous-segment crossover;
 - candidate-aware integer mutation;
-- parent--offspring merging with elite retention;
-- the same low-emission constraint seed when a hard cap is active.
+- parent--offspring merging and elite retention;
+- the same low-emissions feasibility seed when a hard cap is active.
 
-The five variants isolate specific mechanisms:
+Five variants isolate the effect of search controls:
 
-| Method | Adaptive rates | Partial restart | Opportunity-loss archive |
+| Variant | Adaptive mutation | Partial restart | Deterministic archive seed |
 | --- | --- | --- | --- |
 | Fixed | No | No | No |
 | Adaptive | Yes | No | No |
@@ -97,169 +164,159 @@ The five variants isolate specific mechanisms:
 | Combined | Yes | Yes | No |
 | Hybrid-seeded | Yes | Yes | Yes |
 
-Adaptation responds to genotype diversity and stagnation. For the selected 23-city hybrid, expected mutations per child are:
+Adaptive control responds to population diversity and generations without improvement. Catastrophe preserves unique elites and replaces 10% of the population after 12 stagnant generations. Hybrid-seeded additionally injects an opportunity-loss greedy incumbent stored in an external archive.
 
-```text
-D   = mean locus impurity
-u_D = max(0, (0.25 - D) / 0.25)
-u_S = min(1, stagnant generations / 30)
+Hyperparameters are selected on seeds 100--107, checked on seeds 110--129 and then frozen for formal seeds 0--29. The selected settings are:
 
-expected mutations = min(2.5, 1.0 + 0.75*u_D + 0.75*u_S)
-crossover probability = 0.72 + 0.13*max(u_D, u_S)
-```
+- adaptive: expected mutation range 0.75--1.25, patience 30;
+- catastrophe: patience 12, restart fraction 10%;
+- combined and hybrid: expected mutation range 0.5--1.0, patience 12, restart fraction 10%.
 
-After 30 generations without improvement, catastrophe-enabled methods preserve ranked unique elites and regenerate 25% of the population. The hybrid additionally keeps an opportunity-loss greedy assignment in an external archive. This distinguishes an initialization advantage from improvement produced by crossover and mutation.
+## 5. Experimental chain
 
-### 3.3 Experimental controls
+The evaluation follows one sequence from correctness to scale.
 
-Controller selection used seeds 30--39. Paired validation used untouched seeds 40--69. Final reported runs used seeds 0--29. Every formal method used 100 individuals and 150 generations, or 15,000 GA candidate evaluations per seed. A five-order prefix was exhaustively checked over 7,776 assignments, but the full 48-order problem remains heuristic.
+### 5.1 Arithmetic and constraint check
 
-## 4. Experimental design
+A three-node/five-edge facility graph verifies transport cost, carbon cost, time composition, scheduled departures and shared capacity. A four-order subset contains 3,072 assignments and is solved exhaustively. This establishes that the candidate evaluator and capacity accounting agree with exact enumeration.
 
-Four experiments answer different questions.
+### 5.2 Policy sensitivity screen
 
-1. **Evaluator check.** Twelve model orders share eight timed resources on a three-node/five-edge facility graph. A four-order subset has 3,072 combinations and is solved exactly. This tests arithmetic and constraints, not GA superiority.
-2. **23-city algorithm comparison.** Forty-eight orders compete for 96 shared resources. Five GA variants use 30 seeds each and are compared with deadline-greedy allocation.
-3. **Objective and transport-policy matrix.** The same portfolio is evaluated under road-only, single-mode-per-order and multimodal-enabled candidate policies, with 20%, 40%, 55% and 60% hard reductions relative to the road-only counterfactual. This contains 1,200 formal GA runs.
-4. **Facility-calibrated policy analysis.** A Guoyuan--Luchaogang--Yangshan graph tests deadline, demand, carbon-price and hard-cap sensitivity using corridor-specific route economics. The formal boundary experiment contains 1,800 GA runs.
+The screen crosses:
 
-The experiments deliberately separate arithmetic validation, search performance, transport-policy effects and external plausibility. Combining them into one headline metric would obscure what each result actually demonstrates.
+- low, central and high demand;
+- tight, balanced and relaxed deadlines;
+- carbon shadow prices of CNY 0, 97.49 and 6,000 per tCO2e;
+- 0%, 9.5%, 20% and 30% reduction targets.
 
-## 5. Results
+This produces 108 policy cells. Eighty cells obtain feasible allocations under the screening budget. Demand, deadline and carbon-price changes alter both the cost premium and the reachable mode mix.
 
-### 5.1 Search performance on the 23-city portfolio
+![Policy sensitivity](../benchmarks/synthetic-23city-policy-matrix/policy-screening-sensitivity.png)
 
-All 150 formal GA runs found capacity- and deadline-feasible solutions.
+### 5.3 Formal five-GA comparison
 
-| Method | Best cost | Median cost | Mean cost | Standard deviation |
+The formal matrix crosses three route scopes, four targets, five methods and 30 seeds, producing 1,800 method--seed records. Every run uses population 40 and 60 generations.
+
+| Candidate scope | 0% | 9.5% | 20% | 30% |
 | --- | ---: | ---: | ---: | ---: |
-| Fixed | CNY 328,144 | CNY 344,708 | CNY 343,768 | CNY 7,830 |
-| Adaptive | CNY 324,593 | CNY 338,252 | CNY 338,272 | CNY 9,287 |
-| Catastrophe | CNY 328,144 | CNY 344,883 | CNY 343,888 | CNY 7,721 |
-| Combined | CNY 324,593 | CNY 338,252 | CNY 338,378 | CNY 9,421 |
-| Hybrid-seeded | **CNY 324,492** | **CNY 337,472** | **CNY 333,376** | **CNY 5,044** |
+| Road-only | 150/150 | 0/150 | 0/150 | 0/150 |
+| Single mode per order | 150/150 | 150/150 | 150/150 | 0/150 |
+| Multimodal enabled | 150/150 | 150/150 | 150/150 | 150/150 |
 
-The deadline-greedy baseline cost CNY 398,224.22. The best formal hybrid run cost CNY 324,492.36, 18.52% lower using greedy as the denominator. Hybrid had the lowest mean, median and dispersion in the final table, but distributions overlapped and no method won every seed.
+Only multimodal-enabled runs reach the 30% target. The single-mode search reaches 20% but not 30%, while road-only records 0/150 feasible runs at every positive target.
 
-On held-out seeds, the selected hybrid beat the legacy hybrid in 23 of 30 paired runs. The mean paired cost change was -CNY 4,257.77, with an approximate 95% interval of [-6,305.60, -2,209.93]. This supports the controller on one fixed synthetic instance; it does not establish universal algorithm superiority.
+### 5.4 Exact reduced-instance benchmark
 
-![Formal 23-city method comparison](../benchmarks/synthetic-global-allocation/objective-by-method.svg)
+A separate six-order benchmark retains four candidates per order, giving 4,096 assignments per target. Exhaustive enumeration supplies the true candidate-set optimum. This measures the optimality gap of the deterministic archive and the GA variants and tests whether hybrid seeding makes the search trivial.
 
-### 5.2 Transport policy and emissions targets
+## 6. Results
 
-The road-only reference was fixed before evaluating the emissions caps.
+### 6.1 Cost--carbon--time trade-off
 
-| Policy | Best-known cost | Emissions | Tonne-weighted transit time |
-| --- | ---: | ---: | ---: |
-| Road-only | CNY 618,893.09 | 217,720.96 kg | 18.65 h |
-| Single-mode-per-order | CNY 332,353.03 | 104,025.60 kg | 42.04 h |
-| Multimodal-enabled archive | CNY 322,104.18 | 99,543.59 kg | 43.23 h |
+The following table reports the lowest formal median cost among the five methods in the multimodal scope.
 
-Relative to road-only, the best-known multimodal portfolio was 47.95% cheaper and 54.28% lower-emitting, but its weighted transit time was substantially longer. Relative to the no-transfer portfolio, allowing transfer candidates reduced cost by 3.08% and emissions by 4.31%, while increasing weighted transit time by 2.83%.
+| Target | Best-median method | Median cost | Median emissions | Median transit time |
+| ---: | --- | ---: | ---: | ---: |
+| 0% | Hybrid-seeded | CNY 88,091.21 | 19,624.66 kg | 23.02 h |
+| 9.5% | Combined / Hybrid-seeded | CNY 93,152.34 | 18,050.12 kg | 25.80 h |
+| 20% | Fixed | CNY 102,300.23 | 16,005.62 kg | 30.50 h |
+| 30% | Adaptive | CNY 136,751.84 | 14,030.21 kg | 41.13 h |
 
-The 20% and 40% caps were non-binding because the model's lower-cost rail and water choices already exceeded those reductions relative to road. All five algorithms were feasible in all 30 runs for the cost, 20% and 40% scenarios. No tested method found a feasible result for the 55% or 60% multimodal caps, or for the 55% no-transfer case. This is a candidate/search-budget boundary, not proof of mathematical infeasibility.
+The cost curve steepens sharply between 20% and 30%. Relative to the uncapped best median, the 30% target increases cost by about 55% and transit time by about 79%. The optimizer uses more scheduled water capacity to reach the lower-emissions region, which introduces additional waiting and operational delay.
 
-The displayed frontier pools every discovered feasible solution with the same transport scope. A solution found under a tighter cap is also a valid incumbent for a looser cap. Method distributions and feasibility rates remain scenario-local.
+### 6.2 Capacity pressure
 
-![Cost-emissions frontier](../benchmarks/synthetic-global-allocation/objective-matrix/cost-emissions-frontier.svg)
+In the central screening incumbents, water use evolves as follows:
 
-![Five-method scenario matrix](../benchmarks/synthetic-global-allocation/objective-matrix/five-ga-scenario-matrix.svg)
+| Target | Water departures used | Full departures | Maximum utilization |
+| ---: | ---: | ---: | ---: |
+| 0% | 12 | 6 | 100% |
+| 9.5% | 13 | 7 | 100% |
+| 20% | 15 | 7 | 100% |
+| 30% | 23 | 8 | 100% |
 
-### 5.3 Facility-calibrated route economics
+The 30% solution cannot be obtained by independently switching the cheapest orders to water. The algorithm must coordinate departure choice, capacity and connecting-route timing across the portfolio.
 
-For one modelled 15-tonne shipment, the central facility inputs produce:
+### 6.3 What the five variants reveal
 
-| Alternative | Model cost | Emissions | Time |
-| --- | ---: | ---: | ---: |
-| Direct road | CNY 15,000 | 1,932.30 kg | 96.00 h |
-| Rail to Luchaogang, then road to Yangshan | CNY 4,830 | 131.21 kg | 64.75 h |
-| Express water | CNY 1,400 | 719.70 kg | 204.00 h |
-| Regular water | CNY 1,130 | 719.70 kg | 240.00 h |
+No variant wins every target.
 
-This creates a clear trade-off: water is cheapest when the deadline allows it, whereas rail-road has the lowest modelled emissions and is much faster. At a reference carbon value around CNY 97/tCO2e, the carbon charge is too small to overcome the tariff difference. Rail-road overtakes express water only near CNY 5,828/tCO2e and regular water near CNY 6,287/tCO2e. These are structural break-even values, not carbon-price forecasts.
+- Hybrid-seeded is strongest without a tight cap because its deterministic archive already contains a high-quality cost allocation.
+- Combined and hybrid tie at 9.5%.
+- Fixed has the lowest median at 20%, so extra control logic does not automatically improve the result.
+- Adaptive has the lowest median at 30%, where diversity control becomes more useful.
+- Catastrophe matches fixed at low targets. Restarts become frequent at 30%, but do not produce the lowest median cost.
 
-In the central 48-order/720-tonne policy case, the frozen uncapped screening reference cost CNY 182,555.44 and emitted 14,929.10 kg. The best formal 20% solution cost CNY 196,549.45 and emitted 11,790.46 kg: approximately 21.03% lower emissions for a 7.67% total-cost increase. Rail-road allocation increased from 500 to 580 tonnes, while water decreased from 220 to 140 tonnes.
+This explains the earlier weak catastrophe result: at loose targets, the search rarely stagnates long enough for restart to matter; at the tightest target, restart occurs but spends evaluations rebuilding feasible combinations.
 
-The deterministic screening grid shows how the cost of abatement changes as the hard target tightens:
+![Five-GA cost and transit-time comparison](../benchmarks/synthetic-23city-policy-matrix/scope-ga-cost-time.png)
 
-| Target | Achieved reduction | Total model cost | Non-carbon premium | Average abatement cost |
-| ---: | ---: | ---: | ---: | ---: |
-| 0% | 0% | CNY 182,555 | 0% | n/a |
-| 9.5% | 10.51% | CNY 189,282 | 3.80% | CNY 4,384/tCO2e |
-| 20% | 22.34% | CNY 199,670 | 9.63% | CNY 5,230/tCO2e |
-| 30% | 30.22% | CNY 203,826 | 11.99% | CNY 4,812/tCO2e |
+### 6.4 Hybrid seeding and NP-hardness
 
-The average abatement cost is not necessarily monotonic because orders are indivisible and each point is a heuristic incumbent. The formal multi-seed result above is lower than the screening result because it uses a larger search budget.
+Hybrid seeding improves the starting point; it does not solve the full problem exactly. The allocation remains combinatorial because 48 orders each choose among multiple candidates while sharing departure capacity and an aggregate carbon cap.
 
-Across the twelve selected policy scenarios, nine had a known feasible GA solution. Three high-demand, tight-deadline or already-low-baseline cases produced no feasible result under the tested capacity and search budget. Again, these are search findings rather than infeasibility certificates.
+The six-order exact benchmark makes the distinction measurable:
 
-![Cost of emissions targets](../benchmarks/policy-allocation/abatement-frontier.svg)
+- deterministic archive gaps are 11.97%, 0.91% and 3.57% at the 9.5%, 20% and 30% targets;
+- GA variants reach the exact optimum in at least one run;
+- median GA gaps are zero except combined at 9.5% (0.095%) and 30% (0.073%).
 
-As a plausibility check, the formal synthetic portfolio averages CNY 157.90/t and 48.67 kg CO2e/t. These values fall within the broad route-level ranges assembled for the Chongqing--Shanghai corridor. That comparison checks scale and direction only: the synthetic portfolio contains many shorter origin--destination pairs and cannot validate a Chongqing--Shanghai carrier quote or observed operating performance.
+The archive is therefore a strong heuristic seed, but it is not guaranteed to be optimal. GA evolution supplies measurable improvement on the reduced instance.
 
-![Calibration context](../benchmarks/policy-allocation/calibration-context.svg)
+![Exact reduced-instance optimality gaps](../benchmarks/algorithm-discrimination/micro-optimality-gap.png)
 
-## 6. Analytical interpretation
+## 7. Technical conclusions
 
-### 6.1 What the experiments demonstrate
+The project produces four main engineering conclusions.
 
-The project demonstrates a general quantitative workflow:
+1. **Operational time changes the mode mix.** Fixed sailings, port operations, lock delay and reliability buffers prevent water from dominating solely because of its low tariff and emissions factor.
+2. **Carbon targets create a nonlinear cost curve.** The 9.5% and 20% targets can be met with moderate reallocation; 30% requires substantially more water capacity and longer transit time.
+3. **Multimodal flexibility matters most under the tightest constraint.** Single-mode candidates reach 20%; in the formal results, only multimodal-enabled runs reach 30%.
+4. **Algorithm mechanisms are instance-dependent.** Seeding is valuable for the uncapped cost problem, adaptation helps at the tightest cap, and catastrophe alone adds little under the current 60-generation budget.
 
-1. translate an operational decision into variables, costs and constraints;
-2. classify observed, derived and assumed inputs before modelling;
-3. construct a simple baseline and small exact checks;
-4. compare optimization methods under equal evaluation budgets;
-5. separate hyperparameter selection, held-out validation and formal reporting;
-6. use scenario grids and hard constraints to identify switching points and feasibility boundaries;
-7. communicate cost, emissions, time and uncertainty together rather than selecting one favourable metric.
+My contribution centered on the quantitative workflow: graph and candidate representation, objective and constraint construction, integration of genetic search, capacity-aware allocation, exact reduced-instance checks, experimental design, result analysis and visualization.
 
-The negative results are informative. A GA was unnecessary on the small facility case because all methods reached CNY 68,449.24. The 20% and 40% synthetic caps did not change the best-known solution because cost and emissions were aligned in that input set. Tightening the cap beyond the observed boundary produced no feasible result. These findings are more useful than claiming that every additional mechanism improves every problem.
+## 8. Interview narrative
 
-### 6.2 Relevance to quantitative energy analytics
+### 90-second explanation
 
-The transferable elements are constrained optimization, nonlinear portfolio costs, scarce shared resources, scenario comparison, sensitivity analysis and reproducible model validation. These are relevant analytical patterns for systems affected by uncertain demand, capacity, prices and operational constraints.
+> I modelled multimodal freight planning as a portfolio allocation problem rather than a single shortest-path problem. Each gene chooses one route-and-departure candidate for an order, and all genes are coupled by departure capacity and a portfolio carbon cap. I first generate mode-diverse candidates, then calculate arrival time from the actual release time, fixed service schedule, travel, terminal operations, lock delay, reliability buffer and transfer time. I compare five GA variants under the same budget and validate the solver with exact enumeration on reduced cases. In the central 48-order experiment, the best median cost rises from about CNY 88,000 without a cap to CNY 137,000 at a 30% reduction target, while transit time rises from 23 to 41 hours. The key insight is that aggressive carbon reduction is not just a cleaner-mode choice; it is a capacity-and-scheduling problem, and multimodal flexibility becomes important under the tightest constraint.
 
-The project is not a power-market model. It contains no electricity-price forecasting, PPA valuation, balancing-market data, battery dispatch, trading execution, position management or profit-and-loss backtest. The defensible connection is methodological: formulating decisions under constraints, comparing scenarios, validating heuristics and explaining trade-offs to decision-makers.
+### Likely technical follow-ups
 
-## 7. Limitations
+**Why use a GA instead of Dijkstra?**
 
-- The 23-city allocation graph, orders and capacities are synthetic calibrated inputs, not carrier transactions.
-- Beam search bounds route generation; full physical-route coverage is not certified.
-- Full-portfolio GA results have no lower bound or global-optimality certificate.
-- Public corridor evidence is incomplete and combines different quote scopes and dates.
-- Emissions depend on model factors rather than equipment- and load-specific measurements.
-- Scenario probabilities and planning capacities are model assumptions unless explicitly sourced.
-- The 2022 executable used fixed demand; robust or stochastic optimization belongs to the maintained experimental extension.
-- The archived pitch claim of 64% cost savings and 65% carbon reduction has no recovered calculation or denominator and is excluded from the reproducible findings.
-- Results are simulation outputs, not deployed savings or verified commercial performance.
+Dijkstra can optimize one additive path. Here, many orders choose jointly among route-and-departure candidates, consume shared multidimensional capacity and must satisfy an aggregate carbon cap. The coupling removes the independent shortest-path structure.
 
-## 8. Conclusion
+**Why is the problem NP-hard?**
 
-The project progressed from a single-route genetic search to a reproducible global allocation study with shared capacity, progressive carbon accounting and hard emissions targets. The strongest result is not one percentage but a coherent evidence chain: exact checks on small cases, equal-budget multi-seed comparisons, held-out controller validation, policy sensitivity and explicit negative results.
+After candidate generation, it contains a multiple-choice multidimensional knapsack/generalized-assignment structure: choose exactly one candidate per order while respecting shared resource capacities and emissions.
 
-For an interview, the concise technical message is:
+**Why did hybrid not win every scenario?**
 
-> I implemented a Python/Geatpy multimodal-routing workflow that converted transport, transfer, deadline and carbon considerations into a constrained optimization problem. I later extended the decision from one route to a portfolio of orders competing for shared capacity, compared five GA controls over multiple seeds, and used hard emissions caps and sensitivity analysis to explain cost, carbon and time trade-offs. I also kept synthetic results, public evidence and model assumptions separate, so the conclusions remain reproducible and defensible.
+Its archive is designed around opportunity cost and gives an excellent uncapped starting point. Under a tight emissions cap, that starting structure can be less useful than maintaining broader population diversity, so fixed or adaptive search can achieve a lower median.
 
-## 9. Reproduction and evidence
+**Why did catastrophe add little?**
+
+At loose targets it usually did not trigger. At 30%, it triggered often, but reconstructing capacity-feasible portfolios consumed much of the remaining budget. Increasing generations could change that trade-off, but under the fixed 60-generation budget adaptation was more effective.
+
+**How was correctness checked?**
+
+Cost, time and capacity components have unit tests; a small facility allocation is exhaustively enumerated; and a six-order/four-candidate benchmark reports exact optimality gaps.
+
+## 9. Reproduction
 
 ```bash
-python3 -B -m unittest discover -s tests -p 'test_*.py'
-python3 -B tools/run_synthetic_allocation_experiment.py
-python3 -B tools/run_synthetic_objective_matrix.py
-python3 -B tools/run_policy_allocation_experiment.py
-sh tools/run_geatpy_tests.sh
-python3 -B tools/audit_results.py
+python3 -B -m unittest discover -s tests
+python3 -B tools/tune_synthetic_policy_ga.py
+python3 -B tools/run_synthetic_policy_matrix.py
+python3 -B tools/run_algorithm_discrimination_benchmark.py
 python3 -B tools/verify_repository.py
 ```
 
-Detailed machine-readable outputs are available in:
+Main outputs:
 
-- [`benchmarks/synthetic-global-allocation`](../benchmarks/synthetic-global-allocation/)
-- [`benchmarks/synthetic-global-allocation/objective-matrix`](../benchmarks/synthetic-global-allocation/objective-matrix/)
-- [`benchmarks/policy-allocation`](../benchmarks/policy-allocation/)
-- [`benchmarks/facility-case-analysis`](../benchmarks/facility-case-analysis/)
-
-Input provenance and evidence classifications are documented in [`data.md`](data.md) and the machine-readable [`dataset_inventory.json`](../data/dataset_inventory.json). Detailed historical/current implementation boundaries are documented in [`original-vs-current.md`](original-vs-current.md).
-
-The historical implementation and the maintained experimental extensions remain separately documented elsewhere in the repository. This report focuses on the decision problem, analytical method, reproducible evidence and interview-relevant conclusions.
+- [`synthetic-23city-policy-matrix`](../benchmarks/synthetic-23city-policy-matrix/)
+- [`synthetic-23city-policy-tuning`](../benchmarks/synthetic-23city-policy-tuning/)
+- [`algorithm-discrimination`](../benchmarks/algorithm-discrimination/)
+- [`policy experiment configuration`](../data/policy_experiment.json)

@@ -7,6 +7,7 @@ import random
 import statistics
 
 from .allocation import (assignment_rank, evaluate_assignment,
+                         solve_emission_repair_allocation,
                          solve_greedy_allocation,
                          solve_opportunity_greedy_allocation)
 
@@ -186,7 +187,9 @@ def solve_allocation_ga(orders, candidate_pools, departures, brackets, *,
                         adaptive_control="diversity-v2", restart_fraction=.25,
                         heuristic_seed_mode="archive", mutation_base=1.25,
                         mutation_cap=3.0, heuristic_seed_strategy="opportunity",
-                        emission_cap_kg=None):
+                        emission_cap_kg=None, objective_lower_bound_cny=None,
+                        optimality_tolerance_cny=1e-6,
+                        heuristic_seed_chromosome=None):
     """Solve the globally coupled allocation with a fixed evaluation budget."""
     for name, value, minimum in (("population", population, 4),
                                  ("generations", generations, 1),
@@ -200,14 +203,26 @@ def solve_allocation_ga(orders, candidate_pools, departures, brackets, *,
         raise ValueError("restart_fraction must be in (0, 1]")
     if heuristic_seed_mode not in {"population", "archive"}:
         raise ValueError("heuristic_seed_mode must be population or archive")
-    if heuristic_seed_strategy not in {"deadline", "opportunity"}:
-        raise ValueError("heuristic_seed_strategy must be deadline or opportunity")
+    if heuristic_seed_strategy not in {"deadline", "opportunity", "emission-repair"}:
+        raise ValueError(
+            "heuristic_seed_strategy must be deadline, opportunity or emission-repair")
     for name, value in (("mutation_base", mutation_base), ("mutation_cap", mutation_cap)):
         if (isinstance(value, bool) or not isinstance(value, (int, float))
                 or not math.isfinite(value) or value <= 0):
             raise ValueError(f"{name} must be positive and finite")
     if mutation_base > mutation_cap:
         raise ValueError("mutation_base cannot exceed mutation_cap")
+    if objective_lower_bound_cny is not None and (
+            isinstance(objective_lower_bound_cny, bool)
+            or not isinstance(objective_lower_bound_cny, (int, float))
+            or not math.isfinite(objective_lower_bound_cny)
+            or objective_lower_bound_cny < 0):
+        raise ValueError("objective_lower_bound_cny must be finite and nonnegative")
+    if (isinstance(optimality_tolerance_cny, bool)
+            or not isinstance(optimality_tolerance_cny, (int, float))
+            or not math.isfinite(optimality_tolerance_cny)
+            or optimality_tolerance_cny < 0):
+        raise ValueError("optimality_tolerance_cny must be finite and nonnegative")
     option_counts = [len(candidate_pools.get(row["order_id"], ())) for row in orders]
     if any(count == 0 for count in option_counts):
         return {"solver": "allocation-ga", "status": "infeasible-no-candidates",
@@ -236,18 +251,28 @@ def solve_allocation_ga(orders, candidate_pools, departures, brackets, *,
     greedy_evaluations = 0
     greedy_pair = None
     if heuristic_seed:
-        greedy_solver = (solve_opportunity_greedy_allocation
-                         if heuristic_seed_strategy == "opportunity"
-                         else solve_greedy_allocation)
-        greedy = greedy_solver(
-            orders, candidate_pools, departures, brackets,
-            emission_cap_kg=emission_cap_kg)
-        greedy_chromosome = tuple(greedy["solution"]["chromosome"])
+        if heuristic_seed_chromosome is None:
+            greedy_solver = {
+                "deadline": solve_greedy_allocation,
+                "opportunity": solve_opportunity_greedy_allocation,
+                "emission-repair": solve_emission_repair_allocation,
+            }[heuristic_seed_strategy]
+            greedy = greedy_solver(
+                orders, candidate_pools, departures, brackets,
+                emission_cap_kg=emission_cap_kg)
+            greedy_chromosome = tuple(greedy["solution"]["chromosome"])
+            greedy_evaluations = greedy["candidate_evaluations"]
+        else:
+            greedy_chromosome = tuple(heuristic_seed_chromosome)
+            if (len(greedy_chromosome) != len(option_counts)
+                    or any(isinstance(gene, bool) or not isinstance(gene, int)
+                           or not 0 <= gene < options
+                           for gene, options in zip(greedy_chromosome, option_counts))):
+                raise ValueError("heuristic_seed_chromosome is invalid for candidate pools")
         if heuristic_seed_mode == "population":
             chromosomes[0] = greedy_chromosome
         else:
             greedy_pair = evaluate(greedy_chromosome)
-        greedy_evaluations = greedy["candidate_evaluations"]
     current = sorted((evaluate(row) for row in chromosomes),
                      key=lambda row: assignment_rank(row[1]))
     best = min((current[0], greedy_pair) if greedy_pair else (current[0],),
@@ -255,6 +280,7 @@ def solve_allocation_ga(orders, candidate_pools, departures, brackets, *,
     stagnant = 0
     restarts = 0
     trace = []
+    termination_reason = "generation-budget"
     for generation in range(generations):
         diversity = _genotype_diversity(current, len(option_counts))
         if adaptive and adaptive_control == "fitness-spread-v1":
@@ -312,6 +338,11 @@ def solve_allocation_ga(orders, candidate_pools, departures, brackets, *,
             "stagnant_generations": stagnant,
             "restarted": restarted,
         })
+        if (objective_lower_bound_cny is not None and best[1]["feasible"]
+                and best[1]["total_cost_cny"]
+                <= objective_lower_bound_cny + optimality_tolerance_cny):
+            termination_reason = "objective-lower-bound-reached"
+            break
     variant = "hybrid-seeded" if heuristic_seed and adaptive and catastrophe else (
         "combined" if adaptive and catastrophe else
         "adaptive" if adaptive else "catastrophe" if catastrophe else "fixed")
@@ -331,15 +362,22 @@ def solve_allocation_ga(orders, candidate_pools, departures, brackets, *,
         "heuristic_seed": heuristic_seed,
         "heuristic_seed_mode": heuristic_seed_mode,
         "heuristic_seed_strategy": heuristic_seed_strategy,
+        "heuristic_seed_source": (
+            "provided" if heuristic_seed and heuristic_seed_chromosome is not None
+            else "computed" if heuristic_seed else "none"),
         "mutation_base": mutation_base,
         "mutation_cap": mutation_cap,
         "emission_cap_kg": emission_cap_kg,
+        "objective_lower_bound_cny": objective_lower_bound_cny,
+        "optimality_tolerance_cny": optimality_tolerance_cny,
         "constraint_seeded": constraint_seeded,
         "heuristic_seed_evaluations": greedy_evaluations,
-        "candidate_evaluations": population * generations,
+        "candidate_evaluations": population * len(trace),
         "unique_assignment_evaluations": len(cache),
         "assignment_cache_hits": cache_hits,
         "restarts": restarts,
+        "generations_completed": len(trace),
+        "termination_reason": termination_reason,
         "solution": solution,
         "best_infeasible": None if solution else best[1],
         "trace": trace,

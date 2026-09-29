@@ -78,7 +78,9 @@ Objective-function evaluations are computational work, not source-data rows. See
 - [`routing/allocation.py`](routing/allocation.py): per-order route/departure candidates, shared-capacity evaluation, greedy baseline and small exact oracle.
 - [`routing/allocation_ga.py`](routing/allocation_ga.py): order-level fixed/adaptive/catastrophe GA variants with one candidate-choice gene per order.
 - [`tools/run_synthetic_objective_matrix.py`](tools/run_synthetic_objective_matrix.py): five-GA comparison across road-only, no-transfer and multimodal-enabled policies with graduated hard emissions caps.
-- [`docs/PROJECT_REPORT.md`](docs/PROJECT_REPORT.md): integrated problem definition, requirements, data, algorithms, results, conclusions and interview narrative.
+- [`tools/run_synthetic_policy_matrix.py`](tools/run_synthetic_policy_matrix.py): policy-calibrated 23-city screening plus candidate-scope and five-GA comparison.
+- [`tools/run_algorithm_discrimination_benchmark.py`](tools/run_algorithm_discrimination_benchmark.py): separate hard 23-city benchmark with active caps, timed scarce capacity, archive-only ablation and exact micro-oracle.
+- [`docs/PROJECT_REPORT.md`](docs/PROJECT_REPORT.md): interview-first technical report following one chain from the portfolio decision and mathematical model through operational timing, GA design, experiments and conclusions.
 - [`docs/original-ga-code-analysis.md`](docs/original-ga-code-analysis.md): function-level evidence analysis of the recovered implementation.
 - [`docs/original-vs-current.md`](docs/original-vs-current.md): historical/current behavior and provenance comparison.
 - [`docs/current-system.md`](docs/current-system.md): maintained architecture and validation boundary.
@@ -183,6 +185,23 @@ python3 -B tools/run_policy_allocation_experiment.py
 ```
 
 The checked-in run screens 108 demand/deadline/carbon-price/cap cells and compares five GA variants over 30 seeds in twelve boundary scenarios. Orders and planning capacities are deterministic model inputs, not observed bookings. See the [integrated report](docs/PROJECT_REPORT.md), [scenario design](docs/corridor-scenario-design.md) and [policy outputs](benchmarks/policy-allocation/README.md).
+
+Run the integrated synthetic 23-city policy matrix:
+
+```bash
+python3 -B tools/tune_synthetic_policy_ga.py
+python3 -B tools/run_synthetic_policy_matrix.py
+```
+
+The first command selects mutation and restart controls on seeds 100--107 and checks them on disjoint seeds 110--129. The second reuses the policy experiment's demand, release, payload, carbon-price and 0/9.5/20/30% target inputs on the synthetic 23-city topology. OD span and cargo class assign 48/60/72-hour service limits. Water has explicit 24-hour departures capped at 20 tonnes and two units; handling, port dwell, lock delay, reliability buffer, scheduled waiting and fixed-plus-volume transfer time all count toward the deadline. Each reduction target uses a common traditional-transport reference: every order independently selects its minimum-cost deadline-feasible pure-water, pure-rail or pure-road candidate and may use only one trunk mode. Cross-order capacity is excluded from this comparator but enforced in every evaluated allocation. The experiment screens 108 policy cells, then compares three candidate scopes and five tuned GA variants across formal seeds 0--29 in twelve central scenarios. See the [tuning record](benchmarks/synthetic-23city-policy-tuning/README.md) and [generated matrix outputs](benchmarks/synthetic-23city-policy-matrix/README.md).
+
+Run the separate algorithm-discrimination benchmark:
+
+```bash
+python3 -B tools/run_algorithm_discrimination_benchmark.py
+```
+
+This hard synthetic case makes road cheap and dirty, makes rail/water cleaner but more expensive, adds timed 20-tonne clean departures, and compares candidate widths 6/10/14. It crosses the five GA variants with 0/9.5/20/30% targets over five seeds, adds a deterministic emission-repair archive-only baseline, and reports exact optimality gaps on a six-order enumeration instance. The positive targets are active and feasible; they use the same per-order minimum-cost single-trunk reference. See the [figures and machine-readable results](benchmarks/algorithm-discrimination/README.md).
 
 Run the small exact example or the dependency-free GA:
 
